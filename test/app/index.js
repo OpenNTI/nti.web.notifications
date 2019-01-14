@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {List} from '../../src';
+
 window.$AppConfig = window.$AppConfig || {server: '/dataserver2/'};
 
 class Test extends React.Component {
 	state = {}
 
 	render () {
-		return <div>Test harness for web-notifications</div>;
+		return <List/>;
 	}
 }
 
