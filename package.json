@@ -1,0 +1,54 @@
+{
+  "name": "@nti/web-notifications",
+  "version": "1.0.0-alpha",
+  "description": "NextThought components for notifications",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "test": "cmp-scripts test",
+    "start": "cmp-scripts start",
+    "prepack": "cmp-scripts build",
+    "build": "cmp-scripts build",
+    "clean": "cmp-scripts clean",
+    "check": "cmp-scripts check",
+    "release": "cmp-scripts release",
+    "install-snapshots": "cmp-scripts install-snapshots",
+    "fix": "cmp-scripts fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NextThought/nti.web.notifications.git"
+  },
+  "keywords": [
+    "nextthought",
+    "payment"
+  ],
+  "author": "NextThought",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NextThought/nti.web.notifications/issues"
+  },
+  "homepage": "https://github.com/NextThought/nti.web.notifications#readme",
+  "publishConfig": {
+    "registry": "https://npm.nextthought.com"
+  },
+  "dependencies": {
+    "@nti/lib-locale": "^1.6.0",
+    "@nti/style-common": "^1.7.0",
+    "@nti/util-logger": "^1.6.0",
+    "@nti/web-client": "^1.8.0",
+    "@nti/web-commons": "^0.47.0",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.6.2",
+    "react-stripe-elements": "^2.0.1"
+  },
+  "devDependencies": {
+    "@nti/cmp-scripts": "^2.1.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
