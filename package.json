@@ -14,7 +14,9 @@
     "clean": "cmp-scripts clean",
     "check": "cmp-scripts check",
     "release": "cmp-scripts release",
-    "fix": "cmp-scripts fix"
+    "fix": "cmp-scripts fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -47,6 +49,10 @@
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.19.0",
+    "@storybook/addon-actions": "^6.0.13",
+    "@storybook/addon-essentials": "^6.0.13",
+    "@storybook/addon-links": "^6.0.13",
+    "@storybook/react": "^6.0.13",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }
