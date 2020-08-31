@@ -12,5 +12,5 @@ const Template = (args) => <Bell {...args} />;
 export const DefaultStory = Template.bind({});
 
 DefaultStory.args = {
-	badge: 2,
+	count: 2,
 };

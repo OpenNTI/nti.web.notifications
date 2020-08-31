@@ -1,18 +1,17 @@
 import { Badge } from '@nti/web-commons';
-import './Bell.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import styles from './Bell.css';
+
 Bell.propTypes = {
-	badge: PropTypes.any,
+	count: PropTypes.any,
 };
 
-export default function Bell ( { badge } ) {
+export default function Bell ( { count } ) {
 	return (
-		<Badge badge={badge}>
-			
-			<div className="bell" />
-			
+		<Badge badge={count}>
+			<div className={styles.bell} />
 		</Badge>
 	);
 }
