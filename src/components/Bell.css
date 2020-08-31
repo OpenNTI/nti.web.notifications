@@ -3,6 +3,7 @@
     width: 50px;
     cursor: pointer;
     height: 70px;
+    background-color: black;
 }
 
 .bell::after {
