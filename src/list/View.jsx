@@ -46,7 +46,7 @@ class NotificationsView extends React.Component {
 		}
 
 		if(!loading && items) {
-			return <ul className="off-canvas-list">{items.map(this.renderItem)}</ul>;
+			// return <ul className="off-canvas-list">{items.map(this.renderItem)}</ul>;
 		}
 
 		return null;
