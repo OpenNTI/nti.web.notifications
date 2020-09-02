@@ -1,14 +1,20 @@
+/* This is because I could not change the styling of the Badge component */
+div {
+    display: inline-block;
+}
+
 .bell {
     position: relative;
-    width: 50px;
+    display: inline-block;
+    width: 21px;
+    height: 24px;
     cursor: pointer;
-    height: 70px;
-    background-color: black;
+    background-color: gray;
 }
 
 .bell::after {
     content: "";
-    background-image: url("../../assets/icon-white.svg");
+    background-image: url("../assets/icon-white.svg");
     overflow: hidden;
     top: 50%;
     left: 50%;
