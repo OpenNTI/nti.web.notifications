@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './View.css';
+import styles from './View.css';
 
 export default class NotificationsView extends React.Component {
 	render () {
