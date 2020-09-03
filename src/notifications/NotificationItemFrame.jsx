@@ -7,10 +7,10 @@ NotificationItemFrame.propTypes = {
 };
 
 export default function NotificationItemFrame ( {children, item} ) {
-	let username = item.creator || item.Creator;
-	let eventTime = item.getLastModified() || item.getCreatedAt();
+	const username = item.creator || item.Creator;
+	const eventTime = item.getLastModified() || item.getCreatedAt();
     
-	let itemHasUsername = true;
+	const itemHasUsername = true;
 	let avatarComp, displayNameComp = <></>;
 	if (itemHasUsername) {
 		avatarComp = <Avatar entity={username} width="32" height="32" />;

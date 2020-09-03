@@ -15,11 +15,9 @@ function Panel ( { store } ) {
 	const items = [];
 
 	// Iterate over notification items in the store
-	for (const item in store) {
-		if (Object.prototype.hasOwnProperty.call(store, item)) {
-			const ItemDelegate = NotificationItemRegistry.getComponent(item);
-			items.push(<ItemDelegate item={item} />);
-		}
+	for (const item of store) {
+		const ItemDelegate = NotificationItemRegistry.getComponent(item);
+		items.push(<ItemDelegate item={item} />);
 	}
     
 	return (
