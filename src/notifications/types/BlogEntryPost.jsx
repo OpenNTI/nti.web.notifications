@@ -6,7 +6,7 @@ import NotificationItemFrame from '../NotificationItemFrame';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.BlogEntryPost', {
-	action: ' created a thought ',
+	action: 'shared a thought ',
 });
 
 BlogEntryPost.propTypes = {

@@ -2,14 +2,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import NotificationItemRegistry from './NotificationItemRegistry';
-import Store from './Store';
+import NotificationsStore from './NotificationsStore';
 
-export default Store.connect(Panel);
+export default NotificationsStore.connect(Panel);
 
 Panel.propTypes = {
 	store: PropTypes.object.isRequired,
 };
 
+/**
+ * This panel connects to the Store class to get
+ * the notification items. After that, the panel
+ * iterates over these items and uses getComponent()
+ * of the NotificationItemRegistry class to get the
+ * appropriate React component for the given notification
+ * item
+ *
+ * @param {*} { store } the notification store to which the panel
+ * will connect and from which it will get the notification items
+ * @return {*} a list of notification items encapsulated in their
+ * appropriate React components.
+ */
 function Panel ( { store } ) {
 	// Notification item components array that will be displayed
 	const items = [];

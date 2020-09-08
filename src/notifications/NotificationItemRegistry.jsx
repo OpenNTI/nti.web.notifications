@@ -31,13 +31,25 @@ const TYPES = [
 ];
 
 export default class NotificationItemRegistry {
-	getComponent (item) {
+	/**
+	 * Returns the appropriate component based on the type of 
+	 * the notification item given. Uses the item's Class property
+	 * to determine equivalence, but should have a better way to do
+	 * that. 
+	 * @static
+	 * @param {*} item notification item given
+	 * @return {*} A React component that represents the type
+	 * of the supplied item.
+	 * @memberof NotificationItemRegistry
+	 */
+	static getComponent (item) {
 		// Get item's type
 		let ItemType = Unknown;
-		for (let Type in TYPES) {
+		// eslint-disable-next-line guard-for-in
+		for (let type of TYPES) {
 			// See if the item's class is a substring of the type's name 
-			if (Type.name.includes(item.Class)) {
-				ItemType = Type;
+			if (type.name.includes(item.Class)) {
+				ItemType = type;
 				break;
 			}
 		}
