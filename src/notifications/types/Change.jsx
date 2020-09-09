@@ -9,7 +9,7 @@ Change.propTypes = {
 
 export default function Change ({ item }) {
 	/* Get component for the changed item: 
-	I am not sure if this is the right way to implement this type
+	TODO: I am not sure if this is the right way to implement this type
 	because item.Item might not have title property 
 	(such as the Grade item inside a Change type), which is 
 	problematic since most of the other types use the item.title
