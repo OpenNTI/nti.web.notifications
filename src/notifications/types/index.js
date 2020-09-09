@@ -47,6 +47,7 @@ let ComponentMimeTypeObject = {
 	BlogComment: 'application/vnd.nextthought.forums.personalblogcomment', 
 	ForumComment: 'application/vnd.nextthought.forums.generalforumcomment', 
 	ForumTopic: 'application/vnd.nextthought.forums.communityheadlinetopic',
+	Unknown: 'application/vnd.nextthought.forums.unknownType',
 };
 
 

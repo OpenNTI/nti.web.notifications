@@ -14,7 +14,8 @@ Unknown.propTypes = {
 };
 
 export default function Unknown ({ item }) {
-	const type = item.MimeType.substring(28);
+	console.log(item);
+	const type = item.MimeType.match(/[a-zA-Z]*$/gm);
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}
