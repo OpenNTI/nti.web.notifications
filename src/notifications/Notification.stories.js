@@ -1,4 +1,5 @@
 import NotificationItemRegistry from './NotificationItemRegistry';
+import { ComponentMimeTypeObject } from './types/index';
 
 export default {
 	title: 'Notification',
@@ -19,7 +20,7 @@ function generateItem (type) {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 		title: 'Test title',
-		Class: type,
+		MimeType: ComponentMimeTypeObject[type],
 	};
 	return item;
 }
