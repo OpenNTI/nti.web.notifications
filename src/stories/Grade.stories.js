@@ -18,5 +18,5 @@ export const GradeTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.courses.Grade.MimeType,
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

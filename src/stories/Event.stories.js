@@ -18,5 +18,5 @@ export const EventTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.calendar.CourseCalendarEvent.MimeType,
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

@@ -17,8 +17,8 @@ NotificationItemFrame.propTypes = {
  * is different from the rest and needs to display different
  * action strings and possibly children.
  * @export NotificationItemFrame
- * @param {*} {children, item}
- * @return {*} React Component
+ * @param {Object} {children, item}
+ * @return {React.Component} React Component
  */
 export default function NotificationItemFrame ( {children, item} ) {
 	const username = item.creator || item.Creator;

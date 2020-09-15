@@ -17,5 +17,5 @@ export const UnknownTemplate = () => {
 		title: 'Test title',
 		MimeType: '.Type',
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

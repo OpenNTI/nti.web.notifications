@@ -18,5 +18,5 @@ export const FeedbackTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.assessment.assignment.AssignmentFeedback.MimeType,
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

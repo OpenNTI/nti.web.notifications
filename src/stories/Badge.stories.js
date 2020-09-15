@@ -18,6 +18,6 @@ export const BadgeTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.profile.Badge.MimeTypes[1],
 	};
-	let component = React.createElement(getComponent(item), { item: item });
+	let component = React.createElement(getComponent(item), { item });
 	return component;
 };

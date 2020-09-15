@@ -18,5 +18,5 @@ export const BlogEntryPostTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.forums.Post.MimeTypes[5],
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Badge, BlogComment, TypesList } from '../types';
-import Registry from '../types/Registry';
 
 export default {
 	title: 'General',

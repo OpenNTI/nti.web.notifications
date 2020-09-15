@@ -18,5 +18,5 @@ export const ForumTopicTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.forums.Topic.MimeTypes[1],
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

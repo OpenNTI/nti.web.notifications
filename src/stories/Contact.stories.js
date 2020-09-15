@@ -18,5 +18,5 @@ export const ContactTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.entities.User.MimeType,
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

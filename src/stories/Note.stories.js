@@ -18,5 +18,5 @@ export const NoteTemplate = () => {
 		title: 'Test title',
 		MimeType: Models.annotations.Note.MimeType,
 	};
-	return React.createElement(getComponent(item), { item: item });
+	return React.createElement(getComponent(item), { item });
 };

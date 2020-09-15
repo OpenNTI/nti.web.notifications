@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import NotificationsStore from './Store';
-import { getComponent, Unknown} from './types/index';
+import { getComponent } from './types/index';
 
 export default NotificationsStore.connect(Panel);
 
@@ -18,9 +18,9 @@ Panel.propTypes = {
  * appropriate React component for the given notification
  * item
  *
- * @param {*} { store } the notification store to which the panel
+ * @param {NotificationsStore} { store } the notification store to which the panel
  * will connect and from which it will get the notification items
- * @return {*} a list of notification items encapsulated in their
+ * @return {React.Component} a list of notification items encapsulated in their
  * appropriate React components.
  */
 function Panel ( { store } ) {
