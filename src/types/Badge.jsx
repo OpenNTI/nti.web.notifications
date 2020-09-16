@@ -18,7 +18,7 @@ Badge.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.openbadges.badge')(Badge);
+Registry.registerItem('application/vnd.nextthought.openbadges.badge', Badge);
 export default function Badge ( { item } ) {
 	return (
 		<NotificationItemFrame item={item}>

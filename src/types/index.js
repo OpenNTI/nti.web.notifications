@@ -27,7 +27,7 @@ import Unknown from './Unknown';
  * @return {*} A React component that represents the type
  * of the supplied item.
  */
-function getComponent (item, type = Unknown) {	
+function getComponent (item) {	
 	// Return appropriate item type
 	const ItemType = Registry.getInstance().getItemFor(item.MimeType);
 	return ItemType || Unknown;

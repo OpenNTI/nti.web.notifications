@@ -17,7 +17,7 @@ BlogEntry.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.forums.personalblogentry')(BlogEntry);
+Registry.register('application/vnd.nextthought.forums.personalblogentry', BlogEntry);
 export default function BlogEntry ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
