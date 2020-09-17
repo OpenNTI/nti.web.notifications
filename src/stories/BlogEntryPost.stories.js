@@ -11,12 +11,16 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const BlogEntryPostTemplate = () => {
+export const BlogEntryPostTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.forums.Post.MimeTypes[5],
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+BlogEntryPostTemplate.args = {
+	title: 'Test title',
+	MimeType: Models.forums.Post.MimeTypes[5],
 };

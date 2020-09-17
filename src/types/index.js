@@ -15,41 +15,7 @@ import Note from './Note';
 import Registry from './Registry';
 import Unknown from './Unknown';
 
-
-/**
- * Returns the appropriate component based on the type of 
- * the notification item given. Uses the item's MimeType property
- * to determine equivalence.
- * 
- * @static
- * @param {*} item notification item given
- * @param {*} type optional type of notification
- * @return {*} A React component that represents the type
- * of the supplied item.
- */
-function getComponent (item) {	
-	// Return appropriate item type
-	const ItemType = Registry.getInstance().getItemFor(item.MimeType);
-	return ItemType || Unknown;
-}
-
-const TypesList = [Badge,
-	BlogComment,
-	BlogEntry,
-	BlogEntryPost,
-	Change,
-	Chat,
-	ChatGroup,
-	Contact,
-	Feedback,
-	ForumComment,
-	Grade,
-	Note,
-	Unknown,
-	ForumTopic,
-	Event,];
-
-export {
+export const TypesList = [
 	Badge,
 	BlogComment,
 	BlogEntry,
@@ -65,6 +31,44 @@ export {
 	Unknown,
 	ForumTopic,
 	Event,
-	getComponent,
-	TypesList,
+];
+export {
+	Badge,
+	BlogComment,
+	BlogEntry,
+	BlogEntryPost,
+	Change,
+	Chat,
+	ChatGroup,
+	Contact,
+	Feedback,
+	ForumComment,
+	Grade,
+	Note,
+	Unknown,
+	ForumTopic,
+	Event
 };
+
+/**
+                    
+ * Returns the appropriate component based on the type of
+ * the notification item given. Uses the item's MimeType property
+ * to determine equivalence.
+ *
+ * @static
+ * @param {*} item notification item given
+ * @param {*} type optional type of notification
+ * @return {*} A React component that represents the type
+ * of the supplied item.
+ */
+export function getComponent (item) {
+	let ItemType = Unknown;
+	for (let Type of TypesList) {
+		if (Type !== Unknown && Type.MimeTypes && Type.MimeTypes.includes(item.MimeType || item.mimeType)) {
+			ItemType = Type;
+			break;
+		}
+	}
+	return ItemType;
+}

@@ -1,5 +1,5 @@
 import { scoped } from '@nti/lib-locale';
-import { Text } from '@nti/web-commons';
+import { Button, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -8,22 +8,22 @@ import NotificationItemFrame from '../NotificationItemFrame';
 import { COMMON_PREFIX } from './Registry';
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.Badge', {
-	action: 'awarded you %(badge)s',
+const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
+	action: 'Please take a moment to verify your email address.',
 });
 
 const Translate = Text.Translator(translation);
 
-Badge.propTypes = {
+EmailVerify.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Badge.MimeTypes = [
-	COMMON_PREFIX + 'badge',
-	COMMON_PREFIX + 'openbadges.badge',
+EmailVerify.MimeTypes = [
+	COMMON_PREFIX + 'emailverify',
 ];
 
-export default function Badge ( { item } ) {
+// TODO:
+export default function EmailVerify ( { item } ) {
 	return (
 		<NotificationItemFrame item={item} username={item.creator}>
 			{/* Building string to show to the user */}
@@ -33,6 +33,9 @@ export default function Badge ( { item } ) {
 					badge: item.name,
 				}}
 			/>
+			<Button>
+                Verify
+			</Button>
 		</NotificationItemFrame>
 	);   
 }

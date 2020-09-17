@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.BlogComment', {
@@ -17,7 +17,10 @@ BlogComment.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.registerItem('application/vnd.nextthought.forums.personalblogcomment', BlogComment);
+BlogComment.MimeTypes = [
+	COMMON_PREFIX + 'forums.personalblogcomment',
+];
+
 export default function BlogComment ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>

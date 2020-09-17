@@ -11,12 +11,15 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const ForumCommentTemplate = () => {
+export const ForumCommentTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.forums.Comment.MimeTypes[1],
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+ForumCommentTemplate.args = {
+	MimeType: Models.forums.Comment.MimeTypes[1],
 };

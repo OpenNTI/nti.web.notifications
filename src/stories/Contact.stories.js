@@ -11,12 +11,15 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const ContactTemplate = () => {
+export const ContactTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.entities.User.MimeType,
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+ContactTemplate.args = {
+	MimeType: Models.entities.User.MimeType,
 };

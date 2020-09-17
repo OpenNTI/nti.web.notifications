@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.BlogEntryPost', {
@@ -17,7 +17,15 @@ BlogEntryPost.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.registerItem('application/vnd.nextthought.forums.personalblogentrypost', BlogEntryPost);
+BlogEntryPost.MimeTypes = [
+	COMMON_PREFIX + 'forums.post',
+	COMMON_PREFIX + 'forums.communityheadlinepost',
+	COMMON_PREFIX + 'forums.contentheadlinepost',
+	COMMON_PREFIX + 'forums.dflheadlinepost',
+	COMMON_PREFIX + 'forums.headlinepost',
+	COMMON_PREFIX + 'forums.personalblogentrypost',
+];
+
 export default function BlogEntryPost ( { item } ) {
 	return (
 		<NotificationItemFrame item={item}>

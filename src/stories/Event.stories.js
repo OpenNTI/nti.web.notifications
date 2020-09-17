@@ -11,12 +11,16 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const EventTemplate = () => {
+export const EventTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.calendar.CourseCalendarEvent.MimeType,
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+EventTemplate.args = {
+	name: 'Test title',
+	MimeType: Models.calendar.CourseCalendarEvent.MimeType,
 };

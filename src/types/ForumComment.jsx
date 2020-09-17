@@ -5,32 +5,29 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.ForumComment', {
 	action: 'commented on a discussion',
 });
 
+const Translate = Text.Translator(translation);
+
 ForumComment.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-const Translate = Text.Translator(translation);
+ForumComment.MimeTypes = [
+	COMMON_PREFIX + 'forums.generalforumcomment',
+	COMMON_PREFIX + 'forums.contentforumcomment',
+];
 
-
-Registry.register('application/vnd.nextthought.forums.generalforumcomment')(ForumComment);
-Registry.register('application/vnd.nextthought.forums.contentforumcomment')(ForumComment);
 export default function ForumComment ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}
-			<Translate
-				localeKey="action"
-				with={{
-					t: item.title,
-				}}
-			/>
+			<Translate localeKey="action"/>
 		</NotificationItemFrame>
 	);
 }

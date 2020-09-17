@@ -1,11 +1,11 @@
+import { scoped } from '@nti/lib-locale';
 import { Text } from '@nti/web-commons';
-import { scoped } from "@nti/lib-locale";
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.BlogEntry', {
@@ -17,7 +17,10 @@ BlogEntry.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.forums.personalblogentry', BlogEntry);
+BlogEntry.MimeTypes = [
+	COMMON_PREFIX + 'forums.personalblogentry',
+];
+
 export default function BlogEntry ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>

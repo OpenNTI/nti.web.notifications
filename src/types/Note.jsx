@@ -1,11 +1,11 @@
+import { scoped } from '@nti/lib-locale';
 import { Text } from '@nti/web-commons';
-import { scoped } from "@nti/lib-locale";
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Note', {
@@ -20,7 +20,10 @@ Note.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.note')(Note);
+Note.MimeTypes = [
+	COMMON_PREFIX + 'note',
+];
+
 export default function Note ({ item }) {
 	let finalAction = '';
 	if (item.inReplyTo || (item.references || []).length > 0) {

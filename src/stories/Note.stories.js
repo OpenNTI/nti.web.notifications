@@ -11,12 +11,35 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const NoteTemplate = () => {
+export const NoteTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.annotations.Note.MimeType,
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+NoteTemplate.args = {
+	MimeType: Models.annotations.Note.MimeType,
+	title: '',
+	inReplyTo: '',
+};
+
+export const InReplyToStory = NoteTemplate.bind({});
+InReplyToStory.args = {
+	inReplyTo: 'Test User',
+	MimeType: Models.annotations.Note.MimeType,
+};
+
+export const SharedNoteWithNameStory = NoteTemplate.bind({});
+SharedNoteWithNameStory.args = {
+	title: 'Test Note',
+	MimeType: Models.annotations.Note.MimeType,
+};
+
+export const SharedNoteWithoutNameStory = NoteTemplate.bind({});
+SharedNoteWithoutNameStory.args = {
+	title: null,
+	MimeType: Models.annotations.Note.MimeType,
 };

@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 
 // String localization
@@ -19,17 +19,15 @@ Contact.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.user')(Contact);
+Contact.MimeTypes = [
+	COMMON_PREFIX + 'user',
+];
+
 export default function Contact ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}
-			<Translate
-				localeKey="action"
-				with={{
-					t: item.title,
-				}}
-			/>
+			<Translate localeKey="action"/>
 		</NotificationItemFrame>
 	);
 }

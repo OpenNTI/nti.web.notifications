@@ -1,12 +1,15 @@
-import { Text } from "@nti/web-commons";
-import PropTypes from "prop-types";
+import { Text } from '@nti/web-commons';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 Chat.propTypes = {
 	item: PropTypes.object.isRequired,
 };
-// TODO
-Registry.register()(Chat);
+
+Chat.MimeTypes = [
+	COMMON_PREFIX + 'messageinfo',
+];
+
 export default function Chat ({ item }) {}

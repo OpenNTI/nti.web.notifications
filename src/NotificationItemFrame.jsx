@@ -7,6 +7,7 @@ import styles from './NotificationItemFrame.css';
 
 NotificationItemFrame.propTypes = {
 	item: PropTypes.object.isRequired,
+	username: PropTypes.string.isRequired,
 };
 
 /**
@@ -17,11 +18,11 @@ NotificationItemFrame.propTypes = {
  * is different from the rest and needs to display different
  * action strings and possibly children.
  * @export NotificationItemFrame
- * @param {Object} {children, item}
+ * @param {Object} {children, item, username}
  * @return {React.Component} React Component
  */
-export default function NotificationItemFrame ( {children, item} ) {
-	const username = item.creator || item.Creator;
+export default function NotificationItemFrame ( {children, item, username} ) {
+	username = username ? username : (item.creator || item.Creator);
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 
 	// In case the item is of type change, get the subitem ID

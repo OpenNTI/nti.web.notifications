@@ -11,12 +11,17 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const GradeTemplate = () => {
+export const GradeTemplate = (args) => {
 	const item = {
-		creator: 'quiz_tester',
+		...args,
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: Models.courses.Grade.MimeType,
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+GradeTemplate.args = {
+	Creator: 'system',
+	AssignmentId: 'test_assignment_id',
+	title: 'Test Assignment',
+	MimeType: Models.courses.Grade.MimeType,
 };

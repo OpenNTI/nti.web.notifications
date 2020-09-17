@@ -19,7 +19,7 @@ Unknown.propTypes = {
 export default function Unknown ({ item }) {
 	const type = item.MimeType.match(/[a-zA-Z]*$/gm);
 	return (
-		<NotificationItemFrame item={item}>
+		<NotificationItemFrame item={item} username={'no-username'}>
 			{/* Building string to show to the user */}
 			<Translate
 				localeKey="unknownString"

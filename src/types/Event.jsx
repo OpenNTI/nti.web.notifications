@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Event', {
@@ -13,15 +13,18 @@ const translation = scoped('nti-notifications.notifications.types.Event', {
 	updatedAction: 'updated an event %(t)s',
 });
 
+const Translate = Text.Translator(translation);
+
 Event.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-const Translate = Text.Translator(translation);
+Event.MimeTypes = [
+	COMMON_PREFIX + 'courseware.coursecalendarevent',
+];
 
-Registry.register('application/vnd.nextthought.courseware.coursecalendarevent')(Event);
 export default function Event ({ item }) {
-	let finalAction = item.ChangeType === 'Created' ? translation('createdAction') : translation('updatedAction');
+	let finalAction = item.ChangeType === 'Created' ? 'createdAction' : 'updatedAction';
 
 	return (
 		<NotificationItemFrame item={item}>
@@ -29,7 +32,7 @@ export default function Event ({ item }) {
 			<Translate
 				localeKey={finalAction}
 				with={{
-					t: item.title,
+					t: item.name,
 				}}
 			/>
 		</NotificationItemFrame>

@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../NotificationItemFrame';
 
-import Registry from './Registry';
+import { COMMON_PREFIX } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.ForumTopic', {
@@ -18,9 +18,12 @@ ForumTopic.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Registry.register('application/vnd.nextthought.forums.communityheadlinetopic')(ForumTopic);
-Registry.register('application/vnd.nextthought.forums.contentheadlinetopic')(ForumTopic);
-Registry.register('application/vnd.nextthought.forums.dflheadlinetopic')(ForumTopic);
+ForumTopic.MimeTypes = [
+	COMMON_PREFIX + 'forums.communityheadlinetopic',
+	COMMON_PREFIX + 'forums.contentheadlinetopic',
+	COMMON_PREFIX + 'forums.dflheadlinetopic',
+];
+
 export default function ForumTopic ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>

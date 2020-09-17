@@ -1,3 +1,4 @@
+import { Loading } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -34,8 +35,10 @@ function Panel ( { store } ) {
 	}
     
 	return (
-		<div>
-			{items}
-		</div>
+		<Loading.Placeholder loading={store.get('loading')} fallback={(<Loading.Spinner />)}>
+			<div>
+				{items}
+			</div>
+		</Loading.Placeholder>
 	);
 } 

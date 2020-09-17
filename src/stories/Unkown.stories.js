@@ -10,12 +10,16 @@ export default {
 // Ensure AppConfig variable is defined.
 window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
-export const UnknownTemplate = () => {
+const UnknownTemplate = (args) => {
 	const item = {
+		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		title: 'Test title',
-		MimeType: '.Type',
 	};
 	return React.createElement(getComponent(item), { item });
+};
+
+export const UnkownTypeStory = UnknownTemplate.bind({});
+UnkownTypeStory.args = {
+	MimeType: 'Something.Something.UnknownType',
 };

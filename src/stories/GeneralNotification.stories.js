@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Badge, BlogComment, TypesList } from '../types';
+import { TypesList } from '../types';
 
 export default {
 	title: 'General',
