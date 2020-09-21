@@ -6,6 +6,7 @@ import Change from './Change';
 import Chat from './Chat';
 import ChatGroup from './ChatGroup';
 import Contact from './Contact';
+import EmailVerify from './EmailVerify';
 import Event from './Event';
 import Feedback from './Feedback';
 import ForumComment from './ForumComment';
@@ -31,6 +32,7 @@ export const TypesList = [
 	Unknown,
 	ForumTopic,
 	Event,
+	EmailVerify,
 ];
 export {
 	Badge,
@@ -47,7 +49,8 @@ export {
 	Note,
 	Unknown,
 	ForumTopic,
-	Event
+	Event,
+	EmailVerify,
 };
 
 /**

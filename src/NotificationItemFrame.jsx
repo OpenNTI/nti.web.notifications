@@ -8,6 +8,7 @@ import styles from './NotificationItemFrame.css';
 NotificationItemFrame.propTypes = {
 	item: PropTypes.object.isRequired,
 	username: PropTypes.string.isRequired,
+	emailVerify: PropTypes.bool,
 };
 
 /**
@@ -21,13 +22,24 @@ NotificationItemFrame.propTypes = {
  * @param {Object} {children, item, username}
  * @return {React.Component} React Component
  */
-export default function NotificationItemFrame ( {children, item, username} ) {
+export default function NotificationItemFrame ( { children, item, username, emailVerify } ) {
 	username = username ? username : (item.creator || item.Creator);
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 
 	// In case the item is of type change, get the subitem ID
 	const subItemId = item.Item && item.Item.getID();
 	
+	if (emailVerify) {
+		return (
+			<div className={styles.notificationItemContainer}>
+				<div className={styles.notificationItem}>
+					<div className={styles.wrap}>
+						{children}
+					</div>
+				</div>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.notificationItemContainer}>
 			{/* Link to object: if subitemId exists, get the change type's subitem.

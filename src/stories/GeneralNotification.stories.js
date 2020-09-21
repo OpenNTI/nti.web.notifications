@@ -33,6 +33,7 @@ export const GeneralStory = GeneralTemplate.bind({});
 
 GeneralStory.args = {
 	type: 'Badge',
-	creator: 'Test user',
-	title: 'Test Title',
+	creator: 'Test User',
+	title: 'Test',
+	name: 'Test Badge',
 };
