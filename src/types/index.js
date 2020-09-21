@@ -6,14 +6,13 @@ import Change from './Change';
 import Chat from './Chat';
 import ChatGroup from './ChatGroup';
 import Contact from './Contact';
-import EmailVerify from './EmailVerify';
+import EmailVerify from './EmailVerify/EmailVerify';
 import Event from './Event';
 import Feedback from './Feedback';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
 import Grade from './Grade';
 import Note from './Note';
-import Registry from './Registry';
 import Unknown from './Unknown';
 
 export const TypesList = [
