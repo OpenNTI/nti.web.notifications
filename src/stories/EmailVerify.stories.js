@@ -1,19 +1,32 @@
+import { action } from '@storybook/addon-actions';
 import React from 'react';
 
-import { EmailVerify, getComponent } from '../types';
+import useMockServer from '../../test_utils/use-mock-server';
+import { EmailVerify } from '../types';
 
 export default {
 	title: 'Email Verify',
 	component: EmailVerify,
+	argTypes: {
+		userSave: { action: 'user-save' },
+	}
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
-
 export const EmailVerifyTemplate = () => {
-	const item = {
-		MimeType: 'application/vnd.nextthought.emailverify',
-		getLastModified: () => { return new Date(0); },
+	useMockServer({
+		post: () => {
+			return Promise.reject();
+		},
+	});	
+	let user = {
+		hasLink: () => {return true;}, 
+		getLink: () => {return 'string';}, 
+		email: 'test@test.com',
+		Links: ['RequestEmailVerification'],
+		save: (obj) => {
+			user = {...user, ...obj};
+			action('user-save', ...user);
+		},
 	};
-	return React.createElement(getComponent(item), { item });
+	return <EmailVerify user={user} dismissCallBack={action('dismiss-notification')} />;
 };

@@ -15,13 +15,13 @@
 }
 
 .wrap {
-    padding-left: 15px;
     vertical-align: top;
     font-size: .9375rem;
     line-height: 1.25;
 }
 
 .avatar {
+    margin-right: 15px;
     vertical-align: middle;
     border-radius: 50%;
 }
@@ -34,4 +34,13 @@
 .notificationItemTime {
     color: #3fb34f;
     font-size: .8125rem;
+}
+
+.dismissButton {
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    margin: auto 5px auto 15px;
+    color: gray;
+    font-size: 2rem;
 }

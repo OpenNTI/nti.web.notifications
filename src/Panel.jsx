@@ -2,13 +2,12 @@ import { Loading } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationsStore from './Store';
+import Store from './Store';
 import { getComponent } from './types/index';
 
-export default NotificationsStore.connect(Panel);
-
 Panel.propTypes = {
-	store: PropTypes.object.isRequired,
+	items: PropTypes.array.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 /**
@@ -24,21 +23,36 @@ Panel.propTypes = {
  * @return {React.Component} a list of notification items encapsulated in their
  * appropriate React components.
  */
-function Panel ( { store } ) {
-	// Notification item components array that will be displayed
-	const items = [];
+
+function Panel ( {items: itemsProp, loading: loadingProp} ) {
+	const {
+		[Store.Items]: items,
+		[Store.Loading]: loading,
+	} = Store.useMonitor([
+		Store.Items,
+		Store.Loading,
+	]);
+
+	const components = [];
 
 	// Iterate over notification items in the store
-	for (const item of store) {
+	for (const item of items) {
 		const ItemDelegate = getComponent(item);
-		items.push(<ItemDelegate item={item} />);
+		components.push(<ItemDelegate item={item} />);
 	}
     
 	return (
-		<Loading.Placeholder loading={store.get('loading')} fallback={(<Loading.Spinner />)}>
+		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			<div>
-				{items}
+				{components}
 			</div>
 		</Loading.Placeholder>
 	);
-} 
+}
+
+export default Store.WrapCmp(Panel, {
+	deriveBindingFromProps: (props) => ({
+		items: props.items,
+		loading: props.loading,
+	})
+});

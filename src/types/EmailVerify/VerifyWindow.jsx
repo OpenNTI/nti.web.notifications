@@ -1,33 +1,38 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import { Button, Text, TextInput, wait } from '@nti/web-commons';
+import { DialogButtons, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
+import ChangeEmailWindow from './ChangeEmailWindow';
+import styles from './Style.css';
 import {sendEmailVerification} from './utils';
+
+
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.EmailVerify.EmailVerifyWindow', {
-	sendingEmail: 'Sending...',
-	sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
-	sentEmail: 'We sent a verification email to:',
-	sentAnotherEmail: 'We sent another verification email to:',
-	sendAnotherEmail: 'Send another email',
-	sentEmailStatus: 'Sent!',
-	changeEmail: 'Change email address',
-	cancel: 'Cancel',
-	submit: 'Submit',
-	emailChanged: 'Your email has been updated.',
-	backToEmailVerificationWindow: 'Back to Email Verification',
-	updateEmail: 'Update Email Address',
-
+	sendingEmail: 						'Sending...',
+	sub: 								'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
+	sentEmail: 							'We sent a verification email to:',
+	sentAnotherEmail: 					'We sent another verification email to:',
+	sendAnotherEmail: 					'Send another email',
+	sentEmailStatus: 					'Sent!',
+	changeEmail: 						'Change email address',
+	cancel: 							'Cancel',
+	submit: 							'Submit',
+	emailChanged: 						'Your email has been updated.',
+	backToEmailVerificationWindow: 		'Back to Email Verification',
+	updateEmail: 						'Update Email Address',
 });
+
 const Translate = Text.Translator(translation);
 
 EmailVerifyWindow.propTypes = {
 	user: PropTypes.object.isRequired,
 	onTokenSubmission: PropTypes.func.isRequired,
 	cancelCallBack: PropTypes.func.isRequired,
+	tokenInvalid: PropTypes.bool.isRequired,
 };
 
 const SENDING_STATE = 'SENDING';
@@ -35,18 +40,33 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCallBack } ) {
+export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCallBack, tokenInvalid } ) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
+	const [token, setToken] = useState('');
 	const [displayChangeEmailWindow, setDisplayChangeEmailWindow] = useState(false);
-	const [emailState, setEmailState] = useState(user.email);
-	const [emailChanged, setEmailChanged] = useState(false);
-	const [tokenState, setTokenState] = useState('');
+	const [displayVerifyWindow, setDisplayVerifylWindow] = useState(true);
+	const [error, setError] = useState(null);
+	const [email, setEmail] = useState(user.email);
 
-	const sendAnotherEmail = () => {
+	function closeChangeEmail (load) {
+		if (load.changedEmail) {
+			setSentAnotherVerifyEmail(true);
+			setEmail(load.newEmail);
+		}
+		setDisplayChangeEmailWindow(false);
+		setDisplayVerifylWindow(true);
+	}
+
+	function openChangeEmail () {
+		setDisplayChangeEmailWindow(true);
+		setDisplayVerifylWindow(false);
+	}
+
+	const sendAnotherEmail = async () => {
 		setSendingEmail(SENDING_STATE);
-		wait(1000)
-			.then(sendEmailVerification(user))
+		await wait(1000);
+		sendEmailVerification(user)
 			.then(() => {
 				setSendingEmail(SENT_STATE);
 				setSentAnotherVerifyEmail(true);
@@ -55,88 +75,83 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCal
 					.then(() => {
 						setSendingEmail(NULL_STATE);
 					});
+			}, (e) => {
+				setError(e);
 			});
 	};
 
-	const changeEmail = async () => {
-		try {
-			await user.save({ email: emailState });
-			return true;
-		}
-		catch (e) {
-			return false;
-		}
+	const onTokenChange = (e) => {
+		setToken(e);
 	};
 
-	const onEmailChangeSubmit = (e) => {
-		if (emailState === user.email) {
-			return;
-		}
-		if (changeEmail()) {
-			setEmailChanged(true);
-			wait(800)
-				.then(() => {
-					sendEmailVerification(user);
-					setDisplayChangeEmailWindow(false);
-				});
-		}
-		e.preventDefault();
+	const onSubmit = () => {
+		onTokenSubmission(token);
 	};
 
-	if (displayChangeEmailWindow === false) {
-		return (
-			<div>
-				<Text.Title className="title">
-					{sentAnotherVerifyEmail === true && (
-						<Translate localeKey="sentAnotherEmail" />
+	const buttons = [
+		{label: <Translate localeKey="cancel" />, type: 'button', onClick: cancelCallBack, },
+		{label: <Translate localeKey="submit" />, type: 'submit', disabled: token ? false : true, as: Form.SubmitButton},
+	];
 
-					)}
-					{sentAnotherVerifyEmail === false && (
-						<Translate localeKey="sentEmail" />
-
-					)}
-				</Text.Title>
-				<div className="email">{user.email}</div>
-				{sentAnotherVerifyEmail === true && (
-					<div className="sub">
-						<Translate localeKey="sub" />
+	return (
+		<div>
+			{displayVerifyWindow && (
+				<div style={{ width: 'inherit', }}>
+					<div className={styles.dialogHeader}>
+						<div className={styles.dialogTitle}>
+							{sentAnotherVerifyEmail === true && (
+								<Translate localeKey="sentAnotherEmail" />
+							)}
+							{sentAnotherVerifyEmail === false && (
+								<Translate localeKey="sentEmail" />
+							)}
+						</div>
+						<div className={styles.email}>
+							{email}
+						</div>
+						{sentAnotherVerifyEmail === true && (
+							<div className={styles.sub}>
+								<Translate localeKey="sub" />
+							</div>
+						)}
+						<div className={styles.buttons}>
+							{sendingEmail === SENDING_STATE && (
+								<span className={styles.sendEmail}><Translate localeKey="sendingEmail" /></span>
+							)}
+							{sendingEmail === NULL_STATE && (
+								<a className={[styles.button, styles.sendEmail, styles.sendEmailBtn].join(' ')} onClick={sendAnotherEmail}><Translate localeKey="sendAnotherEmail" /></a>
+							)}
+							{sendingEmail === SENT_STATE && (
+								<span className={styles.sendEmail}><Translate localeKey="sentEmailStatus" /></span>
+							)}
+							<a className={styles.button} onClick={openChangeEmail}><Translate localeKey="changeEmail" /></a>
+						</div>
 					</div>
-				)}
-				<div>
-					{sendingEmail === SENDING_STATE && (
-						<span><Translate localeKey="sendingEmail" /></span>
-					)}
-					{sendingEmail === NULL_STATE && (
-						<a onClick={sendAnotherEmail()}><Translate localeKey="sendAnotherEmail"/></a>
-					)}
-					{sendingEmail === SENT_STATE && (
-						<span><Translate localeKey="sentEmailStatus"/></span>
-					)} | <a onClick={setDisplayChangeEmailWindow(true)}><Translate localeKey="changeEmail" /></a>
+					<Form onSubmit={onSubmit} noValidate={false}>
+						<div>
+							<Input.Clearable className={styles.inputBox}>
+								<Input.Text value={token} name="token" className={[styles.inputField, tokenInvalid ? styles.redInputField : []].join(' ')} 
+									placeholder="Enter your verification token" onChange={onTokenChange} autoFocus/>
+							</Input.Clearable>
+						</div>
+						<div className={styles.errorMessage}>
+							{tokenInvalid && (
+								<span>This token is not valid.</span>
+							)}
+							{error && (
+								<span>{error}</span>
+							)}
+						</div>
+						<div className={styles.footer}>
+							<DialogButtons buttons={buttons} />
+						</div>
+					</Form>
 				</div>
-				<div className="input-box">
-					<TextInput className="token-field" placeholder="Enter your verification token" onChange={(e) => setTokenState(e.target.value)} />
-				</div>
-				<div>
-					<Button onClick={() => cancelCallBack()}><Translate localeKey="cancel"/></Button>
-					<Button onClick={() => onTokenSubmission(tokenState)}><Translate localeKey="submit"/></Button>
-				</div>
-			</div>
-		);
-	}
-	else {
-		return (
-			<div>
-				<div className="button verify-email link" onClick={setDisplayChangeEmailWindow(false)}>&lt; <Translate localeKey="backToEmailVerificationWindow"/></div>
-				<Text.Title className="title"><Translate localeKey="updateEmail"/></Text.Title>
-				<div className="input-box">
-					<TextInput value={emailState} onChange={(e) => setEmailState(e.target.value)} />
-				</div>
-				{emailChanged && (<Text.Small className="message success"><Translate localeKey="emailChanged"/></Text.Small>)}
-				<div>
-					<Button onClick={() => cancelCallBack()}><Translate localeKey="cancel"/></Button>
-					<Button onClick={onEmailChangeSubmit()}><Translate localeKey="submit"/></Button>
-				</div>
-			</div>
-		);
-	}
+			)}
+			{displayChangeEmailWindow && (
+				<ChangeEmailWindow user={{user, email}} cancelCallBack={cancelCallBack} backCalback={(load) => closeChangeEmail(load)}/>
+			)}
+		</div>
+		
+	);
 }

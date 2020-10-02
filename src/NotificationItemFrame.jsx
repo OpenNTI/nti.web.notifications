@@ -1,4 +1,4 @@
-import { Avatar, DateTime, DisplayName } from '@nti/web-commons';
+import { Avatar, DateTime, DisplayName, Icons } from '@nti/web-commons';
 import { LinkTo } from '@nti/web-routing';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -6,9 +6,10 @@ import React from 'react';
 import styles from './NotificationItemFrame.css';
 
 NotificationItemFrame.propTypes = {
-	item: PropTypes.object.isRequired,
-	username: PropTypes.string.isRequired,
+	item: PropTypes.object,
+	username: PropTypes.string,
 	emailVerify: PropTypes.bool,
+	dismissCallBack: PropTypes.func,
 };
 
 /**
@@ -22,24 +23,24 @@ NotificationItemFrame.propTypes = {
  * @param {Object} {children, item, username}
  * @return {React.Component} React Component
  */
-export default function NotificationItemFrame ( { children, item, username, emailVerify } ) {
+export default function NotificationItemFrame ( { children, item, username, emailVerify, dismissCallBack, } ) {
+	if (emailVerify) {
+		return (
+			<div className={styles.notificationItemContainer} style={{backgroundColor: '#f7f2d6'}}>
+				<div className={styles.notificationItem}>
+					<div className={styles.wrap}>
+						{children}
+					</div>
+					<div onClick={dismissCallBack} className={styles.dismissButton}>&times;</div>
+				</div>
+			</div>
+		);
+	}
 	username = username ? username : (item.creator || item.Creator);
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 
 	// In case the item is of type change, get the subitem ID
 	const subItemId = item.Item && item.Item.getID();
-	
-	if (emailVerify) {
-		return (
-			<div className={styles.notificationItemContainer}>
-				<div className={styles.notificationItem}>
-					<div className={styles.wrap}>
-						{children}
-					</div>
-				</div>
-			</div>
-		);
-	}
 	return (
 		<div className={styles.notificationItemContainer}>
 			{/* Link to object: if subitemId exists, get the change type's subitem.

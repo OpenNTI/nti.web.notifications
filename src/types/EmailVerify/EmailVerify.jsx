@@ -1,6 +1,6 @@
 import { scoped } from '@nti/lib-locale';
 import { getAppUser } from '@nti/web-client';
-import { Button, Prompt, Text } from '@nti/web-commons';
+import { Hooks, Icons, Prompt ,Text} from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
@@ -9,8 +9,14 @@ import { COMMON_PREFIX } from '../Registry';
 
 import CongratsPropmt from './CongratsPrompt';
 import InfoWindow from './InfoWindow';
+import styles from './Style.css';
 import { sendEmailVerification, verifyEmailToken } from './utils';
 import EmailVerifyWindow from './VerifyWindow';
+
+
+// This handles getting async data
+const {useResolver} = Hooks;
+const {isPending, isResolved} = useResolver;
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
@@ -22,26 +28,32 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify', 
 const Translate = Text.Translator(translation);
 
 EmailVerify.propTypes = {
-	item: PropTypes.object.isRequired,
+	user: PropTypes.object,
+	dismissCallBack: PropTypes.func.isRequired
 };
 
 EmailVerify.MimeTypes = [
 	COMMON_PREFIX + 'emailverify',
 ];
 
-export default function EmailVerify ( { item } ) {
+export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
+	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
+	const loading = isPending(resolver);
+	const user = isResolved(resolver) ? resolver : null;
+	
+	const [tokenInvalid, setTokenInvalid] = useState(null);
 	// Verify Dialog State
 	const [verifyPrompt, setVerifyPrompt] = useState(false);
 	const openVerifyPrompt = () => {
 		// Send email verification
-		// Get current user
-		let user = getAppUser();
 		// Send the email with the token
-		sendEmailVerification(user).then(() => {
-			setVerifyPrompt(true);
-		}, (error) => {
-			throw new Error(error.toString());
-		});
+		setTokenInvalid(false);
+		sendEmailVerification(user)
+			.then(() => {
+				setVerifyPrompt(true);
+			}, (error) => {
+				throw new Error(error.toString());
+			});
 	};
 	const closeVerifyPrompt = () => {
 		setVerifyPrompt(false);
@@ -72,47 +84,63 @@ export default function EmailVerify ( { item } ) {
 		congratsPrompt && closeCongratsPrompt();
 	};
 
-	const [verificationComplete, setVerificationComplete] = useState(false);
 	const completeVerification = () => {
 		setVerifyPrompt(false);
-		setVerificationComplete(true);
+		openCongratsPrompt();
 	};
 	const onTokenSubmission = (token) => {
 		if (token && token !== '') {
-			return verifyEmailToken(token)
-				.then((response) => {
-					completeVerification();
-					openCongratsPrompt();
-				});
+			try {
+				return verifyEmailToken(user, token)
+					.then((response) => {
+						completeVerification();
+					}, () => {
+						setTokenInvalid(true);
+					});
+			} catch (e) {
+				setTokenInvalid(true);
+			}
+		}
+		else {
+			setTokenInvalid(true);
 		}
 	};
-	if (!verificationComplete) {
-		return (
-			<div>
-				<NotificationItemFrame item={item} emailVerify={true}>
-					{/* Building string to show to the user */}
-					<Translate localeKey="message" />
-					<div>
-						<Button onClick={verifyPrompt ? closeVerifyPrompt : openVerifyPrompt}><Translate localeKey="verifyNow"/></Button> |
-						<Button onClick={infoPrompt ? closeInfoPrompt : openInfoPrompt}><Translate localeKey="moreInfo" /></Button>
+	return (
+		<div>
+			<NotificationItemFrame emailVerify={true} dismissCallBack={dismissCallBack}>
+				<div className={styles.emailVerifyContainer}>
+					<div className={styles.alert}>
+						<Icons.Alert/>
 					</div>
-				</NotificationItemFrame>
-				{(verifyPrompt || infoPrompt) && (
-					<Prompt.Dialog onBeforeDismiss={() => closePrompt()}>
-						{verifyPrompt === true && (
-							<EmailVerifyWindow onTokenSubmission={onTokenSubmission} cancelCallBack={closePrompt}/>
-						)}
-						{infoPrompt && (
-							<InfoWindow cancelCallBack={closePrompt}/>
-						)}
-						{congratsPrompt && (
-							<CongratsPropmt dismissCallBack={closePrompt}/>
-						)}
-					</Prompt.Dialog>
-				)}
-			</div>
-			
-		);
-	}
-	return; 
+					<Translate localeKey="message" />
+					<br />
+					<div className={styles.actionLinksContainer}>
+						<a className={styles.actionLink} onClick={openVerifyPrompt}><Translate localeKey="verifyNow"/></a>
+						<span className={styles.linksSeperator}>|</span>
+						<a className={styles.actionLink} onClick={openInfoPrompt}><Translate localeKey="moreInfo" /></a>
+					</div>
+				</div>
+				
+			</NotificationItemFrame>
+			{(verifyPrompt || infoPrompt || congratsPrompt) && (
+				<Prompt.Dialog onBeforeDismiss={closePrompt} >
+					<div className={styles.windowView}>
+						<div className={styles.dialogContent}>
+							{verifyPrompt && (
+								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} cancelCallBack={closePrompt} tokenInvalid={tokenInvalid} />
+							)}
+							{infoPrompt && (
+								<InfoWindow cancelCallBack={closePrompt} />
+							)}
+							{congratsPrompt && (
+								<CongratsPropmt dismissCallBack={closePrompt} />
+							)}
+						</div>
+					</div>
+					
+				</Prompt.Dialog>
+			)}
+		</div>
+		
+	);
 }

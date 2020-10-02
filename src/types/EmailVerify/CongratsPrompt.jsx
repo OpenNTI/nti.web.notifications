@@ -1,9 +1,11 @@
 import { scoped } from '@nti/lib-locale';
-import { Button, Text } from '@nti/web-commons';
+import { DialogButtons, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.InfoWindow', {
+import styles from './Style.css';
+
+const translation = scoped('nti-notifications.notifications.types.EmailVerify.CongratsWindow', {
 	thankyou: 'Thank you!',
 	message: 'Your email has been verified',
 	dismiss: 'Dismiss'
@@ -15,12 +17,22 @@ CongratsPropmt.propTypes = {
 	dismissCallBack: PropTypes.func.isRequired,
 };
 
+
+
 export default function CongratsPropmt ( { dismissCallBack } ) {
+	const buttons = [
+		{label: <Translate localeKey="dismiss" />, type: 'submit', onClick: dismissCallBack },
+	];
 	return (
-		<div>
-			<Text.Title className="thank-you-title"><Translate localeKey="thankyou" /></Text.Title>
-			<div className="congrats-message"><Translate localeKey="message" /></div>
-			<Button onClick={() => dismissCallBack()}><Translate localeKey="dismiss" /></Button>
+		<div className={styles.congratsContainer} style={{ width: 'inherit', }}>
+			<div className={styles.checkMark}>&#10003;</div>
+			<div className={styles.thankyouTitle}><Translate localeKey="thankyou" /></div>
+			<div className={styles.congratsMsg}><Translate localeKey="message" /></div>
+			<div className={styles.footer}>
+				<div className={styles.controlsContainer}>
+					<DialogButtons flat buttons={buttons} />
+				</div>
+			</div>
 		</div>
 	);
 }
