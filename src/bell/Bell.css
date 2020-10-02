@@ -1,29 +1,29 @@
 /* This is because I could not change the styling of the Badge component */
 div {
-    display: inline-block;
+	display: inline-block;
 }
 
 .bell {
-    position: relative;
-    display: inline-block;
-    width: 21px;
-    height: 24px;
-    cursor: pointer;
-    background-color: gray;
+	position: relative;
+	display: inline-block;
+	width: 21px;
+	height: 24px;
+	cursor: pointer;
+	background-color: gray;
 }
 
 .bell::after {
-    content: "";
-    background-image: url("../assets/icon-white.svg");
-    overflow: hidden;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    background-position: center;
-    width: 21px;
-    height: 24px;
-    position: absolute;
-    opacity: 1;
-    margin-top: -12px;
-    margin-left: -10px;
+	content: "";
+	background-image: url("../assets/icon-white.svg");
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	right: auto;
+	background-position: center;
+	width: 21px;
+	height: 24px;
+	position: absolute;
+	opacity: 1;
+	margin-top: -12px;
+	margin-left: -10px;
 }

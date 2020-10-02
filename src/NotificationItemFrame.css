@@ -1,46 +1,46 @@
 .notificationItemContainer {
-    cursor: pointer;
-    width: auto;
-    padding: 10px;
-    border-radius: 15px;
+	cursor: pointer;
+	width: auto;
+	padding: 10px;
+	border-radius: 15px;
 }
 
 .notificationItemContainer:hover {
-    background-color: rgb(230, 230, 230);
+	background-color: rgb(230, 230, 230);
 }
 
 .notificationItem {
-    line-height: 1;
-    display: flex;
+	line-height: 1;
+	display: flex;
 }
 
 .wrap {
-    vertical-align: top;
-    font-size: .9375rem;
-    line-height: 1.25;
+	vertical-align: top;
+	font-size: 0.9375rem;
+	line-height: 1.25;
 }
 
 .avatar {
-    margin-right: 15px;
-    vertical-align: middle;
-    border-radius: 50%;
+	margin-right: 15px;
+	vertical-align: middle;
+	border-radius: 50%;
 }
 
 .displayName {
-    font-weight: 600;
-    margin-right: 5px;
+	font-weight: 600;
+	margin-right: 5px;
 }
 
 .notificationItemTime {
-    color: #3fb34f;
-    font-size: .8125rem;
+	color: #3fb34f;
+	font-size: 0.8125rem;
 }
 
 .dismissButton {
-    display: inline-block;
-    vertical-align: middle;
-    margin: auto;
-    margin: auto 5px auto 15px;
-    color: gray;
-    font-size: 2rem;
+	display: inline-block;
+	vertical-align: middle;
+	margin: auto;
+	margin: auto 5px auto 15px;
+	color: gray;
+	font-size: 2rem;
 }

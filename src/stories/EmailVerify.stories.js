@@ -1,3 +1,6 @@
+// Storybook libraries are provided by cmp-scripts...
+// TODO: Find a way to import them without lint warnings.
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 import React from 'react';
 
@@ -17,10 +20,10 @@ export const EmailVerifyTemplate = () => {
 		post: () => {
 			return Promise.reject();
 		},
-	});	
+	});
 	let user = {
-		hasLink: () => {return true;}, 
-		getLink: () => {return 'string';}, 
+		hasLink: () => {return true;},
+		getLink: () => {return 'string';},
 		email: 'test@test.com',
 		Links: ['RequestEmailVerification'],
 		save: (obj) => {
