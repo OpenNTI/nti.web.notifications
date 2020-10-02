@@ -9,7 +9,7 @@ const Items = 'itemsProp';
 
 const Pinnable = [
 	async () => {
-		const user = await getUser()
+		const user = await getUser();
 		if (user && user.get('email') && !user.isEmailVerified()) {
 			return { MimeType: 'application/vnd.nextthought.emailverify' };
 		}
@@ -66,7 +66,6 @@ export default class NotificationsStore extends Stores.BoundStore {
 			});
 		}
 	}
-
 
 
 
