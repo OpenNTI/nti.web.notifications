@@ -8,8 +8,6 @@ export default {
 	component: {},
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const EventTemplate = (args) => {
 	const item = {

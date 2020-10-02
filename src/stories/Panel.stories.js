@@ -8,8 +8,6 @@ export default {
 	component: Panel,
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const PanelTemplate = () => {
 	useMockServer({

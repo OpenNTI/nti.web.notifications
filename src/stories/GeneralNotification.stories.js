@@ -6,7 +6,7 @@ export default {
 	title: 'General',
 	component: {},
 	argTypes: {
-		type: { 
+		type: {
 			control: {
 				type: 'select',
 				options: TypesList.map(type => {
@@ -17,8 +17,6 @@ export default {
 	},
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 const GeneralTemplate = ({ type, ...args}) => {
 	const item = {

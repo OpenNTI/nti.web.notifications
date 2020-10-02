@@ -8,15 +8,13 @@ export default {
 	component: {},
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const BlogEntryTemplate = (args) => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-		
+
 	};
 	return React.createElement(getComponent(item), { item });
 };

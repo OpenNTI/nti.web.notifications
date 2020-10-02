@@ -7,8 +7,6 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 const Loading = 'loadingProp';
 const Items = 'itemsProp';
 
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
-
 const Pinnable = [
 	() => {
 		let user = window.$AppConfig.userObject;
@@ -21,7 +19,7 @@ const Pinnable = [
 /**
  * The NotificationStore connects to the nti server and gets
  * the notifications of the current session's user. After it
- * gets the data from the server, the NotificationStore connects 
+ * gets the data from the server, the NotificationStore connects
  * to the panel and updates the notification items that
  * it displays.
  *
@@ -33,7 +31,7 @@ const Pinnable = [
 export default class NotificationsStore extends Stores.BoundStore {
 	static Loading = Loading;
 	static Items = Items;
-	
+
 	async load () {
 		let {topicRef, notifications} = this.binding;
 		if (topicRef === this.topicRef) {return;}
@@ -71,7 +69,7 @@ export default class NotificationsStore extends Stores.BoundStore {
 
 
 
-	
+
 	// constructor () {
 	// 	super();
 
@@ -91,7 +89,7 @@ export default class NotificationsStore extends Stores.BoundStore {
 
 	// 	const pinned = await Promise.all(Pinnable.map(n => n()));
 	// 	// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
-	// 	// and Boolean(x) returns the boolean representation of x. 
+	// 	// and Boolean(x) returns the boolean representation of x.
 	// 	const notifications = [...(pinned.filter(Boolean)), items];
 
 	// 	this.set({

@@ -8,8 +8,6 @@ export default {
 	component: {},
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const NoteTemplate = (args) => {
 	const item = {

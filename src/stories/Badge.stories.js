@@ -8,8 +8,6 @@ export default {
 	component: Badge,
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const BadgeTemplate = (args) => {
 	const item = {

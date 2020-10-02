@@ -8,8 +8,6 @@ export default {
 	component: Change,
 };
 
-// Ensure AppConfig variable is defined.
-window.$AppConfig = window.$AppConfig || { server: '/dataserver2/' };
 
 export const ChangeBadgeTemplate = (args) => {
 	const item = {
