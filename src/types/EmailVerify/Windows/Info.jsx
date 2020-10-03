@@ -3,7 +3,7 @@ import { DialogButtons, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './Style.css';
+import styles from '../Style.css';
 
 const translation = scoped('nti-notifications.notifications.types.EmailVerify.InfoWindow', {
 	title: 'Why is Email Verification Needed?',

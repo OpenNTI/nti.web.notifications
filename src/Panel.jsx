@@ -1,9 +1,7 @@
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './View.css';
 import Store from './Store';
 import { getComponent } from './types/index';
 
@@ -46,7 +44,7 @@ function Panel () {
 			{error ? (
 				<Errors.Message error={error} />
 			) : (
-				<div className={styles.notificationsList}>
+				<div>
 					{hasItems ? (
 						items.map((item, key) => {
 							const ItemDelegate = getComponent(item);

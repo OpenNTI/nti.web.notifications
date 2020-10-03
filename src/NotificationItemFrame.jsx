@@ -1,4 +1,4 @@
-import { Avatar, DateTime, DisplayName, Icons } from '@nti/web-commons';
+import { Avatar, DateTime, DisplayName } from '@nti/web-commons';
 import { LinkTo } from '@nti/web-routing';
 import PropTypes from 'prop-types';
 import React from 'react';

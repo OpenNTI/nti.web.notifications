@@ -4,8 +4,9 @@ import { DialogButtons, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import styles from './Style.css';
-import {sendEmailVerification} from './utils';
+import styles from '../Style.css';
+import {sendEmailVerification} from '../utils';
+
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.EmailVerify.ChangeEmailWindow', {
@@ -73,7 +74,7 @@ export default function ChangeEmailWindow ( { user, onCancel, onBackClick } ) {
 		<div style={{ width: 'inherit', }}>
 			<div className={styles.dialogHeader}>
 				<div className={styles.buttons}>
-					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={backCallback} >
+					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={onBackClick} >
                         &lt;
 						<Translate localeKey="backToEmailVerificationWindow" />
 					</div>

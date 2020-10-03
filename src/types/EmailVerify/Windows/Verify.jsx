@@ -4,9 +4,10 @@ import { DialogButtons, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import ChangeEmailWindow from './ChangeEmailWindow';
-import styles from './Style.css';
-import {sendEmailVerification} from './utils';
+import styles from '../Style.css';
+import {sendEmailVerification} from '../utils';
+
+import ChangeEmailWindow from './ChangeEmail';
 
 
 

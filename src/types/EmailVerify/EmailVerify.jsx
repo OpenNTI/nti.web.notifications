@@ -1,31 +1,21 @@
-import { scoped } from '@nti/lib-locale';
 import { getAppUser } from '@nti/web-client';
-import { Hooks, Icons, Prompt ,Text} from '@nti/web-commons';
+import { Hooks, Prompt } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import NotificationItemFrame from '../../NotificationItemFrame';
 import { COMMON_PREFIX } from '../Registry';
 
-import CongratsPropmt from './CongratsPrompt';
-import InfoWindow from './InfoWindow';
+import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
 import { sendEmailVerification, verifyEmailToken } from './utils';
-import EmailVerifyWindow from './VerifyWindow';
+import CongratsPropmt from './Windows/Congrats';
+import InfoWindow from './Windows/Info';
+import EmailVerifyWindow from './Windows/Verify';
 
 
 // This handles getting async data
 const {useResolver} = Hooks;
 const {isPending, isResolved} = useResolver;
-
-// String localization
-const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
-	message: 'Please take a moment to verify your email address.',
-	verifyNow: 'Verify Now',
-	moreInfo: 'More Info',
-});
-
-const Translate = Text.Translator(translation);
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
@@ -44,17 +34,7 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 	const [tokenInvalid, setTokenInvalid] = useState(null);
 	// Verify Dialog State
 	const [verifyPrompt, setVerifyPrompt] = useState(false);
-	const openVerifyPrompt = () => {
-		// Send email verification
-		// Send the email with the token
-		setTokenInvalid(false);
-		sendEmailVerification(user)
-			.then(() => {
-				setVerifyPrompt(true);
-			}, (error) => {
-				throw new Error(error.toString());
-			});
-	};
+
 	const closeVerifyPrompt = () => {
 		setVerifyPrompt(false);
 	};
@@ -109,23 +89,18 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 			setTokenInvalid(true);
 		}
 	};
+	function verifyClickCallback () {
+		setTokenInvalid(false);
+		sendEmailVerification(user)
+			.then(() => {
+				setVerifyPrompt(true);
+			}, (error) => {
+				throw new Error(error.toString());
+			});
+	}
 	return (
 		<div>
-			<NotificationItemFrame emailVerify={true} dismissCallBack={dismissCallBack}>
-				<div className={styles.emailVerifyContainer}>
-					<div className={styles.alert}>
-						<Icons.Alert/>
-					</div>
-					<Translate localeKey="message" />
-					<br />
-					<div className={styles.actionLinksContainer}>
-						<a className={styles.actionLink} onClick={openVerifyPrompt}><Translate localeKey="verifyNow"/></a>
-						<span className={styles.linksSeperator}>|</span>
-						<a className={styles.actionLink} onClick={openInfoPrompt}><Translate localeKey="moreInfo" /></a>
-					</div>
-				</div>
-				
-			</NotificationItemFrame>
+			<EmailVerifyNotification onDismiss={dismissCallBack} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
 					<div className={styles.windowView}>
@@ -141,7 +116,6 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 							)}
 						</div>
 					</div>
-					
 				</Prompt.Dialog>
 			)}
 		</div>

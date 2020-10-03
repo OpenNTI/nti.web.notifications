@@ -17,7 +17,6 @@ export default {
 	},
 };
 
-
 const GeneralTemplate = ({ type, ...args}) => {
 	const item = {
 		getLastModified: () => { return new Date(0); },
