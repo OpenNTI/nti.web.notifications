@@ -84,6 +84,10 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 		congratsPrompt && closeCongratsPrompt();
 	};
 
+	function cancelDismissCallback () {
+		closePrompt();
+	}
+
 	const completeVerification = () => {
 		setVerifyPrompt(false);
 		openCongratsPrompt();
@@ -127,13 +131,13 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 					<div className={styles.windowView}>
 						<div className={styles.dialogContent}>
 							{verifyPrompt && (
-								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} cancelCallBack={closePrompt} tokenInvalid={tokenInvalid} />
+								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} onCancel={cancelDismissCallback} tokenInvalid={tokenInvalid} />
 							)}
 							{infoPrompt && (
-								<InfoWindow cancelCallBack={closePrompt} />
+								<InfoWindow onCancel={cancelDismissCallback} />
 							)}
 							{congratsPrompt && (
-								<CongratsPropmt dismissCallBack={closePrompt} />
+								<CongratsPropmt onDismiss={cancelDismissCallback} />
 							)}
 						</div>
 					</div>

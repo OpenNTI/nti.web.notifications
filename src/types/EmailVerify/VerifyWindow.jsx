@@ -31,7 +31,7 @@ const Translate = Text.Translator(translation);
 EmailVerifyWindow.propTypes = {
 	user: PropTypes.object.isRequired,
 	onTokenSubmission: PropTypes.func.isRequired,
-	cancelCallBack: PropTypes.func.isRequired,
+	onCancel: PropTypes.func.isRequired,
 	tokenInvalid: PropTypes.bool.isRequired,
 };
 
@@ -40,7 +40,7 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCallBack, tokenInvalid } ) {
+export default function EmailVerifyWindow ( { user, onTokenSubmission, onCancel, tokenInvalid } ) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
@@ -89,7 +89,7 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCal
 	};
 
 	const buttons = [
-		{label: <Translate localeKey="cancel" />, type: 'button', onClick: cancelCallBack, },
+		{ label: <Translate localeKey="cancel" />, type: 'button', onClick: onCancel, },
 		{label: <Translate localeKey="submit" />, type: 'submit', disabled: token ? false : true, as: Form.SubmitButton},
 	];
 
@@ -149,7 +149,7 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, cancelCal
 				</div>
 			)}
 			{displayChangeEmailWindow && (
-				<ChangeEmailWindow user={{user, email}} cancelCallBack={cancelCallBack} backCalback={(load) => closeChangeEmail(load)}/>
+				<ChangeEmailWindow user={{ user, email }} onCancel={onCancel} onBackClick={(load) => closeChangeEmail(load)}/>
 			)}
 		</div>
 		

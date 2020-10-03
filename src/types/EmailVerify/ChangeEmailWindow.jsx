@@ -21,11 +21,11 @@ const Translate = Text.Translator(translation);
 
 ChangeEmailWindow.propTypes = {
 	user: PropTypes.object.isRequired,
-	cancelCallBack: PropTypes.func.isRequired,
-	backCalback: PropTypes.func,
+	onCancel: PropTypes.func.isRequired,
+	onBackClick: PropTypes.func,
 };
 
-export default function ChangeEmailWindow ( { user, cancelCallBack, backCalback } ) {
+export default function ChangeEmailWindow ( { user, onCancel, onBackClick } ) {
 	const [email, setEmail] = useState(user.email);
 	const [emailChanged, setEmailChanged] = useState(false);
 	const [emailValid, setEmailValid] = useState(true);
@@ -43,7 +43,7 @@ export default function ChangeEmailWindow ( { user, cancelCallBack, backCalback 
 		setEmail(e);
 	}
 
-	const onEmailChangeSubmit = (e) => {
+	const onEmailChangeSubmit = async (e) => {
 		setEmailValid(true);
 		if (email === user.email) {
 			setEmailValid(false);
@@ -51,9 +51,9 @@ export default function ChangeEmailWindow ( { user, cancelCallBack, backCalback 
 		}
 		if (changeEmail()) {
 			setEmailChanged(true);
-			wait(800).then(() => {
+			await wait(800).then(() => {
 				sendEmailVerification(user);
-				backCalback({changedEmail: true, newEmail: email});
+				onBackClick({changedEmail: true, newEmail: email});
 			});
 		} else {
 			setEmailValid(false);
@@ -65,7 +65,7 @@ export default function ChangeEmailWindow ( { user, cancelCallBack, backCalback 
 	};
 	
 	const buttons = [
-		{label: <Translate localeKey="cancel" />, type: 'button', onClick: cancelCallBack },
+		{ label: <Translate localeKey="cancel" />, type: 'button', onClick: onCancel },
 		{label: <Translate localeKey="submit" />, type: 'submit', disabled: email ? false : true, as: Form.SubmitButton},
 	];
 
@@ -73,7 +73,7 @@ export default function ChangeEmailWindow ( { user, cancelCallBack, backCalback 
 		<div style={{ width: 'inherit', }}>
 			<div className={styles.dialogHeader}>
 				<div className={styles.buttons}>
-					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={backCalback} >
+					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={backCallback} >
                         &lt;
 						<Translate localeKey="backToEmailVerificationWindow" />
 					</div>

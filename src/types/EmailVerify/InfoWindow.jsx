@@ -14,12 +14,12 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.In
 const Translate = Text.Translator(translation);
 
 InfoWindow.propTypes = {
-	cancelCallBack: PropTypes.func.isRequired,
+	onCancel: PropTypes.func.isRequired,
 };
 
-export default function InfoWindow ({ cancelCallBack } ) {
+export default function InfoWindow({ onCancel } ) {
 	const buttons = [
-		{label: <Translate localeKey="done" />, type: 'submit', onClick: cancelCallBack },
+		{ label: <Translate localeKey="done" />, type: 'submit', onClick: onCancel },
 	];
 	return (
 		<div style={{ width: 'inherit', }}>

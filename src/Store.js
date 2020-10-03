@@ -6,6 +6,7 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const Loading = 'loadingProp';
 const Items = 'itemsProp';
+const Error = 'errorProp';
 
 const Pinnable = [
 	async () => {
@@ -31,14 +32,11 @@ const Pinnable = [
 export default class NotificationsStore extends Stores.BoundStore {
 	static Loading = Loading;
 	static Items = Items;
+	static Error = Error;
 
 	async load () {
-		let {topicRef, notifications} = this.binding;
-		if (topicRef === this.topicRef) {return;}
-		this.topicRef = topicRef;
 		this.set({
 			[Loading]: true,
-			[Items]: null,
 		});
 
 		try {
@@ -53,7 +51,7 @@ export default class NotificationsStore extends Stores.BoundStore {
 			const pinned = await Promise.all(Pinnable.map((n) => n()));
 			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
 			// and Boolean(x) returns the boolean representation of x.
-			notifications = [...pinned.filter(Boolean), items];
+			const notifications = [...pinned.filter(Boolean), items];
 
 			this.set({
 				[Loading]: false,
@@ -61,39 +59,9 @@ export default class NotificationsStore extends Stores.BoundStore {
 			});
 		} catch (e) {
 			this.set({
-				loading: false,
-				error: e,
+				[Loading]: false,
+				[Error]: e,
 			});
 		}
 	}
-
-
-
-	// constructor () {
-	// 	super();
-
-	// 	this.set(Loading, true);
-	// }
-
-	// async load () {
-	// 	this.set(Loading, true);
-
-	// 	const service = await getService();
-	// 	const pageInfo = await service.getPageInfo(CONTENT_ROOT);
-	// 	const url = pageInfo.getLink(MESSAGE_INBOX);
-	// 	const items = await service.getBatch(url, {
-	// 		batchStart: 0,
-	// 		batchSize: 20,
-	// 	});
-
-	// 	const pinned = await Promise.all(Pinnable.map(n => n()));
-	// 	// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
-	// 	// and Boolean(x) returns the boolean representation of x.
-	// 	const notifications = [...(pinned.filter(Boolean)), items];
-
-	// 	this.set({
-	// 		[Loading]: false,
-	// 		[Items]: notifications,
-	// 	});
-	// }
 }

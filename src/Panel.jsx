@@ -1,14 +1,18 @@
-import { Loading } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { Errors, Loading, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import styles from './View.css';
 import Store from './Store';
 import { getComponent } from './types/index';
 
-Panel.propTypes = {
-	items: PropTypes.array.isRequired,
-	loading: PropTypes.bool.isRequired,
-};
+// String localization
+const translation = scoped('nti-notifications.notifications.Panel', {
+	noNotifications: 'You don\'t have any notifications.' 
+});
+
+const Translate = Text.Translator(translation);
 
 /**
  * This panel connects to the Store class to get
@@ -24,35 +28,41 @@ Panel.propTypes = {
  * appropriate React components.
  */
 
-function Panel ( {items: itemsProp, loading: loadingProp} ) {
+function Panel () {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
+		[Store.Error]: error
 	} = Store.useMonitor([
 		Store.Items,
 		Store.Loading,
+		Store.Error
 	]);
 
-	const components = [];
-
-	// Iterate over notification items in the store
-	for (const item of items) {
-		const ItemDelegate = getComponent(item);
-		components.push(<ItemDelegate item={item} />);
-	}
+	const hasItems = items && items.length > 0;
     
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
-			<div>
-				{components}
-			</div>
+			{error ? (
+				<Errors.Message error={error} />
+			) : (
+				<div className={styles.notificationsList}>
+					{hasItems ? (
+						items.map((item, key) => {
+							const ItemDelegate = getComponent(item);
+							return (
+								<div key={key}>
+									<ItemDelegate item={item}/>
+								</div>
+							);
+						})
+					) : (
+						<div><Text.Base><Translate localeKey="noNotifications"/></Text.Base></div>
+					)}
+				</div>
+			)}
 		</Loading.Placeholder>
 	);
 }
 
-export default Store.WrapCmp(Panel, {
-	deriveBindingFromProps: (props) => ({
-		items: props.items,
-		loading: props.loading,
-	})
-});
+export default Store.WrapCmp(Panel);
