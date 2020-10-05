@@ -8,9 +8,9 @@ import { COMMON_PREFIX } from '../Registry';
 import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
 import { sendEmailVerification, verifyEmailToken } from './utils';
-import CongratsPropmt from './Windows/Congrats';
-import InfoWindow from './Windows/Info';
-import EmailVerifyWindow from './Windows/Verify';
+import CongratsPropmt from './windows/Congrats';
+import InfoWindow from './windows/Info';
+import EmailVerifyWindow from './windows/Verify';
 
 
 // This handles getting async data
