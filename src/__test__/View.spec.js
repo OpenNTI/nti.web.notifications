@@ -1,8 +1,8 @@
 /* eslint-env jest */
-import View from '../View';
+import Panel from '../Panel';
 
-describe('View', () => {
+describe('Panel', () => {
 	test('exports a component', () => {
-		expect(View).toBeTruthy();
+		expect(Panel).toBeTruthy();
 	});
 });
