@@ -26,7 +26,15 @@ export const PanelTemplate = () => {
 				MimeType: Models.profile.Badge.MimeTypes[1],
 				name: 'Test Badge',
 			}];
-		}
+		},
+		getAppUser: () => {
+			return {
+				email: 'test@test.com',
+				isEmailVerified: () => {
+					return false;
+				}
+			};
+		},
 	});
 	return (
 		<Panel />

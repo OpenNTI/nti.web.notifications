@@ -1,5 +1,5 @@
 import { Stores } from '@nti/lib-store';
-import { getService, getUser } from '@nti/web-client';
+import { getAppUser, getService } from '@nti/web-client';
 
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
@@ -10,8 +10,8 @@ const Error = 'errorProp';
 
 const Pinnable = [
 	async () => {
-		const user = await getUser();
-		if (user && user.get('email') && !user.isEmailVerified()) {
+		const user = await getAppUser();
+		if (user && user.email && !user.isEmailVerified()) {
 			return { MimeType: 'application/vnd.nextthought.emailverify' };
 		}
 	}
