@@ -51,7 +51,7 @@ export default class NotificationsStore extends Stores.BoundStore {
 			const pinned = await Promise.all(Pinnable.map((n) => n()));
 			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
 			// and Boolean(x) returns the boolean representation of x.
-			const notifications = [...pinned.filter(Boolean), items];
+			const notifications = [...pinned.filter(Boolean), ...items];
 
 			this.set({
 				[Loading]: false,

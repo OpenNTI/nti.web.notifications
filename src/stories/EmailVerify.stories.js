@@ -31,5 +31,5 @@ export const EmailVerifyTemplate = () => {
 			action('user-save', ...user);
 		},
 	};
-	return <EmailVerify user={user} dismissCallBack={action('dismiss-notification')} />;
+	return <EmailVerify user={user} onDismiss={action('dismiss-notification')} />;
 };

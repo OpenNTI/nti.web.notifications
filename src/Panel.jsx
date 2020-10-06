@@ -1,13 +1,16 @@
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Store from './Store';
 import { getComponent } from './types/index';
+import styles from './Panel.css';
+
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
-	noNotifications: 'You don\'t have any notifications.' 
+	noNotifications: 'You don\'t have any notifications.',
+	showAll: 'Show All',
 });
 
 const Translate = Text.Translator(translation);
@@ -30,7 +33,7 @@ function Panel () {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
-		[Store.Error]: error
+		[Store.Error]: error,
 	} = Store.useMonitor([
 		Store.Items,
 		Store.Loading,
@@ -38,25 +41,31 @@ function Panel () {
 	]);
 
 	const hasItems = items && items.length > 0;
+	const [dismissedNotifications, setDismissedNotifications] = useState([null]);
     
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			{error ? (
 				<Errors.Message error={error} />
 			) : (
-				<div>
-					{hasItems ? (
-						items.map((item, key) => {
-							const ItemDelegate = getComponent(item);
-							return (
-								<div key={key}>
-									<ItemDelegate item={item}/>
-								</div>
-							);
-						})
-					) : (
-						<div><Text.Base><Translate localeKey="noNotifications"/></Text.Base></div>
-					)}
+				<div className={styles.panelContainer}>
+					<div className={styles.notificationsContainer}>
+						{hasItems ? (
+							items.map((item, key) => {
+								const ItemDelegate = getComponent(item);
+								if (!dismissedNotifications.includes(ItemDelegate)) {
+									return (
+										<div key={key}>
+											<ItemDelegate item={item} onDismiss={() => setDismissedNotifications([...dismissedNotifications, ItemDelegate])} />
+										</div>
+									);
+								}
+							})
+						) : (
+							<div><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+						)}
+					</div>
+					<div className={styles.showAll}><Translate localeKey="showAll" /></div>
 				</div>
 			)}
 		</Loading.Placeholder>

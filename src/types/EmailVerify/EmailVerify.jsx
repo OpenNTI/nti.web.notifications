@@ -19,14 +19,14 @@ const {isPending, isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
-	dismissCallBack: PropTypes.func.isRequired
+	onDismiss: PropTypes.func.isRequired
 };
 
 EmailVerify.MimeTypes = [
 	COMMON_PREFIX + 'emailverify',
 ];
 
-export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
+export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const loading = isPending(resolver);
 	const user = isResolved(resolver) ? resolver : null;
@@ -100,7 +100,7 @@ export default function EmailVerify ( { user:userProp, dismissCallBack } ) {
 	}
 	return (
 		<div>
-			<EmailVerifyNotification onDismiss={dismissCallBack} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
+			<EmailVerifyNotification onDismiss={onDismiss} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
 					<div className={styles.windowView}>
