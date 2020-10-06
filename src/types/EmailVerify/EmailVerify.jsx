@@ -8,9 +8,9 @@ import { COMMON_PREFIX } from '../Registry';
 import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
 import { sendEmailVerification, verifyEmailToken } from './utils';
-import CongratsPropmt from './windows/Congrats';
-import InfoWindow from './windows/Info';
-import EmailVerifyWindow from './windows/Verify';
+import CongratsPropmt from './prompts/Congrats';
+import InfoWindow from './prompts/Info';
+import EmailVerifyWindow from './prompts/Verify';
 
 
 // This handles getting async data
@@ -103,7 +103,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 			<EmailVerifyNotification onDismiss={onDismiss} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
-					<div className={styles.windowView}>
+					<div className={styles.promptView}>
 						<div className={styles.dialogContent}>
 							{verifyPrompt && (
 								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} onCancel={cancelDismissCallback} tokenInvalid={tokenInvalid} />

@@ -2,7 +2,7 @@ div div {
 	display: block;
 }
 
-.windowView {
+.promptView {
 	width: 450px;
 	perspective: 800;
 }

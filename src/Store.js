@@ -43,10 +43,12 @@ export default class NotificationsStore extends Stores.BoundStore {
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
-			const items = await service.getBatch(url, {
+			const batch = await service.getBatch(url, {
 				batchStart: 0,
 				batchSize: 20,
 			});
+
+			const {Items: items} = batch;
 
 			const pinned = await Promise.all(Pinnable.map((n) => n()));
 			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))

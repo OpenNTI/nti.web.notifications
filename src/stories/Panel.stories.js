@@ -20,27 +20,29 @@ export const PanelTemplate = () => {
 			};
 		},
 		getBatch: () => {
-			return [{
-				creator: 'quiz_tester',
-				getLastModified: () => { return new Date(0); },
-				MimeType: Models.profile.Badge.MimeTypes[1],
-				name: 'Test Badge',
-			}, {
-				creator: 'quiz_tester',
-				getLastModified: () => { return new Date(0); },
-				MimeType: Models.forums.Post.MimeTypes[5],
-				name: 'Test Badge',
-			}, {
-				creator: 'quiz_tester',
-				getLastModified: () => { return new Date(0); },
-				MimeType: Models.entities.User.MimeType,
-				name: 'Test Badge',
-			}, {
-				creator: 'quiz_tester',
-				getLastModified: () => { return new Date(0); },
-				MimeType: Models.profile.Badge.MimeTypes[1],
-				name: 'Test Badge',
-			}];
+			return {
+				Items: [{
+					creator: 'quiz_tester',
+					getLastModified: () => { return new Date(0); },
+					MimeType: Models.profile.Badge.MimeTypes[1],
+					name: 'Test Badge',
+				}, {
+					creator: 'quiz_tester',
+					getLastModified: () => { return new Date(0); },
+					MimeType: Models.forums.Post.MimeTypes[5],
+					name: 'Test Badge',
+				}, {
+					creator: 'quiz_tester',
+					getLastModified: () => { return new Date(0); },
+					MimeType: Models.entities.User.MimeType,
+					name: 'Test Badge',
+				}, {
+					creator: 'quiz_tester',
+					getLastModified: () => { return new Date(0); },
+					MimeType: Models.profile.Badge.MimeTypes[1],
+					name: 'Test Badge',
+				}],
+			};
 		},
 		getAppUser: () => {
 			return {
