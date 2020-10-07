@@ -1,15 +1,15 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
-	title: 'Feedback',
+	title: 'Blog Entry',
 	component: {},
 };
 
 
-export const FeedbackTemplate = (args) => {
+export const BlogEntryTemplate = (args) => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
@@ -19,8 +19,7 @@ export const FeedbackTemplate = (args) => {
 	return React.createElement(getComponent(item), { item });
 };
 
-FeedbackTemplate.args = {
-	assignmentId: 'test_assignment_id',
+BlogEntryTemplate.args = {
 	title: 'Test title',
-	MimeType: Models.assessment.assignment.AssignmentFeedback.MimeType,
+	MimeType: Models.forums.BlogEntry.MimeType,
 };

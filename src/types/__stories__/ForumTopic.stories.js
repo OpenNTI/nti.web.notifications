@@ -1,25 +1,24 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
-	title: 'Blog Entry',
+	title: 'Forum Topic',
 	component: {},
 };
 
 
-export const BlogEntryTemplate = (args) => {
+export const ForumTopicTemplate = (args) => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
-
 	};
 	return React.createElement(getComponent(item), { item });
 };
 
-BlogEntryTemplate.args = {
+ForumTopicTemplate.args = {
 	title: 'Test title',
-	MimeType: Models.forums.BlogEntry.MimeType,
+	MimeType: Models.forums.Topic.MimeTypes[1],
 };

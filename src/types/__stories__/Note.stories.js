@@ -1,7 +1,7 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
 	title: 'Note',

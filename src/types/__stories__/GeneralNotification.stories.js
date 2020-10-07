@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TypesList } from '../types';
+import { TypesList } from '../';
 
 export default {
 	title: 'General',

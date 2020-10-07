@@ -23,18 +23,18 @@ Grade.MimeTypes = [
 	COMMON_PREFIX + 'grade',
 ];
 
-export default async function Grade ({ item }) {
+export default function Grade ({ item }) {
 	const [assignment, setAssignment] = useState('');
+	const assignmentId = item.AssignmentId;
 	// Get assignment's title
 	const getAssignment = async () => {
-		const assignmentId = item.AssignmentId;
 		const service = await getService();
 		const assignmentTitle = service.getObject(assignmentId).title;
 		setAssignment(assignmentTitle);
 	};
 	
 	useEffect(() => {
-		if (!assignment) {
+		if (!assignment && assignmentId) {
 			getAssignment();
 		}
 	}, []);

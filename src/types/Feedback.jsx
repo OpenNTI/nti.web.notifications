@@ -23,7 +23,7 @@ Feedback.MimeTypes = [
 	COMMON_PREFIX + 'assessment.userscourseassignmenthistoryitemfeedback',
 ];
 
-export default async function Feedback ({ item }) {
+export default function Feedback ({ item }) {
 	const [assignment, setAssignment] = useState('');
 	// Get assignment's title
 	const getAssignment = async () => {

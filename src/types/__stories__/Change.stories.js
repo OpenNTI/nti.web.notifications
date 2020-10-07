@@ -1,7 +1,7 @@
 import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
-import { Change, getComponent } from '../types';
+import { Change, getComponent } from '../';
 
 export default {
 	title: 'Change',

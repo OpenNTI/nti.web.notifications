@@ -1,15 +1,14 @@
-import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
-	title: 'Contact',
+	title: 'Unknown',
 	component: {},
 };
 
 
-export const ContactTemplate = (args) => {
+const UnknownTemplate = (args) => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
@@ -18,6 +17,7 @@ export const ContactTemplate = (args) => {
 	return React.createElement(getComponent(item), { item });
 };
 
-ContactTemplate.args = {
-	MimeType: Models.entities.User.MimeType,
+export const UnkownTypeStory = UnknownTemplate.bind({});
+UnkownTypeStory.args = {
+	MimeType: 'Something.Something.UnknownType',
 };

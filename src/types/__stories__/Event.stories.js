@@ -1,25 +1,24 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
-	title: 'Grade',
+	title: 'Event',
 	component: {},
 };
 
 
-export const GradeTemplate = (args) => {
+export const EventTemplate = (args) => {
 	const item = {
 		...args,
+		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
 	return React.createElement(getComponent(item), { item });
 };
 
-GradeTemplate.args = {
-	Creator: 'system',
-	AssignmentId: 'test_assignment_id',
-	title: 'Test Assignment',
-	MimeType: Models.courses.Grade.MimeType,
+EventTemplate.args = {
+	name: 'Test title',
+	MimeType: Models.calendar.CourseCalendarEvent.MimeType,
 };

@@ -1,23 +1,26 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../types';
+import { getComponent } from '../';
 
 export default {
-	title: 'Forum Comment',
+	title: 'Feedback',
 	component: {},
 };
 
 
-export const ForumCommentTemplate = (args) => {
+export const FeedbackTemplate = (args) => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
+
 	};
 	return React.createElement(getComponent(item), { item });
 };
 
-ForumCommentTemplate.args = {
-	MimeType: Models.forums.Comment.MimeTypes[1],
+FeedbackTemplate.args = {
+	assignmentId: 'test_assignment_id',
+	title: 'Test title',
+	MimeType: Models.assessment.assignment.AssignmentFeedback.MimeType,
 };
