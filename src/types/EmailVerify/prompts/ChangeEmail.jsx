@@ -52,10 +52,9 @@ export default function ChangeEmailWindow ( { user, onCancel, onBackClick } ) {
 		}
 		if (changeEmail()) {
 			setEmailChanged(true);
-			await wait(800).then(() => {
-				sendEmailVerification(user);
-				onBackClick({changedEmail: true, newEmail: email});
-			});
+			await wait(800);
+			sendEmailVerification(user);
+			onBackClick({ changedEmail: true, newEmail: email });
 		} else {
 			setEmailValid(false);
 		}

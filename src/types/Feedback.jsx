@@ -2,7 +2,7 @@ import { scoped } from '@nti/lib-locale';
 import {getService} from  '@nti/web-client';
 import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import NotificationItemFrame from '../frame';
 
@@ -23,16 +23,21 @@ Feedback.MimeTypes = [
 	COMMON_PREFIX + 'assessment.userscourseassignmenthistoryitemfeedback',
 ];
 
-export default function Feedback ({ item }) {
+export default async function Feedback ({ item }) {
+	const [assignment, setAssignment] = useState('');
 	// Get assignment's title
-	const assignmentId = item.AssignmentId;
-	let assignment = null;
-	getService().then(service => {
-		service.getObject(assignmentId).then((_assignment) => {
-			assignment = _assignment.title;
-		});
-	});
-
+	const getAssignment = async () => {
+		const assignmentId = item.AssignmentId;
+		const service = await getService();
+		const assignmentTitle = service.getObject(assignmentId).title;
+		setAssignment(assignmentTitle);
+	};
+	
+	useEffect(() => {
+		if (!assignment) {
+			getAssignment();
+		}
+	}, []);
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}

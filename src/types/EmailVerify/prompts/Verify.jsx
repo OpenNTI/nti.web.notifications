@@ -9,8 +9,6 @@ import {sendEmailVerification} from '../utils';
 
 import ChangeEmailWindow from './ChangeEmail';
 
-
-
 // String localization
 const translation = scoped('nti-notifications.notifications.types.EmailVerify.EmailVerifyWindow', {
 	sendingEmail: 						'Sending...',
