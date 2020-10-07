@@ -3,7 +3,7 @@ import { Icons, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../../NotificationItemFrame';
+import NotificationItemFrame from '../../frame';
 
 import styles from './Style.css';
 

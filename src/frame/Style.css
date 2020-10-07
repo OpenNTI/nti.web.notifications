@@ -1,8 +1,11 @@
 .notificationItemContainer {
-	cursor: pointer;
 	width: auto;
 	padding: 10px;
 	border-radius: 15px;
+}
+
+.linkedNotification {
+	cursor: pointer;
 }
 
 .notificationItemContainer:hover {

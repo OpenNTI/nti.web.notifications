@@ -1,4 +1,3 @@
-import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 

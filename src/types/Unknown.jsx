@@ -3,7 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../NotificationItemFrame';
+import NotificationItemFrame from '../frame';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Unknown', {
