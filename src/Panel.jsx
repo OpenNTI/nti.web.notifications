@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Store from './Store';
 import { getComponent } from './types/index';
 import styles from './Panel.css';
-import { useEffect } from 'react';
+
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -85,7 +85,8 @@ function Panel ( { onScroll } ) {
 							<div><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
 						)}
 					</div>
-					<div className={styles.showAll}><Translate localeKey="showAll" /></div>
+					{/* TODO: add show all link; ask Andrew about the link */}
+					<div className={styles.showAll}><a href="/app/notifications/" className={styles.showAll}><Translate localeKey="showAll" /></a></div>
 				</div>
 			)}
 		</Loading.Placeholder>
