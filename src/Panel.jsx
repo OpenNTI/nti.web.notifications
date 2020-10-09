@@ -1,11 +1,10 @@
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 
 import Store from './Store';
 import { getComponent } from './types/index';
 import styles from './Panel.css';
-
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -37,7 +36,7 @@ function Panel () {
 	} = Store.useMonitor([
 		Store.Items,
 		Store.Loading,
-		Store.Error
+		Store.Error,
 	]);
 
 	const hasItems = items && items.length > 0;
