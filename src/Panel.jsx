@@ -1,10 +1,12 @@
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import React, { useState , useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Store from './Store';
 import { getComponent } from './types/index';
 import styles from './Panel.css';
+import { useEffect } from 'react';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -28,7 +30,11 @@ const Translate = Text.Translator(translation);
  * appropriate React components.
  */
 
-function Panel () {
+Panel.propTypes = {
+	onScroll: PropTypes.func.isRequired,
+};
+
+function Panel ( { onScroll } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
@@ -41,13 +47,28 @@ function Panel () {
 
 	const hasItems = items && items.length > 0;
 	const [dismissedNotifications, setDismissedNotifications] = useState([null]);
+	const [scrolledDown, setScrolledDown] = useState(false);
+
+	if (scrolledDown) {
+		// TODO: add loading spinner and wait for better UX
+		onScroll();
+		setScrolledDown(false);
+	}
+
+	function handleScroll (e) {
+		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+		if (bottom) {
+			// User scrolled down
+			setScrolledDown(true);
+		}
+	}
     
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			{error ? (
 				<Errors.Message error={error} />
 			) : (
-				<div className={styles.panelContainer}>
+				<div className={styles.panelContainer} onScroll={handleScroll}>
 					<div className={styles.notificationsContainer}>
 						{hasItems ? (
 							items.map((item, key) => {

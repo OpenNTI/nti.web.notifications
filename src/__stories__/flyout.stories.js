@@ -40,35 +40,38 @@ export const DefaultTemplate = () => {
 				},
 			};
 		},
-		getBatch: () => {
+		getBatch: (url, config) => {
+			const items = [{
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.profile.Badge.MimeTypes[1],
+				name: 'Test',
+			}, {
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.forums.Post.MimeTypes[5],
+				name: 'Test',
+			}, {
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.entities.User.MimeType,
+				name: 'Test',
+			}, {
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.profile.Badge.MimeTypes[1],
+				name: 'Test',
+			}];
 			return {
-				Items: [{
-					creator: 'quiz_tester',
-					getLastModified: () => { return new Date(0); },
-					MimeType: Models.profile.Badge.MimeTypes[1],
-					name: 'Test',
-				}, {
-					creator: 'quiz_tester',
-					getLastModified: () => { return new Date(0); },
-					MimeType: Models.forums.Post.MimeTypes[5],
-					name: 'Test',
-				}, {
-					creator: 'quiz_tester',
-					getLastModified: () => { return new Date(0); },
-					MimeType: Models.entities.User.MimeType,
-					name: 'Test',
-				}, {
-					creator: 'quiz_tester',
-					getLastModified: () => { return new Date(0); },
-					MimeType: Models.profile.Badge.MimeTypes[1],
-					name: 'Test',
-				}],
+				Items: items.slice(config.batchStart, config.batchSize % items.length),
 				hasLink: () => {
 					return true;
 				},
 				putToLink: () => {
 					return true;
-				}
+				},
+				ItemCount: 2,
+				TotalItemCount: items.length,
 			};
 		},
 		getAppUser: () => {

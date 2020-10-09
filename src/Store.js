@@ -12,7 +12,7 @@ const Error = 'errorProp';
 const UnreadCount = 'unreadCount';
 
 const UpdateLastViewed = 'updateLastViewed';
-const UpdateShownItemCount = 'updateShownItemCount';
+const UpdateShownItem = 'updateShownItem';
 const Load = 'load';
 
 const Pinnable = [
@@ -43,7 +43,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	static UnreadCount = UnreadCount;
 
 	static UpdateLastViewed = UpdateLastViewed;
-	static UpdateShownItemCount = UpdateShownItemCount;
+	static UpdateShownItem = UpdateShownItem;
 	static Load = Load;
 
 	onIncoming (notable) {
@@ -69,7 +69,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			const url = pageInfo.getLink(MESSAGE_INBOX);
 			const batch = await service.getBatch(url, {
 				batchStart: 0,
-				batchSize: 5,
+				batchSize: 2,
 			});
 
 			const {Items: items} = batch;
@@ -106,13 +106,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	async [UpdateLastViewed] () {
-		const service = await getService();
-		const pageInfo = await service.getPageInfo(CONTENT_ROOT);
-		const url = pageInfo.getLink(MESSAGE_INBOX);
-		const batch = await service.getBatch(url, {
-			batchStart: 0,
-			batchSize: 5,
-		});
+		const batch = this.get('batch');
 		if (batch && batch.hasLink('lastViewed')) {
 			batch.putToLink('lastViewed', Date.now() / 1000);
 			this.set({
@@ -121,10 +115,14 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async [UpdateShownItemCount] () {
+	async [UpdateShownItem] () {
 		try {
 			const batch = this.get('batch');
-			const currentlyShown = batch.ItemCount;
+			const currentlyShown = this.get('currentlyShown') || batch.ItemCount;
+			const totalItemCount = batch.TotalItemCount;
+			if (currentlyShown === totalItemCount) {
+				return;
+			}
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
@@ -132,8 +130,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchStart: currentlyShown,
 				batchSize: currentlyShown + 5,
 			});
-			let items = this.get([Items]);
-			items = [...items, ...newBatch.Items];
+			const newItems = this.get([Items]);
+			this.set({
+				currentlyShown: currentlyShown + newItems.length
+			});
+			const items = [...newItems, ...newBatch.Items];
 
 			this.set({
 				[Items]: items,
