@@ -62,8 +62,13 @@ export const DefaultTemplate = () => {
 				MimeType: Models.profile.Badge.MimeTypes[1],
 				name: 'Test',
 			}];
+			const start = config.batchStart;
+			let end = start + config.batchSize;
+			if (end >= items.length) {
+				end = items.length;
+			}
 			return {
-				Items: items.slice(config.batchStart, config.batchSize % items.length),
+				Items: items.slice(start, end),
 				hasLink: () => {
 					return true;
 				},
