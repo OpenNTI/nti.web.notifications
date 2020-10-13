@@ -9,7 +9,7 @@
 }
 
 .notificationItemContainer:hover {
-	background-color: rgb(230, 230, 230);
+	background-color: var(--quad-grey);
 }
 
 .notificationItem {
@@ -35,7 +35,7 @@
 }
 
 .notificationItemTime {
-	color: #3fb34f;
+	color: var(--secondary-green);
 	font-size: 0.8125rem;
 }
 
@@ -44,7 +44,7 @@
 	vertical-align: middle;
 	margin: auto;
 	margin: auto 5px auto 15px;
-	color: gray;
+	color: var(--secondary-grey);
 	font-size: 2rem;
 }
 
@@ -54,12 +54,12 @@
 	margin-right: 15px;
 	vertical-align: middle;
 	border-radius: 50%;
-	background-color: #8e9caa;
+	background-color: var(--primary-grey);
 	animation: fading 1.5s infinite;
 }
 
 .bar {
-	background-color: #8e9caa;
+	background-color: var(--primary-grey);
 	margin-bottom: 5px;
 	animation: fading 1.5s infinite;
 }
@@ -68,11 +68,11 @@
   0% {
     opacity: .1;
   }
-  
+
   50% {
     opacity: .2;
   }
-  
+
   100% {
     opacity: .1;
   }

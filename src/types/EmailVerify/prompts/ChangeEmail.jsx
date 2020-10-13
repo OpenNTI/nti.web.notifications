@@ -84,7 +84,7 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 			<div className={styles.sub}></div>
 			<Form onSubmit={onEmailChangeSubmit} noValidate={false} onInvalid={onInvalid}>
 				<Input.Clearable className={styles.inputBox}>
-					<Input.Email className={styles.inputField} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
+					<Input.Email className={[styles.inputField, !emailValid ? styles.redInputField : []].join(' ')} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
 				</Input.Clearable>
 
 				<div className={styles.errorMessage}>

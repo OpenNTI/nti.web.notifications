@@ -8,7 +8,7 @@ div {
 	width: 21px;
 	height: 24px;
 	cursor: pointer;
-	background-color: gray;
+	background-color: var(--secondary-grey);
 }
 
 .bell::after {
