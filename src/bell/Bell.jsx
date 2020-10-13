@@ -6,14 +6,15 @@ import styles from './Bell.css';
 
 Bell.propTypes = {
 	count: PropTypes.number.isRequired,
+	isThemeDark: PropTypes.bool.isRequired,
 	onClick: PropTypes.func.isRequired,
 };
 
-export default function Bell ( { count, onClick } ) {
+export default function Bell ( { count, isThemeDark, onClick } ) {
 	return (
 		<div>
 			<Badge badge={count}>
-				<div className={styles.bell} onClick={onClick}/>
+				<div className={[styles.bell, isThemeDark ? styles.darkTheme : styles.lightTheme].join(' ')} onClick={onClick}/>
 			</Badge>
 		</div>
 	);

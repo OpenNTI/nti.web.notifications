@@ -10,6 +10,6 @@ export default {
 
 export const BellTemplate = () => {
 	return (
-		<Bell count={3} />
+		<Bell count={3} isThemeDark={false} />
 	);
 };

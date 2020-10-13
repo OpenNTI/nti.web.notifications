@@ -8,12 +8,11 @@ div {
 	width: 21px;
 	height: 24px;
 	cursor: pointer;
-	background-color: var(--secondary-grey);
+	color: black;
 }
 
 .bell::after {
 	content: "";
-	background-image: url("../assets/icon-white.svg");
 	overflow: hidden;
 	top: 50%;
 	left: 50%;
@@ -25,4 +24,12 @@ div {
 	opacity: 1;
 	margin-top: -12px;
 	margin-left: -10px;
+}
+
+.darkTheme::after {
+	background-image: url("../assets/icon-white.svg");
+}
+
+.lightTheme::after {
+	background-image: url("../assets/icon-dark.svg");
 }

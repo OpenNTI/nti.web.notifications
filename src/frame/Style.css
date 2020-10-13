@@ -9,7 +9,7 @@
 }
 
 .notificationItemContainer:hover {
-	background-color: var(--quad-grey);
+	background-color: var(--tertiary-grey);
 }
 
 .notificationItem {

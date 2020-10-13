@@ -6,7 +6,7 @@ import { subscribeToIncoming } from './Socket';
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
-const NOTIFICATIONS_INIT_NUM = 5;
+const NOTIFICATIONS_INIT_NUM = 10;
 
 const Loading = 'loadingProp';
 const Items = 'itemsProp';
@@ -64,13 +64,13 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		this.initialLoad = true;
 		// Subscribe to incoming notifications emitted from the legacy code, for now.
 		subscribeToIncoming((item) => this.onIncoming(item));
-		
+
 		this.set({
 			[Loading]: true,
 		});
 
 		try {
-			// Get a large batch of 20 items and figure out how the unread count
+			// Get a large batch of 20 items and figure out the unread count
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
@@ -135,7 +135,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	async [UpdateNewItems] () {

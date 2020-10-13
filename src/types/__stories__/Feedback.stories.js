@@ -21,6 +21,6 @@ export const FeedbackTemplate = (args) => {
 
 FeedbackTemplate.args = {
 	assignmentId: 'test_assignment_id',
-	title: 'Test title',
+	title: 'Test Assignment',
 	MimeType: Models.assessment.assignment.AssignmentFeedback.MimeType,
 };

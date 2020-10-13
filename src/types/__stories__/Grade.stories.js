@@ -1,8 +1,7 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
+
 import Grade from '../Grade';
-
-
 
 export default {
 	title: 'Grade',

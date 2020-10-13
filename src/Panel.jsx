@@ -1,4 +1,5 @@
 import { wait } from '@nti/lib-commons';
+import { LinkTo } from '@nti/web-routing';
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
 import React, { useState , useEffect } from 'react';
@@ -97,7 +98,7 @@ function Panel ( { newItemsExist, loadNewItems } ) {
 								}
 							})
 						) : (
-							<div><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+							<div style={{textAlign: 'center',}}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
 						)}
 						{moreItems && (
 							<div className={styles.emptyItem}>
@@ -105,8 +106,11 @@ function Panel ( { newItemsExist, loadNewItems } ) {
 							</div>
 						)}
 					</div>
-					{/* TODO: add show all link; ask Andrew about the link */}
-					<div className={styles.showAll}><a href="/app/notifications/" className={styles.showAll}><Translate localeKey="showAll" /></a></div>
+					<div className={styles.showAllContainer}>
+						<LinkTo.Path to="./app/notifications">
+							<Translate localeKey="showAll" />
+						</LinkTo.Path>
+					</div>
 				</div>
 			)}
 		</Loading.Placeholder>

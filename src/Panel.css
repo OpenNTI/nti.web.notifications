@@ -4,7 +4,15 @@
     right: 15px !important;
     left: auto !important;
     width: 300px;
-    overflow: visible;
+	overflow: visible;
+	background-color: var(--panel-background);
+	border-radius: 15px;
+}
+
+.showAllContainer {
+	text-align: center;
+	/* border-top: solid 1px var(--tertiary-grey); */
+	margin: 5px 0px;
 }
 
 .showAll {
@@ -16,7 +24,12 @@
 }
 
 .notificationsContainer {
-    height: calc(100vh - 137px);
     overflow: scroll;
-    max-height: calc(5 * 76px);
+    max-height: calc(6 * 76px);
+}
+
+@media only screen and (max-height: calc(6 * 76px)) {
+	.notificationsContainer {
+		max-height: calc(100vh - 137px);
+	}
 }

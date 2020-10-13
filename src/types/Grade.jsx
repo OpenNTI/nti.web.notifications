@@ -23,21 +23,18 @@ Grade.MimeTypes = [
 	COMMON_PREFIX + 'grade',
 ];
 
+async function resolveAssignment (item, apply) {
+	const assignmentId = item.AssignmentId;
+	const service = await getService();
+	apply(await service.getObject(assignmentId));
+}
+
 export default function Grade ({ item }) {
 	const [assignment, setAssignment] = useState('');
-	const assignmentId = item.AssignmentId;
-	// Get assignment's title
-	const getAssignment = async () => {
-		const service = await getService();
-		const assignmentTitle = service.getObject(assignmentId).title;
-		setAssignment(assignmentTitle);
-	};
-	
+
 	useEffect(() => {
-		if (!assignment && assignmentId) {
-			getAssignment();
-		}
-	}, []);
+		resolveAssignment(item, setAssignment);
+	}, [assignment]);
 
 	return (
 		<NotificationItemFrame item={item}>
@@ -45,7 +42,7 @@ export default function Grade ({ item }) {
 			<Translate
 				localeKey="action"
 				with={{
-					assignment: item.title || assignment,
+					assignment: assignment.title || item.title,
 				}}
 			/>
 		</NotificationItemFrame>

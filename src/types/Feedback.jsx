@@ -23,28 +23,26 @@ Feedback.MimeTypes = [
 	COMMON_PREFIX + 'assessment.userscourseassignmenthistoryitemfeedback',
 ];
 
+async function resolveAssignment (item, apply) {
+	const assignmentId = item.AssignmentId;
+	const service = await getService();
+	apply(await service.getObject(assignmentId));
+}
+
 export default function Feedback ({ item }) {
 	const [assignment, setAssignment] = useState('');
-	// Get assignment's title
-	const getAssignment = async () => {
-		const assignmentId = item.AssignmentId;
-		const service = await getService();
-		const assignmentTitle = service.getObject(assignmentId).title;
-		setAssignment(assignmentTitle);
-	};
-	
+
 	useEffect(() => {
-		if (!assignment) {
-			getAssignment();
-		}
-	}, []);
+		resolveAssignment(item, setAssignment);
+	}, [assignment]);
+
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}
 			<Translate
 				localeKey="action"
 				with={{
-					t: assignment || item.title,
+					t: assignment.title || item.title,
 				}}
 			/>
 		</NotificationItemFrame>
