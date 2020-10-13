@@ -5,6 +5,8 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
+import Registry from './Registry';
+
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Unknown', {
 	unknownString: 'Unknown %(t)s',
@@ -12,9 +14,12 @@ const translation = scoped('nti-notifications.notifications.types.Unknown', {
 
 const Translate = Text.Translator(translation);
 
+Registry.setDefault(Unknown);
+
 Unknown.propTypes = {
 	item: PropTypes.object.isRequired,
 };
+
 
 export default function Unknown ({ item }) {
 	const type = item.MimeType && item.MimeType.match(/[a-zA-Z]*$/gm);

@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Note', {
@@ -20,9 +20,7 @@ Note.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Note.MimeTypes = [
-	COMMON_PREFIX + 'note',
-];
+register(Note, 'note');
 
 export default function Note ({ item }) {
 	let finalAction = '';
