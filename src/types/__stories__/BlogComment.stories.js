@@ -1,7 +1,8 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+
+import BlogComment from '../BlogComment';
 
 export default {
 	title: 'Blog Comment',
@@ -15,7 +16,7 @@ export const BlogCommentTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <BlogComment item={item} />;
 };
 
 BlogCommentTemplate.args = {

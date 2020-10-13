@@ -61,21 +61,32 @@ export const DefaultTemplate = () => {
 				getLastModified: () => { return new Date(0); },
 				MimeType: Models.profile.Badge.MimeTypes[1],
 				name: 'Test',
+			}, {
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.forums.Post.MimeTypes[5],
+				name: 'Test',
+			}, {
+				creator: 'quiz_tester',
+				getLastModified: () => { return new Date(0); },
+				MimeType: Models.entities.User.MimeType,
+				name: 'Test',
 			}];
 			const start = config.batchStart;
 			let end = start + config.batchSize;
 			if (end >= items.length) {
 				end = items.length;
 			}
+			let slicedItems = items.slice(start, end);
 			return {
-				Items: items.slice(start, end),
+				Items: slicedItems,
 				hasLink: () => {
 					return true;
 				},
 				putToLink: () => {
 					return true;
 				},
-				ItemCount: 2,
+				ItemCount: slicedItems.length,
 				TotalItemCount: items.length,
 			};
 		},

@@ -1,11 +1,14 @@
+import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Store from './Store';
 import { getComponent } from './types/index';
 import styles from './Panel.css';
+import ItemPlaceholder from './frame/frames/Placeholder';
+
 
 
 // String localization
@@ -31,38 +34,50 @@ const Translate = Text.Translator(translation);
  */
 
 Panel.propTypes = {
-	onScroll: PropTypes.func.isRequired,
+	newItemsExist: PropTypes.func.isRequired,
+	loadNewItems: PropTypes.func.isRequired,
 };
 
-function Panel ( { onScroll } ) {
+function Panel ( { newItemsExist, loadNewItems } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
+		[Store.MoreItems]: moreItems,
 		[Store.Error]: error,
 	} = Store.useMonitor([
 		Store.Items,
 		Store.Loading,
+		Store.MoreItems,
 		Store.Error,
 	]);
-
 	const hasItems = items && items.length > 0;
-	const [dismissedNotifications, setDismissedNotifications] = useState([null]);
-	const [scrolledDown, setScrolledDown] = useState(false);
+	const [dismissedNotifications, setDismissedNotifications] = useState([
+		null,
+	]);
+	const [loadingScroll, setLoadingScroll] = useState(false);
 
-	if (scrolledDown) {
-		// TODO: add loading spinner and wait for better UX
-		onScroll();
-		setScrolledDown(false);
-	}
+	useEffect(() => {
+		const handleLoadingScroll =  async () => {
+			await wait(500);
+			loadNewItems();
+		};
+		if (loadingScroll) {
+			handleLoadingScroll();
+			setLoadingScroll(false);
+		}
+	}, [loadingScroll]);
 
 	function handleScroll (e) {
 		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 		if (bottom) {
-			// User scrolled down
-			setScrolledDown(true);
+			// User scrolled down to the bottom
+			// Check if new items exist
+			if (newItemsExist()) {
+				setLoadingScroll(true);
+			}
 		}
 	}
-    
+
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			{error ? (
@@ -83,6 +98,11 @@ function Panel ( { onScroll } ) {
 							})
 						) : (
 							<div><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+						)}
+						{moreItems && (
+							<div className={styles.emptyItem}>
+								<ItemPlaceholder />
+							</div>
 						)}
 					</div>
 					{/* TODO: add show all link; ask Andrew about the link */}

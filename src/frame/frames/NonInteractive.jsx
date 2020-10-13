@@ -7,10 +7,10 @@ import styles from '../Style.css';
 NonInteractiveFrame.propTypes = {
 	item: PropTypes.object.isRequired,
 	username: PropTypes.string.isRequired,
-	parentChildren: PropTypes.object.isRequired,
+	children: PropTypes.object.isRequired,
 };
 
-export default function NonInteractiveFrame ( { item, username, parentChildren } ) {
+export default function NonInteractiveFrame ( { item, username, children } ) {
 	username = username ? username : item.creator || item.Creator;
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 	return (
@@ -18,7 +18,7 @@ export default function NonInteractiveFrame ( { item, username, parentChildren }
 			{username && <Avatar className={styles.avatar} entity={username} width="56" height="56" />}
 			<div className={styles.wrap}>
 				{username && <DisplayName className={styles.displayName} entity={username} />}
-				{parentChildren}
+				{children}
 				<br></br>
 				<div className={styles.notificationItemTime}>
 					<DateTime date={eventTime} relative />

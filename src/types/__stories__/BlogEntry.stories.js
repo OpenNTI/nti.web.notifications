@@ -1,7 +1,8 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+
+import BlogEntry from '../BlogEntry';
 
 export default {
 	title: 'Blog Entry',
@@ -16,7 +17,7 @@ export const BlogEntryTemplate = (args) => {
 		getLastModified: () => { return new Date(0); },
 
 	};
-	return React.createElement(getComponent(item), { item });
+	return <BlogEntry item={item} />;
 };
 
 BlogEntryTemplate.args = {

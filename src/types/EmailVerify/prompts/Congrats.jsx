@@ -14,14 +14,14 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Co
 const Translate = Text.Translator(translation);
 
 CongratsPropmt.propTypes = {
-	onCancel: PropTypes.func.isRequired,
+	onClose: PropTypes.func.isRequired,
 };
 
 
 
-export default function CongratsPropmt ({ onCancel } ) {
+export default function CongratsPropmt ({ onClose } ) {
 	const buttons = [
-		{ label: <Translate localeKey="dismiss" />, type: 'submit', onClick: onCancel },
+		{ label: <Translate localeKey="dismiss" />, type: 'submit', onClick: onClose },
 	];
 	return (
 		<div className={styles.congratsContainer} style={{ width: 'inherit', }}>

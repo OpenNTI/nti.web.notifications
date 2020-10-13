@@ -18,7 +18,8 @@ export default function Change ({ item }) {
 
 	if (ItemType) {
 		return <ItemType item={item.getItem() || item.Item}/>;
-	} else {
-		return <Unknown item={item} />;
 	}
+
+	return <Unknown item={item} />;
+
 }

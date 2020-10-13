@@ -30,7 +30,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const loading = isPending(resolver);
 	const user = isResolved(resolver) ? resolver : null;
-	
+
 	const [tokenInvalid, setTokenInvalid] = useState(null);
 	// Verify Dialog State
 	const [verifyPrompt, setVerifyPrompt] = useState(false);
@@ -38,7 +38,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const closeVerifyPrompt = () => {
 		setVerifyPrompt(false);
 	};
-	
+
 	// Info Dialog State
 	const [infoPrompt, setInfoPrompt] = useState(false);
 	const openInfoPrompt = () => {
@@ -106,10 +106,10 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 					<div className={styles.promptView}>
 						<div className={styles.dialogContent}>
 							{verifyPrompt && (
-								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} onCancel={cancelDismissCallback} tokenInvalid={tokenInvalid} />
+								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} onClose={cancelDismissCallback} tokenInvalid={tokenInvalid} />
 							)}
 							{infoPrompt && (
-								<InfoWindow onCancel={cancelDismissCallback} />
+								<InfoWindow onClose={cancelDismissCallback} />
 							)}
 							{congratsPrompt && (
 								<CongratsPropmt onDismiss={cancelDismissCallback} />
@@ -119,6 +119,6 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 				</Prompt.Dialog>
 			)}
 		</div>
-		
+
 	);
 }

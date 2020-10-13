@@ -23,7 +23,7 @@ export const ChangeBadgeTemplate = (args) => {
 			};
 		}
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Change item={item} />;
 };
 
 ChangeBadgeTemplate.args = {

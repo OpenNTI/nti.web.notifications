@@ -1,7 +1,8 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
+import Grade from '../Grade';
 
-import { getComponent } from '../';
+
 
 export default {
 	title: 'Grade',
@@ -14,7 +15,7 @@ export const GradeTemplate = (args) => {
 		...args,
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Grade item={item} />;
 };
 
 GradeTemplate.args = {

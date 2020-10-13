@@ -1,7 +1,8 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+
+import Contact from '../Contact';
 
 export default {
 	title: 'Contact',
@@ -15,7 +16,7 @@ export const ContactTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Contact item={item} />;
 };
 
 ContactTemplate.args = {

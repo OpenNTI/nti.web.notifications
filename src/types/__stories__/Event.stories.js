@@ -1,7 +1,8 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+
+import Event from '../Event';
 
 export default {
 	title: 'Event',
@@ -15,7 +16,7 @@ export const EventTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Event item={item} />;
 };
 
 EventTemplate.args = {

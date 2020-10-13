@@ -16,7 +16,7 @@
 }
 
 .notificationsContainer {
-    max-height: calc(100vh - 137px);
+    height: calc(100vh - 137px);
     overflow: scroll;
-
+    max-height: calc(5 * 76px);
 }

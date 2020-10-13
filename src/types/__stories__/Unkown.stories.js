@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getComponent } from '../';
+import Unknown from '../Unknown';
 
 export default {
 	title: 'Unknown',
@@ -14,7 +14,7 @@ const UnknownTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Unknown item={item} />;
 };
 
 export const UnkownTypeStory = UnknownTemplate.bind({});

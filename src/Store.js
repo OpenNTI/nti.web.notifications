@@ -6,13 +6,17 @@ import { subscribeToIncoming } from './Socket';
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
+const NOTIFICATIONS_INIT_NUM = 5;
+
 const Loading = 'loadingProp';
 const Items = 'itemsProp';
 const Error = 'errorProp';
 const UnreadCount = 'unreadCount';
+const MoreItems = 'moreItems';
 
 const UpdateLastViewed = 'updateLastViewed';
-const UpdateShownItem = 'updateShownItem';
+const UpdateNewItems = 'updateNewItems';
+const CheckNewItemsExist = 'checkNewItemsExist';
 const Load = 'load';
 
 const Pinnable = [
@@ -41,9 +45,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	static Items = Items;
 	static Error = Error;
 	static UnreadCount = UnreadCount;
+	static MoreItems = MoreItems;
 
 	static UpdateLastViewed = UpdateLastViewed;
-	static UpdateShownItem = UpdateShownItem;
+	static UpdateNewItems = UpdateNewItems;
+	static CheckNewItemsExist = CheckNewItemsExist;
 	static Load = Load;
 
 	onIncoming (notable) {
@@ -64,21 +70,15 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		});
 
 		try {
+			// Get a large batch of 20 items and figure out how the unread count
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
-			const batch = await service.getBatch(url, {
+			let batch = await service.getBatch(url, {
 				batchStart: 0,
-				batchSize: 2,
+				batchSize: 20,
 			});
-
-			const {Items: items} = batch;
-
-			const pinned = await Promise.all(Pinnable.map((n) => n()));
-			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
-			// and Boolean(x) returns the boolean representation of x.
-			const notifications = [...pinned.filter(Boolean), ...items];
-
+			let {Items: items} = batch;
 			const rawLastViewed = await service.get(`${url}/lastViewed`);
 			const lastViewedDate = new Date(parseFloat(rawLastViewed, 10) / 1000);
 			let unreadCount = 0;
@@ -91,11 +91,22 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				}
 			}
 
+			// Get a smaller batch to display to the user
+			batch = await service.getBatch(url, {
+				batchStart: 0,
+				batchSize: NOTIFICATIONS_INIT_NUM,
+			});
+
+			const pinned = await Promise.all(Pinnable.map((n) => n()));
+			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
+			// and Boolean(x) returns the boolean representation of x.
+			const notifications = [...pinned.filter(Boolean), ...(batch.Items)];
 			this.set({
 				batch,
 				[Loading]: false,
 				[Items]: notifications,
 				[UnreadCount]: unreadCount,
+				[MoreItems]: notifications.length < batch.TotalItemCount,
 			});
 		} catch (e) {
 			this.set({
@@ -115,14 +126,29 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async [UpdateShownItem] () {
+	async [CheckNewItemsExist] () {
+		const batch = this.get('batch');
+		const currentlyShown =
+				this.get('currentlyShown') || batch.ItemCount;
+		const totalItemCount = batch.TotalItemCount;
+		if (currentlyShown === totalItemCount) {
+			return false;
+		}
+		return true;
+		
+	}
+
+	async [UpdateNewItems] () {
 		try {
+			// Check that we have more items to shwo
 			const batch = this.get('batch');
-			const currentlyShown = this.get('currentlyShown') || batch.ItemCount;
+			const currentlyShown =
+				this.get('currentlyShown') || batch.ItemCount;
 			const totalItemCount = batch.TotalItemCount;
 			if (currentlyShown === totalItemCount) {
-				return;
+				return false;
 			}
+			// We have new items, get at most 5 of them
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
@@ -132,14 +158,18 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			});
 			const alreadyPresentItems = this.get([Items]);
 			const itemsToAppend = newBatch.Items;
+
 			this.set({
-				currentlyShown: currentlyShown + itemsToAppend.length
+				currentlyShown: currentlyShown + itemsToAppend.length,
 			});
 			const items = [...alreadyPresentItems, ...itemsToAppend];
 
 			this.set({
 				[Items]: items,
+				[MoreItems]: items.length < batch.TotalItemCount,
 			});
+
+			return true;
 		} catch (e) {
 			this.set({
 				[Loading]: false,

@@ -1,7 +1,7 @@
 import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
-import { Badge, getComponent } from '../';
+import { Badge } from '../';
 
 export default {
 	title: 'Badge',
@@ -15,7 +15,7 @@ export const BadgeTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Badge item={item} />;
 };
 
 BadgeTemplate.args = {

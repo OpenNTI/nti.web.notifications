@@ -10,12 +10,14 @@ function NotificationFlyout () {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
 		[Store.UpdateLastViewed]: updateLastViewed,
-		[Store.UpdateShownItem]: UpdateShownItem,
+		[Store.UpdateNewItems]: updateNewItems,
+		[Store.CheckNewItemsExist]: checkNewItemsExist,
 	} = Store.useMonitor([
 		Store.UnreadCount,
 		Store.Load,
 		Store.UpdateLastViewed,
-		Store.UpdateShownItem,
+		Store.UpdateNewItems,
+		Store.CheckNewItemsExist
 	]);
 
 	// Load notifications from store
@@ -23,7 +25,7 @@ function NotificationFlyout () {
 
 	return (
 		<Flyout.Triggered trigger={(<div style={{display: 'inline-block'}}><Bell count={unreadCount} onClick={updateLastViewed}/></div>)}>
-			<Panel onScroll={UpdateShownItem}/>	
+			<Panel newItemsExist={checkNewItemsExist} loadNewItems={updateNewItems}/>	
 		</Flyout.Triggered>
 	);
 }

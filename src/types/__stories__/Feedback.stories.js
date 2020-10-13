@@ -1,7 +1,7 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+import Feedback from '../Feedback';
 
 export default {
 	title: 'Feedback',
@@ -16,7 +16,7 @@ export const FeedbackTemplate = (args) => {
 		getLastModified: () => { return new Date(0); },
 
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Feedback item={item} />;
 };
 
 FeedbackTemplate.args = {

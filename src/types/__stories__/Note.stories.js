@@ -1,7 +1,9 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+import Note from '../Note';
+
+
 
 export default {
 	title: 'Note',
@@ -15,7 +17,7 @@ export const NoteTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <Note item={item} />;
 };
 
 NoteTemplate.args = {

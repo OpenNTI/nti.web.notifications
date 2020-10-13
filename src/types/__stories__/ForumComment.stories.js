@@ -1,7 +1,9 @@
 import {Models} from '@nti/lib-interfaces';
 import React from 'react';
 
-import { getComponent } from '../';
+import ForumComment from '../ForumComment';
+
+
 
 export default {
 	title: 'Forum Comment',
@@ -15,7 +17,7 @@ export const ForumCommentTemplate = (args) => {
 		creator: 'quiz_tester',
 		getLastModified: () => { return new Date(0); },
 	};
-	return React.createElement(getComponent(item), { item });
+	return <ForumComment item={item} />;
 };
 
 ForumCommentTemplate.args = {
