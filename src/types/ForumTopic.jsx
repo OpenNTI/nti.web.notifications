@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.ForumTopic', {
@@ -23,6 +23,8 @@ ForumTopic.MimeTypes = [
 	COMMON_PREFIX + 'forums.contentheadlinetopic',
 	COMMON_PREFIX + 'forums.dflheadlinetopic',
 ];
+
+register(ForumTopic, 'forumTopic');
 
 export default function ForumTopic ({ item }) {
 	return (

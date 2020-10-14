@@ -20,6 +20,7 @@ Unknown.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
+Registry.setDefault(Unknown);
 
 export default function Unknown ({ item }) {
 	const type = item.MimeType && item.MimeType.match(/[a-zA-Z]*$/gm);

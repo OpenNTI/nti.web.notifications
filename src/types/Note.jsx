@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { register } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Note', {
@@ -19,6 +19,8 @@ const Translate = Text.Translator(translation);
 Note.propTypes = {
 	item: PropTypes.object.isRequired,
 };
+
+register(Note, 'note');
 
 register(Note, 'note');
 

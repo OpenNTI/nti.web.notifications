@@ -23,10 +23,21 @@ function register (Component, mimeTypeOrSuffix) {
 	Component.MimeTypes = [...MimeTypes, ...mimeTypes.filter(newMime => !MimeTypes.includes(newMime))];
 
 	// Add Component to the registry for the given mimeTypes
-	NotificationItemRegistry.register(mimeTypes)(Component);
+	NotificationItemRegistry.register(Component.MimeTypes)(Component);
 }
 
+/**
 
+ * Returns the appropriate component based on the type of
+ * the notification item given. Uses the item's MimeType property
+ * to determine equivalence.
+ *
+ * @static
+ * @param {*} item notification item given
+ * @param {*} type optional type of notification
+ * @return {*} A React component that represents the type
+ * of the supplied item.
+ */
 function getComponent (item) {
 	const type = item.MimeType || item.mimeType;
 	return NotificationItemRegistry.getInstance().getItemFor(type);

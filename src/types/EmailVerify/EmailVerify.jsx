@@ -3,7 +3,7 @@ import { Hooks, Prompt } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import { COMMON_PREFIX } from '../Registry';
+import { COMMON_PREFIX, register } from '../Registry';
 
 import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
@@ -15,7 +15,7 @@ import EmailVerifyWindow from './prompts/Verify';
 
 // This handles getting async data
 const {useResolver} = Hooks;
-const {isPending, isResolved} = useResolver;
+const {isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
@@ -26,9 +26,10 @@ EmailVerify.MimeTypes = [
 	COMMON_PREFIX + 'emailverify',
 ];
 
+register(EmailVerify, 'emailVerify');
+
 export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
-	const loading = isPending(resolver);
 	const user = isResolved(resolver) ? resolver : null;
 
 	const [tokenInvalid, setTokenInvalid] = useState(null);

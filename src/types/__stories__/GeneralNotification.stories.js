@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { TypesList } from '../';
@@ -33,4 +34,8 @@ GeneralStory.args = {
 	creator: 'Test User',
 	title: 'Test',
 	name: 'Test Badge',
+};
+
+GeneralTemplate.propTypes = {
+	type: PropTypes.any,
 };

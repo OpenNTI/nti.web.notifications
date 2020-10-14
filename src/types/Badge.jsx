@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Badge', {
@@ -23,16 +23,18 @@ Badge.MimeTypes = [
 	COMMON_PREFIX + 'openbadges.badge',
 ];
 
+register(Badge, 'badge');
+
 export default function Badge ( { item } ) {
 	return (
 		<NotificationItemFrame item={item} username={item.creator}>
 			{/* Building string to show to the user */}
 			<Translate
-				localeKey="action" 
+				localeKey="action"
 				with={{
 					badge: item.name,
 				}}
 			/>
 		</NotificationItemFrame>
-	);   
+	);
 }

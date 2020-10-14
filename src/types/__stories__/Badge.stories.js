@@ -1,7 +1,7 @@
 import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
-import { Badge } from '../';
+import Badge from '../Badge';
 
 export default {
 	title: 'Badge',

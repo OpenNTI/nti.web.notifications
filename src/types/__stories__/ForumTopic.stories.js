@@ -3,8 +3,6 @@ import React from 'react';
 
 import ForumTopic from '../ForumTopic';
 
-
-
 export default {
 	title: 'Forum Topic',
 	component: {},

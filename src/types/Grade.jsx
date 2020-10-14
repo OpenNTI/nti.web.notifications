@@ -6,7 +6,7 @@ import React, { useEffect , useState } from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Grade', {
@@ -28,6 +28,8 @@ async function resolveAssignment (item, apply) {
 	const service = await getService();
 	apply(await service.getObject(assignmentId));
 }
+
+register(Grade, 'grade');
 
 export default function Grade ({ item }) {
 	const [assignment, setAssignment] = useState('');

@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Event', {
@@ -22,6 +22,8 @@ Event.propTypes = {
 Event.MimeTypes = [
 	COMMON_PREFIX + 'courseware.coursecalendarevent',
 ];
+
+register(Event, 'event');
 
 export default function Event ({ item }) {
 	let finalAction = item.ChangeType === 'Created' ? 'createdAction' : 'updatedAction';

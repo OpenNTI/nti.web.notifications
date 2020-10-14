@@ -6,7 +6,7 @@ import React, { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Store from './Store';
-import { getComponent } from './types/index';
+import { getComponent } from './types/Registry';
 import styles from './Panel.css';
 import ItemPlaceholder from './frame/frames/Placeholder';
 

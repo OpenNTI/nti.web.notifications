@@ -28,7 +28,7 @@ function NotificationFlyout ( { isThemeDark } ) {
 	// Load notifications from store
 	load();
 
-	useEffect(() => load(), []);
+	// useEffect(() => load(), []);
 
 	return (
 		<Flyout.Triggered trigger={(<div style={{display: 'inline-block'}}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>

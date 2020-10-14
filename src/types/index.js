@@ -17,5 +17,5 @@ import './Unknown';
 import { getComponent } from './Registry';
 
 export {
-	getComponent
+	getComponent,
 };

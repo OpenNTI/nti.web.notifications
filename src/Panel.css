@@ -1,9 +1,9 @@
 .panelContainer {
-    position: fixed !important;
-    top: 85px !important;
-    right: 15px !important;
-    left: auto !important;
-    width: 300px;
+	position: fixed !important;
+	top: 85px !important;
+	right: 15px !important;
+	left: auto !important;
+	width: 300px;
 	overflow: visible;
 	background-color: var(--panel-background);
 	border-radius: 15px;
@@ -11,21 +11,20 @@
 
 .showAllContainer {
 	text-align: center;
-	/* border-top: solid 1px var(--tertiary-grey); */
-	margin: 5px 0px;
+	margin: 5px 0;
 }
 
 .showAll {
-    cursor: pointer;
-    text-align: center;
-    line-height: 2em;
+	cursor: pointer;
+	text-align: center;
+	line-height: 2em;
 	color: var(--primary-blue);
 	text-decoration: none;
 }
 
 .notificationsContainer {
-    overflow: scroll;
-    max-height: calc(6 * 76px);
+	overflow: scroll;
+	max-height: calc(6 * 76px);
 }
 
 @media only screen and (max-height: calc(6 * 76px)) {

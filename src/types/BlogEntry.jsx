@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.BlogEntry', {
@@ -20,6 +20,8 @@ BlogEntry.propTypes = {
 BlogEntry.MimeTypes = [
 	COMMON_PREFIX + 'forums.personalblogentry',
 ];
+
+register(BlogEntry, 'blogEntry');
 
 export default function BlogEntry ({ item }) {
 	return (

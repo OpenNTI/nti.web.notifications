@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import React from 'react';
 
 import useMockServer from '../../__test__/utils/use-mock-server';
-import { EmailVerify } from '../';
+import EmailVerify from '../EmailVerify';
 
 export default {
 	title: 'Email Verify',

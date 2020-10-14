@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX } from './Registry';
+import { COMMON_PREFIX, register } from './Registry';
 
 
 // String localization
@@ -22,6 +22,8 @@ Contact.propTypes = {
 Contact.MimeTypes = [
 	COMMON_PREFIX + 'user',
 ];
+
+register(Contact, 'contact');
 
 export default function Contact ({ item }) {
 	return (
