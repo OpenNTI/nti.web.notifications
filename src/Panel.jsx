@@ -80,6 +80,10 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 		}
 	}
 
+	const dismissClickCallBack = (ItemDelegate) => {
+		setDismissedNotifications([...dismissedNotifications, ItemDelegate]);
+	};
+
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			{error ? (
@@ -93,7 +97,7 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 								if (!dismissedNotifications.includes(ItemDelegate)) {
 									return (
 										<div key={key}>
-											<ItemDelegate item={item} onDismiss={() => setDismissedNotifications([...dismissedNotifications, ItemDelegate])} togglePrompt={(toggle) => onPromptToggle(toggle)} />
+											<ItemDelegate item={item} onDismiss={(Item) => dismissClickCallBack(Item)} togglePrompt={(toggle) => onPromptToggle(toggle)} />
 										</div>
 									);
 								}

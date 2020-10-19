@@ -26,7 +26,7 @@ EmailVerifyNotification.propTypes = {
 export default function EmailVerifyNotification ( { onDismiss, onVerifyClick, onInfoClick } ) {
 
 	return (
-		<NotificationItemFrame emailVerify={true} dismissCallBack={onDismiss}>
+		<NotificationItemFrame emailVerify={true} dismissCallBack={() => onDismiss()}>
 			<div className={styles.emailVerifyContainer}>
 				<div className={styles.alert}>
 					<Icons.Alert/>

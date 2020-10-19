@@ -15,7 +15,7 @@ export default function EmailVerifyFrame ( { onDismiss: dismiss, children } ) {
 				<div className={styles.wrap}>
 					{children}
 				</div>
-				<div onClick={dismiss} className={styles.dismissButton}>&times;</div>
+				<div onClick={() => dismiss()} className={styles.dismissButton}>&times;</div>
 			</div>
 		</div>
 	);

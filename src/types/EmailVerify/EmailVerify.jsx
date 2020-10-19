@@ -106,7 +106,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt }
 	}
 	return (
 		<div>
-			<EmailVerifyNotification onDismiss={onDismiss} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
+			<EmailVerifyNotification onDismiss={() => onDismiss(EmailVerify)} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
 					<div className={styles.promptView}>
