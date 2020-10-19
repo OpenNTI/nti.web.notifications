@@ -1,6 +1,7 @@
 .notificationItemContainer {
 	width: auto;
 	padding: 18px;
+	cursor: pointer;
 }
 
 .linkedNotification {
