@@ -1,7 +1,6 @@
 .notificationItemContainer {
 	width: auto;
-	padding: 10px;
-	border-radius: 15px;
+	padding: 18px;
 }
 
 .linkedNotification {
@@ -9,7 +8,7 @@
 }
 
 .notificationItemContainer:hover {
-	background-color: var(--tertiary-grey);
+	background-color: #EFEFEF;
 }
 
 .notificationItem {
@@ -19,7 +18,7 @@
 
 .wrap {
 	vertical-align: top;
-	font-size: 0.9375rem;
+	font-size: 14px;
 	line-height: 1.25;
 }
 
@@ -36,7 +35,7 @@
 
 .notificationItemTime {
 	color: var(--secondary-green);
-	font-size: 0.8125rem;
+	font-size: 11px;
 }
 
 .dismissButton {
@@ -49,8 +48,8 @@
 }
 
 .circle {
-	width: 56px;
-	height: 56px;
+	width:42px;
+	height: 42px;
 	margin-right: 15px;
 	vertical-align: middle;
 	border-radius: 50%;

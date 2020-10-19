@@ -20,7 +20,7 @@ export default function LinkedFrame ( { item, username, children } ) {
 	return (
 		<LinkTo.Object object={subItemId ? item.Item : item}>
 			<div className={styles.notificationItem}>
-				{username && <Avatar className={styles.avatar} entity={username} width="56" height="56" />}
+				{username && <Avatar className={styles.avatar} entity={username} width="42" height="42" />}
 				<div className={styles.wrap}>
 					{username && <DisplayName className={styles.displayName} entity={username} />}
 					{children}

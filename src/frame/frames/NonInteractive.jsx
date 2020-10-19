@@ -15,7 +15,7 @@ export default function NonInteractiveFrame ( { item, username, children } ) {
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 	return (
 		<div className={styles.notificationItem}>
-			{username && <Avatar className={styles.avatar} entity={username} width="56" height="56" />}
+			{username && <Avatar className={styles.avatar} entity={username} width="42" height="42" />}
 			<div className={styles.wrap}>
 				{username && <DisplayName className={styles.displayName} entity={username} />}
 				{children}

@@ -3,23 +3,25 @@
 	top: 85px !important;
 	right: 15px !important;
 	left: auto !important;
-	width: 300px;
+	width: 360px;
 	overflow: visible;
 	background-color: var(--panel-background);
-	border-radius: 15px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
 }
 
 .showAllContainer {
 	text-align: center;
-	margin: 5px 0;
-}
-
-.showAll {
 	cursor: pointer;
-	text-align: center;
-	line-height: 2em;
+	padding: 10px 0;
 	color: var(--primary-blue);
 	text-decoration: none;
+	font-weight: 500;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 600;
+	font-size: 16px;
 }
 
 .notificationsContainer {
