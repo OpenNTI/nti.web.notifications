@@ -52,9 +52,22 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	static CheckNewItemsExist = CheckNewItemsExist;
 	static Load = Load;
 
-	onIncoming (notable) {
+	async onIncoming (notable) {
+		let oldItems = this.get(Items) ?? [];
+		let pinnedItems = await Promise.all(Pinnable.map((n) => n()));
+		pinnedItems = pinnedItems.filter(Boolean);
+		oldItems = oldItems.filter((item) => {
+			for (let i = 0; i < pinnedItems.length; ++i) {
+				const pinnedItem = pinnedItems[i];
+				if (pinnedItem.MimeType === item.MimeType) {
+					return false;
+				}
+			}
+			return true;
+		});
+
 		this.set({
-			[Items]: [notable, ...(this.get(Items)) ?? []],
+			[Items]: [...pinnedItems, notable, ...oldItems],
 			[UnreadCount]: this.get(UnreadCount) + 1,
 		});
 	}

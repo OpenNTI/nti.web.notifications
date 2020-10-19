@@ -19,7 +19,8 @@ const {isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
-	onDismiss: PropTypes.func.isRequired
+	onDismiss: PropTypes.func.isRequired,
+	togglePrompt: PropTypes.func.isRequired,
 };
 
 EmailVerify.MimeTypes = [
@@ -28,7 +29,7 @@ EmailVerify.MimeTypes = [
 
 register(EmailVerify, 'emailVerify');
 
-export default function EmailVerify ( { user:userProp, onDismiss } ) {
+export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
@@ -44,6 +45,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const [infoPrompt, setInfoPrompt] = useState(false);
 	const openInfoPrompt = () => {
 		setInfoPrompt(true);
+		togglePrompt(true);
 	};
 	const closeInfoPrompt = () => {
 		setInfoPrompt(false);
@@ -53,6 +55,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const[congratsPrompt, setCongratsPrompt] = useState(false);
 	const openCongratsPrompt = () => {
 		setCongratsPrompt(true);
+		togglePrompt(true);
 	};
 	const closeCongratsPrompt = () => {
 		setCongratsPrompt(false);
@@ -63,6 +66,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 		infoPrompt && closeInfoPrompt();
 		verifyPrompt && closeVerifyPrompt();
 		congratsPrompt && closeCongratsPrompt();
+		togglePrompt(false);
 	};
 
 	function cancelDismissCallback () {
@@ -95,6 +99,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 		sendEmailVerification(user)
 			.then(() => {
 				setVerifyPrompt(true);
+				togglePrompt(true);
 			}, (error) => {
 				throw new Error(error.toString());
 			});

@@ -37,9 +37,10 @@ const Translate = Text.Translator(translation);
 Panel.propTypes = {
 	newItemsExist: PropTypes.func.isRequired,
 	loadNewItems: PropTypes.func.isRequired,
+	onPromptToggle: PropTypes.func.isRequired,
 };
 
-function Panel ( { newItemsExist, loadNewItems } ) {
+function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
@@ -92,7 +93,7 @@ function Panel ( { newItemsExist, loadNewItems } ) {
 								if (!dismissedNotifications.includes(ItemDelegate)) {
 									return (
 										<div key={key}>
-											<ItemDelegate item={item} onDismiss={() => setDismissedNotifications([...dismissedNotifications, ItemDelegate])} />
+											<ItemDelegate item={item} onDismiss={() => setDismissedNotifications([...dismissedNotifications, ItemDelegate])} togglePrompt={(toggle) => onPromptToggle(toggle)} />
 										</div>
 									);
 								}

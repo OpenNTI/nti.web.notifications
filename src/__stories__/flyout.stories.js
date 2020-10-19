@@ -22,7 +22,7 @@ function getRandomNotable () {
 
 function NewNotificationTrigger () {
 	return (
-		<button onClick={() => emitIncoming(getRandomNotable())}>Push Notification</button>	
+		<button onClick={() => emitIncoming(getRandomNotable())}>Push Notification</button>
 	);
 }
 
@@ -94,6 +94,12 @@ export const DefaultTemplate = () => {
 			return {
 				email: 'test@test.com',
 				isEmailVerified: () => {
+					return false;
+				},
+				getLink: () => {
+					return 'link';
+				},
+				hasLink: () => {
 					return true;
 				}
 			};

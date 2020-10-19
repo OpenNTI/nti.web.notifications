@@ -1,6 +1,6 @@
 import { Flyout } from '@nti/web-commons';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Bell from './bell/Bell';
 import Panel from './Panel';
@@ -25,14 +25,23 @@ function NotificationFlyout ( { isThemeDark } ) {
 		Store.CheckNewItemsExist
 	]);
 
-	// Load notifications from store
+	const [isPromptOpen, setIsPromptOpen] = useState(false);
+
+	const onPromptToggle = (toggle) => {
+		setIsPromptOpen(toggle);
+	};
+
+	let flyoutProps = {};
+
+	if (isPromptOpen) {
+		flyoutProps.open = true;
+	}
+
 	load();
 
-	// useEffect(() => load(), []);
-
 	return (
-		<Flyout.Triggered trigger={(<div style={{display: 'inline-block'}}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>
-			<Panel newItemsExist={checkNewItemsExist} loadNewItems={updateNewItems}/>
+		<Flyout.Triggered {...flyoutProps} trigger={(<div style={{display: 'inline-block'}}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>
+			<Panel newItemsExist={checkNewItemsExist} loadNewItems={updateNewItems} onPromptToggle={(toggle) => onPromptToggle(toggle) } />
 		</Flyout.Triggered>
 	);
 }

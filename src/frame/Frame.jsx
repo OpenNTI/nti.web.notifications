@@ -28,7 +28,7 @@ export default function NotificationItemFrame ( { children, item, username, emai
 	const isItemLinked = item && (item.Item || (item.Item && item.Item.getID()));
 	let Frame;
 	if (emailVerify) {
-		Frame = <EmailVerifyFrame children={children} dismissCallBack={dismissCallBack} />;
+		return <EmailVerifyFrame children={children} dismissCallBack={dismissCallBack} />;
 	} else {
 		const FrameName = isItemLinked ? LinkedFrame : NonInteractiveFrame;
 		Frame = <FrameName item={item} username={username} children={children} />;
