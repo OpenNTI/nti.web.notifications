@@ -7,9 +7,7 @@
 	overflow: visible;
 	background-color: var(--panel-background);
 	border-radius: 4px;
-	-webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
-	box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
 }
 
 .showAllContainer {
@@ -18,7 +16,6 @@
 	padding: 10px 0;
 	color: var(--primary-blue);
 	text-decoration: none;
-	font-weight: 500;
 	font-family: 'Open Sans', Arial, sans-serif;
 	font-weight: 600;
 	font-size: 16px;
@@ -27,11 +24,19 @@
 
 .notificationsContainer {
 	overflow: scroll;
-	max-height: calc(6 * 76px);
+	height: auto;
+
+	/* max-height: calc(6 * 78px); */
 }
 
-@media only screen and (max-height: calc(6 * 76px)) {
+/*
+@media only screen and (max-height: calc(6 * 78px)) {
 	.notificationsContainer {
 		max-height: calc(100vh - 137px);
 	}
+} */
+
+.noNotifications {
+	text-align: center;
+	margin: 10px 0;
 }

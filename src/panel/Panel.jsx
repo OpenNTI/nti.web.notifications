@@ -5,10 +5,11 @@ import { Errors, Loading, Text } from '@nti/web-commons';
 import React, { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Store from './Store';
-import { getComponent } from './types/Registry';
+import Store from '../Store';
+import { getComponent } from '../types/Registry';
+import ItemPlaceholder from '../frame/frames/Placeholder';
+
 import styles from './Panel.css';
-import ItemPlaceholder from './frame/frames/Placeholder';
 
 
 
@@ -84,13 +85,19 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 		setDismissedNotifications([...dismissedNotifications, ItemDelegate]);
 	};
 
+	const defaultHeight = 6 * 78;
+	let notificationsContainerHeight = defaultHeight;
+	if (window.innerHeight <= defaultHeight) {
+		notificationsContainerHeight = window.innerHeight - 137;
+	}
+
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
 			{error ? (
 				<Errors.Message error={error} />
 			) : (
 				<div className={styles.panelContainer} onScroll={handleScroll}>
-					<div className={styles.notificationsContainer}>
+					<div style={{ maxHeight: notificationsContainerHeight}} className={styles.notificationsContainer}>
 						{hasItems ? (
 							items.map((item, key) => {
 								const ItemDelegate = getComponent(item);
@@ -103,7 +110,7 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 								}
 							})
 						) : (
-							<div style={{textAlign: 'center',}}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+							<div className={styles.noNotifications}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
 						)}
 						{moreItems && (
 							<div className={styles.emptyItem}>

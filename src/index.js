@@ -1,2 +1,2 @@
 export * from './Socket';
-export * from './Flyout';
+export * from './flyout/Flyout';

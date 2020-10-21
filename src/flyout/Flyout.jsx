@@ -2,9 +2,11 @@ import { Flyout } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import Bell from './bell/Bell';
-import Panel from './Panel';
-import Store from './Store';
+import Bell from '../bell/Bell';
+import Panel from '../panel/Panel';
+import Store from '../Store';
+
+import styles from './Flyout.css';
 
 NotificationFlyout.propTypes = {
 	isThemeDark: PropTypes.bool.isRequired,
@@ -40,7 +42,7 @@ function NotificationFlyout ( { isThemeDark } ) {
 	load();
 
 	return (
-		<Flyout.Triggered {...flyoutProps} trigger={(<div style={{display: 'inline-block'}}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>
+		<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>
 			<Panel newItemsExist={checkNewItemsExist} loadNewItems={updateNewItems} onPromptToggle={(toggle) => onPromptToggle(toggle) } />
 		</Flyout.Triggered>
 	);
