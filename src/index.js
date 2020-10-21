@@ -1,2 +1,2 @@
-export * from './Socket';
-export * from './flyout/Flyout';
+export subscribeToIncoming from './Socket';
+export NotificationsTab from './flyout/Flyout';
