@@ -20,24 +20,17 @@ const Translate = Text.Translator(translation);
 EmailVerifyNotification.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
 	onVerifyClick: PropTypes.func.isRequired,
-	onInfoClick: PropTypes.func.isRequired,
+	className: PropTypes.string
 };
 
-export default function EmailVerifyNotification ( { onDismiss, onVerifyClick, onInfoClick } ) {
+export default function EmailVerifyNotification ( { onDismiss, onVerifyClick, className } ) {
 
 	return (
-		<NotificationItemFrame emailVerify={true} dismissCallBack={() => onDismiss()}>
+		<NotificationItemFrame emailVerify={true} dismissCallBack={() => onDismiss()} className={className}>
 			<div className={styles.emailVerifyContainer}>
-				<div className={styles.alert}>
-					<Icons.Alert/>
-				</div>
 				<Translate localeKey="message" />
-				<br />
-				<div className={styles.actionLinksContainer}>
-					<a className={styles.actionLink} onClick={onVerifyClick}><Translate localeKey="verifyNow"/></a>
-					<span className={styles.linksSeperator}>|</span>
-					<a className={styles.actionLink} onClick={onInfoClick}><Translate localeKey="moreInfo" /></a>
-				</div>
+				<br/>
+				<a className={styles.actionLink} onClick={onVerifyClick}><Translate localeKey="verifyNow" /></a>
 			</div>
 		</NotificationItemFrame>
 	);

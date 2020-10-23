@@ -6,16 +6,17 @@ import styles from '../Style.css';
 EmailVerifyFrame.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
 	children: PropTypes.object.isRequired,
+	className: PropTypes.string,
 };
 
-export default function EmailVerifyFrame ( { onDismiss: dismiss, children } ) {
+export default function EmailVerifyFrame ( { onDismiss: dismiss, children, className, onClick } ) {
 	return (
-		<div className={styles.notificationItemContainer} style={{backgroundColor: '#f7f2d6'}}>
+		<div className={[styles.emailVerifyFrame, className].join(' ')} onClick={onClick}>
 			<div className={styles.notificationItem}>
+				<div className={styles.emailVerifyCircle}>@</div>
 				<div className={styles.wrap}>
 					{children}
 				</div>
-				<div onClick={() => dismiss()} className={styles.dismissButton}>&times;</div>
 			</div>
 		</div>
 	);

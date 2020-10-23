@@ -11,6 +11,7 @@ import { sendEmailVerification, verifyEmailToken } from './utils';
 import CongratsPropmt from './prompts/Congrats';
 import InfoWindow from './prompts/Info';
 import EmailVerifyWindow from './prompts/Verify';
+import EmailVerifyToastContent from './Toast';
 
 
 // This handles getting async data
@@ -21,6 +22,7 @@ EmailVerify.propTypes = {
 	user: PropTypes.object,
 	onDismiss: PropTypes.func.isRequired,
 	togglePrompt: PropTypes.func.isRequired,
+	toast: PropTypes.bool,
 };
 
 EmailVerify.MimeTypes = [
@@ -29,7 +31,7 @@ EmailVerify.MimeTypes = [
 
 register(EmailVerify, 'emailVerify');
 
-export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt } ) {
+export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, className, toast} ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
@@ -104,9 +106,15 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt }
 				throw new Error(error.toString());
 			});
 	}
+	const delegateProps = {
+		className: className,
+		onDismiss: () => onDismiss(EmailVerify),
+		onVerifyClick: verifyClickCallback,
+		onInfoClick: openInfoPrompt,
+	};
 	return (
 		<div>
-			<EmailVerifyNotification onDismiss={() => onDismiss(EmailVerify)} onVerifyClick={verifyClickCallback} onInfoClick={openInfoPrompt} />
+			{toast ? <EmailVerifyToastContent {...delegateProps} /> : <EmailVerifyNotification {...delegateProps} />}
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
 					<div className={styles.promptView}>

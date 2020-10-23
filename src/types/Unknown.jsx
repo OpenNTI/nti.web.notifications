@@ -14,8 +14,6 @@ const translation = scoped('nti-notifications.notifications.types.Unknown', {
 
 const Translate = Text.Translator(translation);
 
-Registry.setDefault(Unknown);
-
 Unknown.propTypes = {
 	item: PropTypes.object.isRequired,
 };

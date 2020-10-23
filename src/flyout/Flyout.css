@@ -1,3 +1,7 @@
 .triggerContainer {
-	display: inline-block;
+	width: 50px;
+	cursor: pointer;
+	height: 70px;
+	text-align: center;
+	z-index: 200;
 }

@@ -13,6 +13,7 @@ const Items = 'itemsProp';
 const Error = 'errorProp';
 const UnreadCount = 'unreadCount';
 const MoreItems = 'moreItems';
+const Toasts = 'toasts';
 
 const UpdateLastViewed = 'updateLastViewed';
 const UpdateNewItems = 'updateNewItems';
@@ -22,8 +23,17 @@ const Load = 'load';
 const Pinnable = [
 	async () => {
 		const user = await getAppUser();
-		if (user && user.email && !user.isEmailVerified()) {
+		if (user && user.email && user.hasLink('RequestEmailVerification')) {
 			return { MimeType: 'application/vnd.nextthought.emailverify' };
+		}
+	}
+];
+
+const Toastable = [
+	async () => {
+		const user = await getAppUser();
+		if (user && user.email && user.hasLink('RequestEmailVerification')) {
+			return { MimeType: 'application/vnd.nextthought.toasts.emailverify' };
 		}
 	}
 ];
@@ -46,6 +56,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	static Error = Error;
 	static UnreadCount = UnreadCount;
 	static MoreItems = MoreItems;
+	static Toasts = Toasts;
 
 	static UpdateLastViewed = UpdateLastViewed;
 	static UpdateNewItems = UpdateNewItems;
@@ -114,12 +125,18 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
 			// and Boolean(x) returns the boolean representation of x.
 			const notifications = [...pinned.filter(Boolean), ...(batch.Items)];
+
+			// Get toasts
+			const toasts = await Promise.all(Toastable.map((n) => n()));
+			let filteredToasts = toasts.filter(Boolean);
+
 			this.set({
 				batch,
 				[Loading]: false,
 				[Items]: notifications,
 				[UnreadCount]: unreadCount,
 				[MoreItems]: notifications.length < batch.TotalItemCount,
+				[Toasts]: filteredToasts,
 			});
 		} catch (e) {
 			this.set({

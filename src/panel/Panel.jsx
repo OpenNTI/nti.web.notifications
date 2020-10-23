@@ -6,12 +6,10 @@ import React, { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Store from '../Store';
-import { getComponent } from '../types/Registry';
+import { getComponent } from '../types/index';
 import ItemPlaceholder from '../frame/frames/Placeholder';
 
 import styles from './Panel.css';
-
-
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -39,9 +37,10 @@ Panel.propTypes = {
 	newItemsExist: PropTypes.func.isRequired,
 	loadNewItems: PropTypes.func.isRequired,
 	onPromptToggle: PropTypes.func.isRequired,
+	onShowAllClick: PropTypes.func.isRequired,
 };
 
-function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
+function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
@@ -54,6 +53,7 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 		Store.Error,
 	]);
 	const hasItems = items && items.length > 0;
+
 	const [dismissedNotifications, setDismissedNotifications] = useState([
 		null,
 	]);
@@ -118,8 +118,8 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 							</div>
 						)}
 					</div>
-					<div className={styles.showAllContainer}>
-						<LinkTo.Path to="./app/notifications">
+					<div className={styles.showAllContainer} onClick={onShowAllClick}>
+						<LinkTo.Path to="./app/notifications" exact>
 							<Translate localeKey="showAll" />
 						</LinkTo.Path>
 					</div>

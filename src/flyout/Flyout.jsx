@@ -1,33 +1,36 @@
 import { Flyout } from '@nti/web-commons';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import Bell from '../bell/Bell';
 import Panel from '../panel/Panel';
 import Store from '../Store';
+import { getComponent } from '../types';
 
 import styles from './Flyout.css';
 
-NotificationFlyout.propTypes = {
-	isThemeDark: PropTypes.bool.isRequired,
-};
 
-function NotificationFlyout ( { isThemeDark } ) {
+function NotificationFlyout () {
 	const {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
 		[Store.UpdateLastViewed]: updateLastViewed,
 		[Store.UpdateNewItems]: updateNewItems,
 		[Store.CheckNewItemsExist]: checkNewItemsExist,
+		[Store.Toasts]: toasts,
 	} = Store.useMonitor([
 		Store.UnreadCount,
 		Store.Load,
 		Store.UpdateLastViewed,
 		Store.UpdateNewItems,
-		Store.CheckNewItemsExist
+		Store.CheckNewItemsExist,
+		Store.Toasts,
 	]);
 
+	const hasToasts = toasts && toasts.length > 0;
+
+
 	const [isPromptOpen, setIsPromptOpen] = useState(false);
+	const [showAllClicked, setShowAllClicked] = useState(false);
 
 	const onPromptToggle = (toggle) => {
 		setIsPromptOpen(toggle);
@@ -39,12 +42,31 @@ function NotificationFlyout ( { isThemeDark } ) {
 		flyoutProps.open = true;
 	}
 
+	if (showAllClicked) {
+		// flyoutProps.open = false;
+	}
+
+	// const beforeDismiss = () => !isPromptOpen;
+
 	load();
 
 	return (
-		<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} isThemeDark={isThemeDark} /></div>)}>
-			<Panel newItemsExist={checkNewItemsExist} loadNewItems={updateNewItems} onPromptToggle={(toggle) => onPromptToggle(toggle) } />
-		</Flyout.Triggered>
+		<div>
+			{hasToasts && toasts.map((toast, key) => {
+				const ToastDelegate = getComponent(toast);
+				return (
+					<div key={key}>
+						<ToastDelegate />
+					</div>
+				);
+			})}
+			<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
+				<Panel newItemsExist={checkNewItemsExist}
+					loadNewItems={updateNewItems}
+					onPromptToggle={(toggle) => onPromptToggle(toggle)}
+					onShowAllClick={() => setShowAllClicked(true)} />
+			</Flyout.Triggered>
+		</div>
 	);
 }
 

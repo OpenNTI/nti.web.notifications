@@ -148,7 +148,7 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 				</div>
 			)}
 			{displayChangeEmailWindow && (
-				<ChangeEmailWindow user={{ user, email }} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
+				<ChangeEmailWindow user={user} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
 			)}
 		</div>
 

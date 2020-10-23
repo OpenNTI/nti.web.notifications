@@ -11,6 +11,7 @@ NotificationItemFrame.propTypes = {
 	username: PropTypes.string,
 	emailVerify: PropTypes.bool,
 	dismissCallBack: PropTypes.func,
+	className: PropTypes.string,
 };
 
 /**
@@ -24,11 +25,12 @@ NotificationItemFrame.propTypes = {
  * @param {Object} {props}
  * @return {React.Component} React Component
  */
-export default function NotificationItemFrame ( { children, item, username, emailVerify, dismissCallBack, } ) {
-	const isItemLinked = item && (item.Item || (item.Item && item.Item.getID()));
+export default function NotificationItemFrame ( { children, item, username, emailVerify, dismissCallBack, className, onClick } ) {
+	// const isItemLinked = item && (item.Item || (item.Item && item.Item.getID()));
+	const isItemLinked = true;
 	let Frame;
 	if (emailVerify) {
-		return <EmailVerifyFrame children={children} onDismiss={() => dismissCallBack()} />;
+		return <EmailVerifyFrame className={className} children={children} onDismiss={() => dismissCallBack()} onClick={onClick} />;
 	} else {
 		const FrameName = isItemLinked ? LinkedFrame : NonInteractiveFrame;
 		Frame = <FrameName item={item} username={username} children={children} />;

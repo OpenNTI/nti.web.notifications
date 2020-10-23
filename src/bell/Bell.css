@@ -1,10 +1,8 @@
 .bell {
-	position: relative;
-	display: inline-block;
-	width: 21px;
-	height: 24px;
+	width: 50px;
 	cursor: pointer;
-	color: black;
+	height: 70px;
+	position: relative;
 }
 
 .bell::after {

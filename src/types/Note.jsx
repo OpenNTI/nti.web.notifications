@@ -22,8 +22,6 @@ Note.propTypes = {
 
 register(Note, 'note');
 
-register(Note, 'note');
-
 export default function Note ({ item }) {
 	let finalAction = '';
 	if (item.inReplyTo || (item.references || []).length > 0) {

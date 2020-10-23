@@ -36,12 +36,17 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 			await user.save({ email: email });
 			return true;
 		} catch (e) {
-			return false;
+			throw new Error(e);
 		}
 	};
 
 	const handleEmailInputChange = (e) => {
 		setEmail(e);
+		if (email === user.email) {
+			setEmailValid(false);
+		} else {
+			setEmailValid(true);
+		}
 	};
 
 	const onEmailChangeSubmit = async (e) => {

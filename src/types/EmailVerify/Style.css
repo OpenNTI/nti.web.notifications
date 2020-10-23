@@ -43,7 +43,7 @@
 }
 
 .emailVerifyContainer {
-	line-height: 2;
+	line-height: 19px;
 }
 
 .actionLinksContainer {
@@ -243,4 +243,13 @@
 
 .congratsMsg {
 	margin-bottom: 10px;
+}
+
+.dismissButton {
+	display: inline-block;
+	vertical-align: middle;
+	margin: auto;
+	margin: auto 5px auto 15px;
+	color: var(--secondary-grey);
+	font-size: 2rem;
 }
