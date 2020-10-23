@@ -1,4 +1,4 @@
-import { Flyout } from '@nti/web-commons';
+import { Flyout , Timer, Hooks } from '@nti/web-commons';
 import React, { useState } from 'react';
 
 import Bell from '../bell/Bell';
@@ -26,6 +26,9 @@ function NotificationFlyout () {
 		Store.Toasts,
 	]);
 
+	const [dismissedToasts, setDismissedToasts] = useState([
+		null,
+	]);
 	const hasToasts = toasts && toasts.length > 0;
 
 
@@ -48,18 +51,25 @@ function NotificationFlyout () {
 
 	// const beforeDismiss = () => !isPromptOpen;
 
+	const dismissClickCallBack = (Toast) => {
+		setDismissedToasts([...dismissedToasts, Toast]);
+	};
+
 	load();
 
 	return (
 		<div>
 			{hasToasts && toasts.map((toast, key) => {
 				const ToastDelegate = getComponent(toast);
-				return (
-					<div key={key}>
-						<ToastDelegate />
-					</div>
-				);
+				if (!dismissedToasts.includes(ToastDelegate)) {
+					return (
+						<div key={key}>
+							<ToastDelegate onDismiss={(Toast) => dismissClickCallBack(Toast)} />
+						</div>
+					);
+				}
 			})}
+
 			<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}

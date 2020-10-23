@@ -3,5 +3,9 @@
 	cursor: pointer;
 	height: 70px;
 	text-align: center;
-	z-index: 200;
+	z-index: 19000;
+}
+
+.modal-mask .managed-modal .modal-mask-appear-done .modal-mask-enter-done {
+
 }

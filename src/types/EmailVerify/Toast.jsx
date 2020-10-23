@@ -25,7 +25,6 @@ export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, cla
 	return (
 		<div>
 			<NotificationItemFrame emailVerify={true} onClick={onVerifyClick} dismissCallBack={() => onDismiss()} className={className}>
-				{/* <div className={styles.dismissButton}>&times;</div> */}
 				<div className={styles.emailVerifyContainer}>
 					<Translate localeKey="message" />
 				</div>
