@@ -108,7 +108,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 	}
 	const delegateProps = {
 		className: className,
-		onDismiss: () => onDismiss(EmailVerify),
+		onDismiss: onDismiss,
 		onVerifyClick: verifyClickCallback,
 		onInfoClick: openInfoPrompt,
 	};

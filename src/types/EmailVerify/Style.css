@@ -246,10 +246,22 @@
 }
 
 .dismissButton {
-	display: inline-block;
-	vertical-align: middle;
-	margin: auto;
-	margin: auto 5px auto 15px;
-	color: var(--secondary-grey);
-	font-size: 2rem;
+	color: #979797;
+	font-size: 1.5rem;
+	float: right;
+	position: absolute;
+	top: 4px;
+	right: 14px;
+}
+
+.timeoutBarContainer {
+	height: 6px;
+	background-color: #efefef;
+	position: absolute;
+	right: 95px;
+}
+
+.timeoutBar {
+	height: 6px;
+	background-color: #ffa602;
 }

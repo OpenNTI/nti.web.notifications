@@ -1,6 +1,7 @@
-import { Flyout , Timer, Hooks } from '@nti/web-commons';
+import { Flyout , Timer } from '@nti/web-commons';
 import React, { useState } from 'react';
 
+import EmailVerifyToast from '../Toast';
 import Bell from '../bell/Bell';
 import Panel from '../panel/Panel';
 import Store from '../Store';
@@ -52,10 +53,14 @@ function NotificationFlyout () {
 	// const beforeDismiss = () => !isPromptOpen;
 
 	const dismissClickCallBack = (Toast) => {
-		setDismissedToasts([...dismissedToasts, Toast]);
+		if (!isPromptOpen) {
+			setDismissedToasts([...dismissedToasts, Toast]);
+		}
 	};
 
 	load();
+
+	Timer.useWait(() => dismissClickCallBack(EmailVerifyToast), 10000);
 
 	return (
 		<div>
@@ -64,7 +69,7 @@ function NotificationFlyout () {
 				if (!dismissedToasts.includes(ToastDelegate)) {
 					return (
 						<div key={key}>
-							<ToastDelegate onDismiss={(Toast) => dismissClickCallBack(Toast)} />
+							<ToastDelegate onDismiss={() => dismissClickCallBack(ToastDelegate)} />
 						</div>
 					);
 				}

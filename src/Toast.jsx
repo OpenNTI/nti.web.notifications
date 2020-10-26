@@ -16,14 +16,8 @@ register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');
 export default function EmailVerifyToast ( { onDismiss } ) {
 
 	return (
-		// <Toast location={Toast.Locations.TopRight}>
-		// 	<div>
-		// 		<div className={styles.dismissButton} onClick={onDismiss}>&times;</div>
-		// 		<EmailVerify className={styles.toastFrame} toast={true} />
-		// 	</div>
-		// </Toast>
 		<Toast location={Toast.Locations.TopRight}>
-			<EmailVerify className={styles.toastFrame} toast/>
+			<EmailVerify className={styles.toastFrame} onDismiss={onDismiss} toast/>
 		</Toast>
 	);
 }
