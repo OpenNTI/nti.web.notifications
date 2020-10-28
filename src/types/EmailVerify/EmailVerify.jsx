@@ -31,7 +31,7 @@ EmailVerify.MimeTypes = [
 
 register(EmailVerify, 'emailVerify');
 
-export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, className, toast} ) {
+export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, className, toast } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
@@ -114,7 +114,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 	};
 	return (
 		<div>
-			{toast ? <EmailVerifyToastContent {...delegateProps} /> : <EmailVerifyNotification {...delegateProps} />}
+			{toast ? <EmailVerifyToastContent {...delegateProps} isPromptOpen={(verifyPrompt || infoPrompt || congratsPrompt)} /> : <EmailVerifyNotification {...delegateProps} />}
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
 					<div className={styles.promptView}>

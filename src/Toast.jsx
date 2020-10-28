@@ -13,11 +13,11 @@ EmailVerifyToast.propTypes = {
 
 register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');
 
-export default function EmailVerifyToast ( { onDismiss } ) {
+export default function EmailVerifyToast ( { onDismiss, onPromptToggle } ) {
 
 	return (
 		<Toast location={Toast.Locations.TopRight}>
-			<EmailVerify className={styles.toastFrame} onDismiss={onDismiss} toast/>
+			<EmailVerify className={styles.toastFrame} onDismiss={onDismiss} togglePrompt={onPromptToggle} toast/>
 		</Toast>
 	);
 }

@@ -1,7 +1,7 @@
-import { Text } from '@nti/web-commons';
+import { Timer, Text } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import NotificationItemFrame from '../../frame';
 
@@ -18,14 +18,25 @@ const Translate = Text.Translator(translation);
 EmailVerifyToastContent.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
 	onVerifyClick: PropTypes.func.isRequired,
-	className: PropTypes.string
+	className: PropTypes.string,
+	isPromptOpen: PropTypes.bool,
 };
 
-export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, className }) {
+export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, className, isPromptOpen }) {
+	const [time, setTime] = useState(0);
+	const timeout = 10;
+	const ticks = Timer.useTicks(10);
 
-	// let ticks = Timer.useTicks(10000);
-
-	// const [time, setTime] = useState(0);
+	useEffect(() => {
+		if (time < timeout && ticks > 0) {
+			if (!isPromptOpen) {
+				setTime(time + 1);
+			}
+		}
+		if (time === timeout && !isPromptOpen) {
+			onDismiss();
+		}
+	}, [ticks]);
 
 	return (
 		<div>
@@ -35,9 +46,9 @@ export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, cla
 					<Translate localeKey="message" />
 				</div>
 			</NotificationItemFrame>
-			{/* <div className={styles.timeoutBarContainer}>
-				<div className={styles.timeoutBar} style={{ width: `${100 / 360}px` }}></div>
-			</div> */}
+			<div className={styles.timeoutBarContainer}>
+				<div className={styles.timeoutBar} style={{ width: `${(time / timeout) * 360}px` }}></div>
+			</div>
 		</div>
 	);
 }

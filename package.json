@@ -35,21 +35,21 @@
     "registry": "https://npm.nextthought.com"
   },
   "dependencies": {
-    "@nti/lib-commons": "NextThought/nti.lib.commons",
-    "@nti/lib-interfaces": "NextThought/nti.lib.interfaces",
-    "@nti/lib-locale": "NextThought/nti.lib.locale",
-    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
-    "@nti/lib-store": "NextThought/nti.lib.store",
+    "@nti/lib-commons": "github:NextThought/nti.lib.commons",
+    "@nti/lib-interfaces": "github:NextThought/nti.lib.interfaces",
+    "@nti/lib-locale": "github:NextThought/nti.lib.locale",
+    "@nti/lib-ntiids": "github:NextThought/nti.lib.ntiids",
+    "@nti/lib-store": "github:NextThought/nti.lib.store",
     "@nti/style-common": "NextThought/nti.style.common",
-    "@nti/util-logger": "NextThought/nti.util.logger",
-    "@nti/web-client": "NextThought/nti.web.client",
-    "@nti/web-commons": "NextThought/nti.web.commons",
-    "@nti/web-routing": "NextThought/nti.web.routing",
+    "@nti/util-logger": "github:NextThought/nti.util.logger",
+    "@nti/web-client": "github:NextThought/nti.web.client",
+    "@nti/web-commons": "github:NextThought/nti.web.commons",
+    "@nti/web-routing": "github:NextThought/nti.web.routing",
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@nti/cmp-scripts": "^2.27.8",
+    "@nti/cmp-scripts": "^2.28.16",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

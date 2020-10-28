@@ -36,8 +36,10 @@ function NotificationFlyout () {
 	const [isPromptOpen, setIsPromptOpen] = useState(false);
 	const [showAllClicked, setShowAllClicked] = useState(false);
 
-	const onPromptToggle = (toggle) => {
-		setIsPromptOpen(toggle);
+	const onPromptToggle = (toggle, fromToast) => {
+		if (!fromToast) {
+			setIsPromptOpen(toggle);
+		}
 	};
 
 	let flyoutProps = {};
@@ -53,14 +55,10 @@ function NotificationFlyout () {
 	// const beforeDismiss = () => !isPromptOpen;
 
 	const dismissClickCallBack = (Toast) => {
-		if (!isPromptOpen) {
-			setDismissedToasts([...dismissedToasts, Toast]);
-		}
+		setDismissedToasts([...dismissedToasts, Toast]);
 	};
 
 	load();
-
-	Timer.useWait(() => dismissClickCallBack(EmailVerifyToast), 10000);
 
 	return (
 		<div>
@@ -69,7 +67,7 @@ function NotificationFlyout () {
 				if (!dismissedToasts.includes(ToastDelegate)) {
 					return (
 						<div key={key}>
-							<ToastDelegate onDismiss={() => dismissClickCallBack(ToastDelegate)} />
+							<ToastDelegate onDismiss={() => dismissClickCallBack(ToastDelegate)} onPromptToggle={(toggle) => onPromptToggle(toggle, true)}/>
 						</div>
 					);
 				}
