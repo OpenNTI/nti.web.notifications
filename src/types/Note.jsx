@@ -5,7 +5,7 @@ import React from 'react';
 
 import NotificationItemFrame from '../frame';
 
-import { COMMON_PREFIX, register } from './Registry';
+import { register } from './Registry';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Note', {

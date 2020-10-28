@@ -9,6 +9,7 @@ import styles from './Toast.css';
 
 EmailVerifyToast.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
+	onPromptToggle: PropTypes.func
 };
 
 register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');

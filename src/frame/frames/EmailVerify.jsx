@@ -7,6 +7,7 @@ EmailVerifyFrame.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
 	children: PropTypes.object.isRequired,
 	className: PropTypes.string,
+	onClick: PropTypes.func,
 };
 
 export default function EmailVerifyFrame ( { onDismiss: dismiss, children, className, onClick } ) {

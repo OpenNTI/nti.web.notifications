@@ -1,6 +1,6 @@
 import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import { DialogButtons, Form, Input, Text } from '@nti/web-commons';
+import { Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
@@ -42,7 +42,7 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 
 	const handleEmailInputChange = (e) => {
 		setEmail(e);
-		if (email === user.email) {
+		if (e === user.email) {
 			setEmailValid(false);
 		} else {
 			setEmailValid(true);
@@ -69,11 +69,6 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 		setEmailValid(false);
 	};
 
-	const buttons = [
-		{ label: <Translate localeKey="cancel" />, type: 'button', onClick: onClose },
-		{label: <Translate localeKey="submit" />, type: 'submit', disabled: email ? false : true, as: Form.SubmitButton},
-	];
-
 	return (
 		<div style={{ width: 'inherit', }}>
 			<div className={styles.dialogHeader}>
@@ -87,8 +82,8 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 			</div>
 
 			<div className={styles.sub}></div>
-			<Form onSubmit={onEmailChangeSubmit} noValidate={false} onInvalid={onInvalid}>
-				<Input.Clearable className={styles.inputBox}>
+			<Form className={styles.form} onSubmit={onEmailChangeSubmit} noValidate={false} onInvalid={onInvalid}>
+				<Input.Clearable className={[styles.inputBox, !emailValid ? styles.redInputBox : []].join(' ')}>
 					<Input.Email className={[styles.inputField, !emailValid ? styles.redInputField : []].join(' ')} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
 				</Input.Clearable>
 
@@ -105,7 +100,7 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 					)}
 				</div>
 				<div className={styles.footer}>
-					<DialogButtons buttons={buttons} />
+					<Button className={styles.submitButton} type="submit" onClick={onEmailChangeSubmit} disabled={email && emailValid ? false : true}><Translate localeKey="submit"/></Button>
 				</div>
 			</Form>
 		</div>

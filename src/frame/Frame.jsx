@@ -12,6 +12,7 @@ NotificationItemFrame.propTypes = {
 	emailVerify: PropTypes.bool,
 	dismissCallBack: PropTypes.func,
 	className: PropTypes.string,
+	onClick: PropTypes.func,
 };
 
 /**

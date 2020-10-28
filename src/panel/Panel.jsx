@@ -119,7 +119,7 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 						)}
 					</div>
 					<div className={styles.showAllContainer} onClick={onShowAllClick}>
-						<LinkTo.Path to="./app/notifications" exact>
+						<LinkTo.Path to="./notifications" exact>
 							<Translate localeKey="showAll" />
 						</LinkTo.Path>
 					</div>

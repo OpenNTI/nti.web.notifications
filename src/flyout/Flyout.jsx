@@ -1,7 +1,7 @@
-import { Flyout , Timer } from '@nti/web-commons';
+import PropTypes from 'prop-types';
+import { Flyout } from '@nti/web-commons';
 import React, { useState } from 'react';
 
-import EmailVerifyToast from '../Toast';
 import Bell from '../bell/Bell';
 import Panel from '../panel/Panel';
 import Store from '../Store';
@@ -10,7 +10,11 @@ import { getComponent } from '../types';
 import styles from './Flyout.css';
 
 
-function NotificationFlyout () {
+NotificationFlyout.propTypes = {
+	isDark: PropTypes.bool,
+};
+
+function NotificationFlyout ( { isDark } ) {
 	const {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
@@ -73,7 +77,7 @@ function NotificationFlyout () {
 				}
 			})}
 
-			<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
+			<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} isDark={isDark}/></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 					onPromptToggle={(toggle) => onPromptToggle(toggle)}

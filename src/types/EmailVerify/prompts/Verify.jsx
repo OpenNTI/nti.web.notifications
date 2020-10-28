@@ -1,6 +1,6 @@
 import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import { DialogButtons, Form, Input, Text } from '@nti/web-commons';
+import { StandardUI, Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
@@ -13,16 +13,14 @@ import ChangeEmailWindow from './ChangeEmail';
 const translation = scoped('nti-notifications.notifications.types.EmailVerify.EmailVerifyWindow', {
 	sendingEmail: 'Sending...',
 	sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
-	sentEmail: 'We sent a verification email to:',
-	sentAnotherEmail: 'We sent another verification email to:',
 	sendAnotherEmail: 'Send another email',
 	sentEmailStatus: 'Sent!',
 	changeEmail: 'Change email address',
-	cancel: 'Cancel',
 	submit: 'Submit',
-	emailChanged: 'Your email has been updated.',
-	backToEmailVerificationWindow: 'Back to Email Verification',
-	updateEmail: 'Update Email Address',
+	title: 'Verify Your Email',
+	enterCode: 'Enter your verification code',
+	body: 'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
+	remindMeLater: 'Remind me later',
 });
 
 const Translate = Text.Translator(translation);
@@ -44,7 +42,7 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
 	const [displayChangeEmailWindow, setDisplayChangeEmailWindow] = useState(false);
-	const [displayVerifyWindow, setDisplayVerifylWindow] = useState(true);
+	const [displayVerifyWindow, setDisplayVerifyWindow] = useState(true);
 	const [error, setError] = useState(null);
 	const [email, setEmail] = useState(user.email);
 
@@ -54,12 +52,12 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 			setEmail(load.newEmail);
 		}
 		setDisplayChangeEmailWindow(false);
-		setDisplayVerifylWindow(true);
+		setDisplayVerifyWindow(true);
 	};
 
 	const openChangeEmail = () => {
 		setDisplayChangeEmailWindow(true);
-		setDisplayVerifylWindow(false);
+		setDisplayVerifyWindow(false);
 	};
 
 	const sendAnotherEmail = async () => {
@@ -87,26 +85,15 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 		onTokenSubmission(token);
 	};
 
-	const buttons = [
-		{ label: <Translate localeKey="cancel" />, type: 'button', onClick: onClose, },
-		{label: <Translate localeKey="submit" />, type: 'submit', disabled: token ? false : true, as: Form.SubmitButton},
-	];
-
 	return (
 		<div>
 			{displayVerifyWindow && (
 				<div style={{ width: 'inherit', }}>
-					<div className={styles.dialogHeader}>
-						<div className={styles.dialogTitle}>
-							{sentAnotherVerifyEmail === true && (
-								<Translate localeKey="sentAnotherEmail" />
-							)}
-							{sentAnotherVerifyEmail === false && (
-								<Translate localeKey="sentEmail" />
-							)}
-						</div>
-						<div className={styles.email}>
-							{email}
+					<StandardUI.Window.TitleBar onClose={onClose} title={<Translate localeKey="title" />}/>
+					<div className={styles.promptBody}>
+						<div className={styles.title}><Translate localeKey="enterCode" /></div>
+						<div className={styles.bodyText}>
+							<Translate localeKey="body" with={{email: email}}/>
 						</div>
 						{sentAnotherVerifyEmail === true && (
 							<div className={styles.sub}>
@@ -126,11 +113,11 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 							<a className={styles.button} onClick={openChangeEmail}><Translate localeKey="changeEmail" /></a>
 						</div>
 					</div>
-					<Form onSubmit={onSubmit} noValidate={false}>
+					<Form className={styles.form} onSubmit={onSubmit} noValidate={false}>
 						<div>
-							<Input.Clearable className={styles.inputBox}>
+							<Input.Clearable className={[styles.inputBox, tokenInvalid ? styles.redInputBox : []].join(' ')}>
 								<Input.Text value={token} name="token" className={[styles.inputField, tokenInvalid ? styles.redInputField : []].join(' ')}
-									placeholder="Enter your verification token" onChange={onTokenChange} autoFocus/>
+									placeholder="Enter your verification code" onChange={onTokenChange} autoFocus/>
 							</Input.Clearable>
 						</div>
 						<div className={styles.errorMessage}>
@@ -142,7 +129,8 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 							)}
 						</div>
 						<div className={styles.footer}>
-							<DialogButtons buttons={buttons} />
+							<Button className={styles.remindLaterButton} onClick={onClose} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
+							<Button className={styles.submitButton} type="submit" disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
 				</div>
