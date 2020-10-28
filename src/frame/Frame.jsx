@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import cx from 'classnames';
 
 import styles from './Style.css';
 import LinkedFrame from './frames/Linked';
@@ -31,13 +32,13 @@ export default function NotificationItemFrame ( { children, item, username, emai
 	const isItemLinked = true;
 	let Frame;
 	if (emailVerify) {
-		return <EmailVerifyFrame className={className} children={children} onDismiss={() => dismissCallBack()} onClick={onClick} />;
+		return <EmailVerifyFrame className={cx(className)} children={children} onDismiss={() => dismissCallBack()} onClick={onClick} />;
 	} else {
 		const FrameName = isItemLinked ? LinkedFrame : NonInteractiveFrame;
 		Frame = <FrameName item={item} username={username} children={children} />;
 	}
 	return (
-		<div className={[styles.notificationItemContainer, isItemLinked ? styles.linkedNotification : []].join(' ')}>
+		<div className={cx(styles.notificationItemContainer, {[styles.linkedNotification]: isItemLinked })}>
 			{Frame}
 		</div>
 	);

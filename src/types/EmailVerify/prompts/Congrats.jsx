@@ -5,7 +5,7 @@ import React from 'react';
 
 import styles from '../Style.css';
 
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.CongratsWindow', {
+const translation = scoped('nti-notifications.notifications.types.EmailVerify.CongratsPrompt', {
 	thankyou: 'Thank you!',
 	message: 'Your email has been verified',
 	dismiss: 'Dismiss'
@@ -13,13 +13,11 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Co
 
 const Translate = Text.Translator(translation);
 
-CongratsPropmt.propTypes = {
+CongratsPrompt.propTypes = {
 	onClose: PropTypes.func.isRequired,
 };
 
-
-
-export default function CongratsPropmt ({ onClose } ) {
+export default function CongratsPrompt ({ onClose } ) {
 	const buttons = [
 		{ label: <Translate localeKey="dismiss" />, type: 'submit', onClick: onClose },
 	];

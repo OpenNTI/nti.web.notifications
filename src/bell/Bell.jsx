@@ -1,6 +1,8 @@
 import { Badge } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
+import cx from 'classnames';
+
 
 import styles from './Bell.css';
 
@@ -14,7 +16,7 @@ export default function Bell ({ count, onClick, isDark } ) {
 	return (
 		<div>
 			<Badge badge={count}>
-				<div className={[styles.bell, !isDark ? styles.lightTheme : styles.darkTheme].join(' ')} onClick={onClick}/>
+				<div className={cx(styles.bell, {[styles.lightTheme]: !isDark, [styles.darkTheme]: isDark})} onClick={onClick}/>
 			</Badge>
 		</div>
 	);

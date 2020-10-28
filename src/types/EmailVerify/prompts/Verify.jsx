@@ -7,10 +7,10 @@ import React, { useState } from 'react';
 import styles from '../Style.css';
 import {sendEmailVerification} from '../utils';
 
-import ChangeEmailWindow from './ChangeEmail';
+import ChangeEmailPrompt from './ChangeEmail';
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.EmailVerifyWindow', {
+const translation = scoped('nti-notifications.notifications.types.EmailVerify.EmailVerifyPrompt', {
 	sendingEmail: 'Sending...',
 	sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
 	sendAnotherEmail: 'Send another email',
@@ -25,7 +25,7 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Em
 
 const Translate = Text.Translator(translation);
 
-EmailVerifyWindow.propTypes = {
+EmailVerifyPrompt.propTypes = {
 	user: PropTypes.object.isRequired,
 	onTokenSubmission: PropTypes.func.isRequired,
 	onClose: PropTypes.func.isRequired,
@@ -37,27 +37,27 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, tokenInvalid } ) {
+export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, tokenInvalid } ) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
-	const [displayChangeEmailWindow, setDisplayChangeEmailWindow] = useState(false);
-	const [displayVerifyWindow, setDisplayVerifyWindow] = useState(true);
+	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] = useState(false);
+	const [displayVerifyPrompt, setDisplayVerifyPrompt] = useState(true);
 	const [error, setError] = useState(null);
 	const [email, setEmail] = useState(user.email);
 
-	const closeChangeEmail = (load) => {
+	const closeChangeEmail = React.useCallback((load) => {
 		if (load.changedEmail) {
 			setSentAnotherVerifyEmail(true);
 			setEmail(load.newEmail);
 		}
-		setDisplayChangeEmailWindow(false);
-		setDisplayVerifyWindow(true);
-	};
+		setDisplayChangeEmailPrompt(false);
+		setDisplayVerifyPrompt(true);
+	},[]);
 
 	const openChangeEmail = () => {
-		setDisplayChangeEmailWindow(true);
-		setDisplayVerifyWindow(false);
+		setDisplayChangeEmailPrompt(true);
+		setDisplayVerifyPrompt(false);
 	};
 
 	const sendAnotherEmail = async () => {
@@ -87,7 +87,7 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 
 	return (
 		<div>
-			{displayVerifyWindow && (
+			{displayVerifyPrompt && (
 				<div style={{ width: 'inherit', }}>
 					<StandardUI.Window.TitleBar onClose={onClose} title={<Translate localeKey="title" />}/>
 					<div className={styles.promptBody}>
@@ -135,8 +135,8 @@ export default function EmailVerifyWindow ( { user, onTokenSubmission, onClose, 
 					</Form>
 				</div>
 			)}
-			{displayChangeEmailWindow && (
-				<ChangeEmailWindow user={user} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
+			{displayChangeEmailPrompt && (
+				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
 			)}
 		</div>
 

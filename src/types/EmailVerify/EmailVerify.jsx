@@ -8,9 +8,9 @@ import { COMMON_PREFIX, register } from '../Registry';
 import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
 import { sendEmailVerification, verifyEmailToken } from './utils';
-import CongratsPropmt from './prompts/Congrats';
-import InfoWindow from './prompts/Info';
-import EmailVerifyWindow from './prompts/Verify';
+import CongratsPrompt from './prompts/Congrats';
+import InfoPrompt from './prompts/Info';
+import EmailVerifyPrompt from './prompts/Verify';
 import EmailVerifyToastContent from './Toast';
 
 
@@ -108,7 +108,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 	}
 	const delegateProps = {
 		className: className,
-		onDismiss: onDismiss,
+		onDismiss,
 		onVerifyClick: verifyClickCallback,
 		onInfoClick: openInfoPrompt,
 	};
@@ -120,13 +120,13 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 					<div className={styles.promptView}>
 						<div className={styles.dialogContent}>
 							{verifyPrompt && (
-								<EmailVerifyWindow user={user} onTokenSubmission={onTokenSubmission} onClose={cancelDismissCallback} tokenInvalid={tokenInvalid} />
+								<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelDismissCallback} tokenInvalid={tokenInvalid} />
 							)}
 							{infoPrompt && (
-								<InfoWindow onClose={cancelDismissCallback} />
+								<InfoPrompt onClose={cancelDismissCallback} />
 							)}
 							{congratsPrompt && (
-								<CongratsPropmt onDismiss={cancelDismissCallback} />
+								<CongratsPrompt onDismiss={cancelDismissCallback} />
 							)}
 						</div>
 					</div>

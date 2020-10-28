@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Toast } from '@nti/web-commons';
+import cx from 'classnames';
 
 import EmailVerify from './types/EmailVerify/EmailVerify';
 import { register } from './types/Registry';
@@ -18,7 +19,7 @@ export default function EmailVerifyToast ( { onDismiss, onPromptToggle } ) {
 
 	return (
 		<Toast location={Toast.Locations.TopRight}>
-			<EmailVerify className={styles.toastFrame} onDismiss={onDismiss} togglePrompt={onPromptToggle} toast/>
+			<EmailVerify className={cx(styles.toastFrame)} onDismiss={onDismiss} togglePrompt={onPromptToggle} toast/>
 		</Toast>
 	);
 }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import cx from 'classnames';
 
 import styles from '../Style.css';
 
@@ -12,10 +13,10 @@ EmailVerifyFrame.propTypes = {
 
 export default function EmailVerifyFrame ( { onDismiss: dismiss, children, className, onClick } ) {
 	return (
-		<div className={[styles.emailVerifyFrame, className].join(' ')} onClick={onClick}>
-			<div className={styles.notificationItem}>
-				<div className={styles.emailVerifyCircle}>@</div>
-				<div className={styles.wrap}>
+		<div className={cx(styles.emailVerifyFrame, className)} onClick={onClick}>
+			<div className={cx(styles.notificationItem)}>
+				<div className={cx(styles.emailVerifyCircle)}>@</div>
+				<div className={cx(styles.wrap)}>
 					{children}
 				</div>
 			</div>

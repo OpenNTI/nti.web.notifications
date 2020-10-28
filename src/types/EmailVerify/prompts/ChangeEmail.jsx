@@ -9,24 +9,24 @@ import {sendEmailVerification} from '../utils';
 
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.ChangeEmailWindow', {
+const translation = scoped('nti-notifications.notifications.types.EmailVerify.ChangeEmailPrompt', {
 	cancel: 'Cancel',
 	submit: 'Submit',
 	emailChanged: 'Your email has been updated.',
-	backToEmailVerificationWindow: 'Back to Email Verification',
+	backToEmailVerificationPrompt: 'Back to Email Verification',
 	updateEmail: 'Update Email Address',
 	invalidEmail: 'Oops, this email is invalid.',
 });
 const Translate = Text.Translator(translation);
 
 
-ChangeEmailWindow.propTypes = {
+ChangeEmailPrompt.propTypes = {
 	user: PropTypes.object.isRequired,
 	onClose: PropTypes.func.isRequired,
 	onReturn: PropTypes.func,
 };
 
-export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
+export default function ChangeEmailPrompt ( { user, onClose, onReturn } ) {
 	const [email, setEmail] = useState(user.email);
 	const [emailChanged, setEmailChanged] = useState(false);
 	const [emailValid, setEmailValid] = useState(true);
@@ -75,7 +75,7 @@ export default function ChangeEmailWindow ( { user, onClose, onReturn } ) {
 				<div className={styles.buttons}>
 					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={onReturn} >
                         &lt;
-						<Translate localeKey="backToEmailVerificationWindow" />
+						<Translate localeKey="backToEmailVerificationPrompt" />
 					</div>
 				</div>
 				<div className={styles.dialogTitle}><Translate localeKey="updateEmail" /></div>

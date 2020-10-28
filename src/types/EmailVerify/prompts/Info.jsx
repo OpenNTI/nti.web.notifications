@@ -5,7 +5,7 @@ import React from 'react';
 
 import styles from '../Style.css';
 
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.InfoWindow', {
+const translation = scoped('nti-notifications.notifications.types.EmailVerify.InfoPrompt', {
 	title: 'Why is Email Verification Needed?',
 	sub: 'Verifying your email is necessary to ensure successful \ncommunication, to facilitate account recovery, and to issue course \ncompletion badges.',
 	done: 'Done',
@@ -13,11 +13,11 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.In
 
 const Translate = Text.Translator(translation);
 
-InfoWindow.propTypes = {
+InfoPrompt.propTypes = {
 	onClose: PropTypes.func.isRequired,
 };
 
-export default function InfoWindow ({ onClose } ) {
+export default function InfoPrompt ({ onClose } ) {
 	const buttons = [
 		{ label: <Translate localeKey="done" />, type: 'submit', onClick: onClose },
 	];

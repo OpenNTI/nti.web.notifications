@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Flyout } from '@nti/web-commons';
 import React, { useState } from 'react';
+import cx from 'classnames';
 
 import Bell from '../bell/Bell';
 import Panel from '../panel/Panel';
@@ -38,7 +39,6 @@ function NotificationFlyout ( { isDark } ) {
 
 
 	const [isPromptOpen, setIsPromptOpen] = useState(false);
-	const [showAllClicked, setShowAllClicked] = useState(false);
 
 	const onPromptToggle = (toggle, fromToast) => {
 		if (!fromToast) {
@@ -52,17 +52,14 @@ function NotificationFlyout ( { isDark } ) {
 		flyoutProps.open = true;
 	}
 
-	if (showAllClicked) {
-		// flyoutProps.open = false;
-	}
-
-	// const beforeDismiss = () => !isPromptOpen;
-
 	const dismissClickCallBack = (Toast) => {
 		setDismissedToasts([...dismissedToasts, Toast]);
 	};
 
-	load();
+	// load();
+	React.useEffect(() => {
+		load();
+	}, []);
 
 	return (
 		<div>
@@ -77,11 +74,10 @@ function NotificationFlyout ( { isDark } ) {
 				}
 			})}
 
-			<Flyout.Triggered {...flyoutProps} trigger={(<div className={styles.triggerContainer}><Bell count={unreadCount} onClick={updateLastViewed} isDark={isDark}/></div>)}>
+			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} isDark={isDark}/></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
-					onPromptToggle={(toggle) => onPromptToggle(toggle)}
-					onShowAllClick={() => setShowAllClicked(true)} />
+					onPromptToggle={(toggle) => onPromptToggle(toggle)} />
 			</Flyout.Triggered>
 		</div>
 	);

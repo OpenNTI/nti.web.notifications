@@ -20,7 +20,7 @@
 }
 
 .emailVerifyCircle {
-	background-color: #ffa602;
+	background-color: var(--secondary-orange);
 	border-radius: 42px;
 	min-width: 42px;
 	height: 42px;
