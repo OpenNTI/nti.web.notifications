@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import Panel from '../Panel';
+import Panel from '../panel/Panel';
 
 describe('Panel', () => {
 	test('exports a component', () => {
