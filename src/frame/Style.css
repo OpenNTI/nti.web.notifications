@@ -9,7 +9,7 @@
 }
 
 .notificationItemContainer:hover {
-	background-color: #efefef;
+	background-color: var(--panel-background-alt);
 }
 
 .emailVerifyFrame {

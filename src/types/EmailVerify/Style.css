@@ -244,7 +244,7 @@
 }
 
 .timeoutBarContainer {
-	background-color: #efefef;
+	background-color: var(--panel-background-alt);
 	position: absolute;
 	right: 95px;
 	width: 360px;

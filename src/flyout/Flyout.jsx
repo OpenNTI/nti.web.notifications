@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Flyout } from '@nti/web-commons';
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import cx from 'classnames';
 
 import Bell from '../bell/Bell';
@@ -56,9 +56,18 @@ function NotificationFlyout ( { isDark } ) {
 		setDismissedToasts([...dismissedToasts, Toast]);
 	};
 
-	// load();
-	React.useEffect(() => {
+	const firstUpdate = useRef(false);
+
+	useLayoutEffect(() => {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+			return;
+		}
 		load();
+	});
+
+	React.useEffect(async () => {
+		await load();
 	}, []);
 
 	return (
