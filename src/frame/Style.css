@@ -13,7 +13,7 @@
 }
 
 .emailVerifyFrame {
-	background-color: rgba(255, 166, 2, 0.1);
+	background-color: rgba(var(--secondary-orange-rgb), 0.1);
 	width: auto;
 	padding: 18px;
 	cursor: pointer;

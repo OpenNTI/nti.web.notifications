@@ -1,0 +1,206 @@
+.dialogHeader {
+	margin: 10px 15px;
+	color: var(--primary-grey);
+	font: normal 400 14px/1 "Open Sans", sans-serif;
+}
+
+.dialogTitle {
+	display: block;
+	font: normal 300 18px/1 "Open Sans", sans-serif;
+	color: var(--primary-grey);
+}
+
+.buttons {
+	display: inline-block;
+	width: 348px;
+	font-size: 14px;
+	letter-spacing: 0.03px;
+	margin-bottom: 10px;
+}
+
+.button {
+	float: left;
+	padding: 0 7px 0 9px;
+	color: var(--primary-blue);
+	cursor: pointer;
+	font: normal 300 14px/1 "Open Sans", sans-serif;
+	position: relative;
+}
+
+.sendEmailBtn {
+	padding: 0 7px 0 0 !important;
+}
+
+.sendEmail {
+	float: left;
+	padding: 0 7px 0 0;
+	font: normal 300 14px/1 "Open Sans", sans-serif;
+	position: relative;
+}
+
+.sendEmail::after {
+	content: "|";
+	position: absolute;
+	right: 0;
+	color: var(--tertiary-grey);
+	width: 3px;
+	font-size: 14px;
+}
+
+.inputBox {
+	border: 1px solid var(--secondary-grey);
+	padding-right: 30px;
+	background: #fff;
+	margin: 0 34px 0 0;
+	position: relative;
+	display: block;
+}
+
+.inputField {
+	color: var(--secondary-grey);
+	font: normal 500 14px/25px "Open Sans", sans-serif;
+	border: 0;
+	border-left: 10px solid var(--secondary-grey);
+	background: #fff;
+	padding: 6px 10px;
+	margin: 0;
+	min-height: 39px;
+	width: calc(100% - 8px);
+	position: relative;
+	outline: none;
+	display: block;
+	border-radius: 0;
+}
+
+.inputField::placeholder {
+	color: var(--secondary-grey);
+}
+
+.errorMessage {
+	color: var(--incorrect);
+	margin: 10px 15px;
+	font: normal 300 15px/1 "Open Sans", sans-serif;
+	line-height: 20px;
+	min-height: 20px;
+}
+
+.submitButton {
+	height: 48px;
+	width: 151px;
+}
+
+.remindLaterButton {
+	background-color: white !important;
+	color: var(--primary-blue) !important;
+	height: 24px !important;
+	width: 161px !important;
+}
+
+.footer {
+	text-align: right;
+	padding: 0 10px 10px 0;
+}
+
+.footer > a {
+	margin-left: 20px;
+	font-size: 18px;
+	border-radius: 3px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.footer > a > span {
+	vertical-align: middle;
+}
+
+.controlsContainer {
+	float: right;
+}
+
+.controlsContainer a {
+	float: right;
+	padding: 0 20px;
+	cursor: pointer;
+	font: normal 400 0.9em/40px "Open Sans", sans-serif;
+	text-align: center;
+	min-width: 90px;
+}
+
+.verifyEmail {
+	display: block;
+	margin-left: 0;
+	padding: 0;
+}
+
+.success {
+	color: var(--correct);
+}
+
+.modal-mask .modal-content {
+	width: 400px;
+}
+
+.redInputField {
+	color: var(--incorrect);
+	border-left: 10px solid var(--incorrect);
+}
+
+.redInputBox {
+	border: 1px solid var(--incorrect);
+}
+
+.congratsContainer {
+	margin: auto;
+	text-align: center;
+	color: var(--correct);
+	font: normal 300 18px/1 "Open Sans", sans-serif;
+	vertical-align: middle;
+	padding-top: 10px;
+}
+
+.checkMark {
+	border: 1px var(--primary-green) solid;
+	border-radius: 50px;
+	width: 50px;
+	height: 50px;
+	padding: 10px;
+	font-size: 2rem;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.thankyouTitle {
+	margin-bottom: 10px;
+}
+
+.congratsMsg {
+	margin-bottom: 10px;
+}
+
+.title {
+	height: 33px;
+	width: 345px;
+	color: var(--primary-grey);
+	font-size: 24px;
+	font-weight: 300;
+	letter-spacing: 0;
+	line-height: 33px;
+	margin: 10px 0;
+}
+
+.promptBody {
+	margin-left: 23px;
+}
+
+.bodyText {
+	height: 78px;
+	width: 400px;
+	color: var(--primary-grey);
+	font-size: 14px;
+	letter-spacing: 0.03px;
+	line-height: 19px;
+}
+
+.form {
+	margin-left: 23px;
+}

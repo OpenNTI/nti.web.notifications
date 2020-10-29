@@ -4,8 +4,9 @@ import { Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import styles from '../Style.css';
 import {sendEmailVerification} from '../utils';
+
+import styles from './Style.css';
 
 
 // String localization
