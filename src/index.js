@@ -1,3 +1,3 @@
-export * from './Socket';
+export { emitIncoming } from './Socket';
 export NotificationsTab from './flyout/Flyout';
 export EmailVerifyToast from './toast/Toast';
