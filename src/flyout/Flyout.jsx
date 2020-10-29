@@ -56,7 +56,7 @@ function NotificationFlyout ( { isDark } ) {
 		setDismissedToasts([...dismissedToasts, Toast]);
 	};
 
-	const firstUpdate = useRef(false);
+	const firstUpdate = useRef(true);
 
 	useLayoutEffect(() => {
 		if (firstUpdate.current) {
