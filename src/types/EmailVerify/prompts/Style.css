@@ -1,10 +1,10 @@
-.dialogHeader {
+.dialog-header {
 	margin: 10px 15px;
 	color: var(--primary-grey);
 	font: normal 400 14px/1 "Open Sans", sans-serif;
 }
 
-.dialogTitle {
+.dialog-title {
 	display: block;
 	font: normal 300 18px/1 "Open Sans", sans-serif;
 	color: var(--primary-grey);
@@ -27,18 +27,18 @@
 	position: relative;
 }
 
-.sendEmailBtn {
+.send-email-btn {
 	padding: 0 7px 0 0 !important;
 }
 
-.sendEmail {
+.send-email {
 	float: left;
 	padding: 0 7px 0 0;
 	font: normal 300 14px/1 "Open Sans", sans-serif;
 	position: relative;
 }
 
-.sendEmail::after {
+.send-email::after {
 	content: "|";
 	position: absolute;
 	right: 0;
@@ -47,7 +47,7 @@
 	font-size: 14px;
 }
 
-.inputBox {
+.input-box {
 	border: 1px solid var(--secondary-grey);
 	padding-right: 30px;
 	background: #fff;
@@ -56,7 +56,7 @@
 	display: block;
 }
 
-.inputField {
+.input-field {
 	color: var(--secondary-grey);
 	font: normal 500 14px/25px "Open Sans", sans-serif;
 	border: 0;
@@ -72,11 +72,11 @@
 	border-radius: 0;
 }
 
-.inputField::placeholder {
+.input-field::placeholder {
 	color: var(--secondary-grey);
 }
 
-.errorMessage {
+.error-message {
 	color: var(--incorrect);
 	margin: 10px 15px;
 	font: normal 300 15px/1 "Open Sans", sans-serif;
@@ -84,12 +84,12 @@
 	min-height: 20px;
 }
 
-.submitButton {
+.submit-button {
 	height: 48px;
 	width: 151px;
 }
 
-.remindLaterButton {
+.remind-later-button {
 	background-color: white !important;
 	color: var(--primary-blue) !important;
 	height: 24px !important;
@@ -113,11 +113,11 @@
 	vertical-align: middle;
 }
 
-.controlsContainer {
+.controls-container {
 	float: right;
 }
 
-.controlsContainer a {
+.controls-container a {
 	float: right;
 	padding: 0 20px;
 	cursor: pointer;
@@ -126,7 +126,7 @@
 	min-width: 90px;
 }
 
-.verifyEmail {
+.verify-email {
 	display: block;
 	margin-left: 0;
 	padding: 0;
@@ -140,16 +140,16 @@
 	width: 400px;
 }
 
-.redInputField {
+.redInput-field {
 	color: var(--incorrect);
 	border-left: 10px solid var(--incorrect);
 }
 
-.redInputBox {
+.redInput-box {
 	border: 1px solid var(--incorrect);
 }
 
-.congratsContainer {
+.congrats-container {
 	margin: auto;
 	text-align: center;
 	color: var(--correct);
@@ -158,7 +158,7 @@
 	padding-top: 10px;
 }
 
-.checkMark {
+.check-mark {
 	border: 1px var(--primary-green) solid;
 	border-radius: 50px;
 	width: 50px;
@@ -169,11 +169,11 @@
 	margin-bottom: 10px;
 }
 
-.thankyouTitle {
+.thankyou-title {
 	margin-bottom: 10px;
 }
 
-.congratsMsg {
+.congrats-msg {
 	margin-bottom: 10px;
 }
 
@@ -188,11 +188,11 @@
 	margin: 10px 0;
 }
 
-.promptBody {
+.prompt-body {
 	margin-left: 23px;
 }
 
-.bodyText {
+.body-text {
 	height: 78px;
 	width: 400px;
 	color: var(--primary-grey);
@@ -203,4 +203,12 @@
 
 .form {
 	margin-left: 23px;
+}
+
+.sub {
+	font-weight: 300;
+	color: var(--secondary-grey);
+	margin-top: 15px;
+	display: inline-block;
+	margin-bottom: 5px;
 }

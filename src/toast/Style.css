@@ -1,4 +1,4 @@
-.toastFrame {
+.toast-frame {
 	background-color: white;
 	width: 360px;
 	height: 80px;
@@ -8,7 +8,7 @@
 }
 
 @media only screen and (max-width: 1195px) {
-	.toastFrame {
+	.toast-frame {
 		background-color: white;
 		width: 360px;
 		height: 80px;
@@ -19,7 +19,7 @@
 }
 
 @media only screen and (max-width: 350px) {
-	.toastFrame {
+	.toast-frame {
 		background-color: white;
 		width: 90vw;
 		height: 80px;

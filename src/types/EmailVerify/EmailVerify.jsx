@@ -113,7 +113,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 		onInfoClick: openInfoPrompt,
 	};
 	return (
-		<div>
+		<>
 			{toast ? <EmailVerifyToastContent {...delegateProps} isPromptOpen={(verifyPrompt || infoPrompt || congratsPrompt)} /> : <EmailVerifyNotification {...delegateProps} />}
 			{(verifyPrompt || infoPrompt || congratsPrompt) && (
 				<Prompt.Dialog onBeforeDismiss={closePrompt} >
@@ -132,7 +132,7 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 					</div>
 				</Prompt.Dialog>
 			)}
-		</div>
+		</>
 
 	);
 }

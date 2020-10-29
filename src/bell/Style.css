@@ -18,12 +18,9 @@
 	opacity: 1;
 	margin-top: -12px;
 	margin-left: -10px;
-}
-
-.darkTheme::after {
-	background-image: url("../assets/icon-white.svg");
-}
-
-.lightTheme::after {
 	background-image: url("../assets/icon-dark.svg");
+}
+
+.dark::after {
+	background-image: url("../assets/icon-white.svg");
 }

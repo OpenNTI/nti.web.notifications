@@ -3,9 +3,10 @@ import React from 'react';
 import { Toast } from '@nti/web-commons';
 import cx from 'classnames';
 
-import EmailVerify from './types/EmailVerify/EmailVerify';
-import { register } from './types/Registry';
-import styles from './Toast.css';
+import EmailVerify from '../types/EmailVerify/EmailVerify';
+import { register } from '../types/Registry';
+
+import styles from './Style.css';
 
 
 EmailVerifyToast.propTypes = {

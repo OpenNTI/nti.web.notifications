@@ -3,6 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import { Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import cx from 'classnames';
 
 import {sendEmailVerification} from '../utils';
 
@@ -18,6 +19,7 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Ch
 	updateEmail: 'Update Email Address',
 	invalidEmail: 'Oops, this email is invalid.',
 });
+
 const Translate = Text.Translator(translation);
 
 
@@ -74,7 +76,7 @@ export default function ChangeEmailPrompt ( { user, onClose, onReturn } ) {
 		<div style={{ width: 'inherit', }}>
 			<div className={styles.dialogHeader}>
 				<div className={styles.buttons}>
-					<div className={[styles.button, styles.verifyEmail, styles.link].join(' ')} onClick={onReturn} >
+					<div className={cx(styles.button, styles.verifyEmail, styles.link)} onClick={onReturn} >
                         &lt;
 						<Translate localeKey="backToEmailVerificationPrompt" />
 					</div>
@@ -84,8 +86,8 @@ export default function ChangeEmailPrompt ( { user, onClose, onReturn } ) {
 
 			<div className={styles.sub}></div>
 			<Form className={styles.form} onSubmit={onEmailChangeSubmit} noValidate={false} onInvalid={onInvalid}>
-				<Input.Clearable className={[styles.inputBox, !emailValid ? styles.redInputBox : []].join(' ')}>
-					<Input.Email className={[styles.inputField, !emailValid ? styles.redInputField : []].join(' ')} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
+				<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: !emailValid})}>
+					<Input.Email className={cx(styles.inputField, {[styles.redInputField]: !emailValid})} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
 				</Input.Clearable>
 
 				<div className={styles.errorMessage}>

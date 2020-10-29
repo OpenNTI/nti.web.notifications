@@ -4,20 +4,20 @@ import React from 'react';
 import cx from 'classnames';
 
 
-import styles from './Bell.css';
+import styles from './Style.css';
 
 Bell.propTypes = {
 	count: PropTypes.number.isRequired,
 	onClick: PropTypes.func.isRequired,
-	isDark: PropTypes.bool,
+	dark: PropTypes.bool,
 };
 
-export default function Bell ({ count, onClick, isDark } ) {
+export default function Bell ({ count, onClick, dark } ) {
 	return (
-		<div>
+		<>
 			<Badge badge={count}>
-				<div className={cx(styles.bell, {[styles.lightTheme]: !isDark, [styles.darkTheme]: isDark})} onClick={onClick}/>
+				<div className={cx(styles.bell, {[styles.dark]: dark})} onClick={onClick}/>
 			</Badge>
-		</div>
+		</>
 	);
 }

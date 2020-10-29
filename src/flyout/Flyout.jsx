@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Flyout } from '@nti/web-commons';
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 
 import Bell from '../bell/Bell';
@@ -8,14 +8,14 @@ import Panel from '../panel/Panel';
 import Store from '../Store';
 import { getComponent } from '../types';
 
-import styles from './Flyout.css';
+import styles from './Style.css';
 
 
 NotificationFlyout.propTypes = {
-	isDark: PropTypes.bool,
+	dark: PropTypes.bool,
 };
 
-function NotificationFlyout ( { isDark } ) {
+function NotificationFlyout ( { dark } ) {
 	const {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
@@ -23,14 +23,7 @@ function NotificationFlyout ( { isDark } ) {
 		[Store.UpdateNewItems]: updateNewItems,
 		[Store.CheckNewItemsExist]: checkNewItemsExist,
 		[Store.Toasts]: toasts,
-	} = Store.useMonitor([
-		Store.UnreadCount,
-		Store.Load,
-		Store.UpdateLastViewed,
-		Store.UpdateNewItems,
-		Store.CheckNewItemsExist,
-		Store.Toasts,
-	]);
+	} = Store.useValue();
 
 	const [dismissedToasts, setDismissedToasts] = useState([
 		null,
@@ -56,22 +49,12 @@ function NotificationFlyout ( { isDark } ) {
 		setDismissedToasts([...dismissedToasts, Toast]);
 	};
 
-	const firstUpdate = useRef(true);
-
-	useLayoutEffect(() => {
-		if (firstUpdate.current) {
-			firstUpdate.current = false;
-			return;
-		}
+	React.useEffect(() => {
 		load();
-	});
-
-	React.useEffect(async () => {
-		await load();
-	}, []);
+	}, [load]);
 
 	return (
-		<div>
+		<>
 			{hasToasts && toasts.map((toast, key) => {
 				const ToastDelegate = getComponent(toast);
 				if (!dismissedToasts.includes(ToastDelegate)) {
@@ -83,12 +66,12 @@ function NotificationFlyout ( { isDark } ) {
 				}
 			})}
 
-			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} isDark={isDark}/></div>)}>
+			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} dark={dark}/></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 					onPromptToggle={(toggle) => onPromptToggle(toggle)} />
 			</Flyout.Triggered>
-		</div>
+		</>
 	);
 }
 

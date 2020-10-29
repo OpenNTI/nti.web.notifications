@@ -9,7 +9,7 @@ import Store from '../Store';
 import { getComponent } from '../types/index';
 import ItemPlaceholder from '../frame/frames/Placeholder';
 
-import styles from './Panel.css';
+import styles from './Style.css';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -46,12 +46,8 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 		[Store.Loading]: loading,
 		[Store.MoreItems]: moreItems,
 		[Store.Error]: error,
-	} = Store.useMonitor([
-		Store.Items,
-		Store.Loading,
-		Store.MoreItems,
-		Store.Error,
-	]);
+	} = Store.useValue();
+
 	const hasItems = items && items.length > 0;
 
 	const [dismissedNotifications, setDismissedNotifications] = useState([

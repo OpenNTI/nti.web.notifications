@@ -1,5 +1,5 @@
 import { scoped } from '@nti/lib-locale';
-import { Icons, Text } from '@nti/web-commons';
+import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 

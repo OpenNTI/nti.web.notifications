@@ -39,7 +39,7 @@ export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, cla
 	}, [ticks]);
 
 	return (
-		<div>
+		<>
 			<NotificationItemFrame emailVerify={true} onClick={onVerifyClick} dismissCallBack={() => onDismiss()} className={className}>
 				<div className={styles.dismissButton} onClick={onDismiss}>&times;</div>
 				<div className={styles.emailVerifyContainer}>
@@ -49,6 +49,6 @@ export default function EmailVerifyToastContent ({ onDismiss, onVerifyClick, cla
 			<div className={styles.timeoutBarContainer}>
 				<div className={styles.timeoutBar} style={{ width: `${(time / timeout) * 360}px` }}></div>
 			</div>
-		</div>
+		</>
 	);
 }

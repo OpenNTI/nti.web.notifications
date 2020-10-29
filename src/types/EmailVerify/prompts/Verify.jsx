@@ -3,6 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import { StandardUI, Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import cx from 'classnames';
 
 import {sendEmailVerification} from '../utils';
 
@@ -86,7 +87,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 	};
 
 	return (
-		<div>
+		<>
 			{displayVerifyPrompt && (
 				<div style={{ width: 'inherit', }}>
 					<StandardUI.Window.TitleBar onClose={onClose} title={<Translate localeKey="title" />}/>
@@ -105,7 +106,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 								<span className={styles.sendEmail}><Translate localeKey="sendingEmail" /></span>
 							)}
 							{sendingEmail === NULL_STATE && (
-								<a className={[styles.button, styles.sendEmail, styles.sendEmailBtn].join(' ')} onClick={sendAnotherEmail}><Translate localeKey="sendAnotherEmail" /></a>
+								<a className={cx(styles.button, styles.sendEmail, styles.sendEmailBtn)} onClick={sendAnotherEmail}><Translate localeKey="sendAnotherEmail" /></a>
 							)}
 							{sendingEmail === SENT_STATE && (
 								<span className={styles.sendEmail}><Translate localeKey="sentEmailStatus" /></span>
@@ -114,12 +115,10 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 						</div>
 					</div>
 					<Form className={styles.form} onSubmit={onSubmit} noValidate={false}>
-						<div>
-							<Input.Clearable className={[styles.inputBox, tokenInvalid ? styles.redInputBox : []].join(' ')}>
-								<Input.Text value={token} name="token" className={[styles.inputField, tokenInvalid ? styles.redInputField : []].join(' ')}
-									placeholder="Enter your verification code" onChange={onTokenChange} autoFocus/>
-							</Input.Clearable>
-						</div>
+						<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: tokenInvalid })}>
+							<Input.Text value={token} name="token" className={cx(styles.inputField, {[styles.redInputField]: tokenInvalid })}
+								placeholder="Enter your verification code" onChange={onTokenChange} autoFocus/>
+						</Input.Clearable>
 						<div className={styles.errorMessage}>
 							{tokenInvalid && (
 								<span>This token is not valid.</span>
@@ -130,7 +129,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 						</div>
 						<div className={styles.footer}>
 							<Button className={styles.remindLaterButton} onClick={onClose} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
-							<Button className={styles.submitButton} type="submit" disabled={token ? false : true}><Translate localeKey="submit" /></Button>
+							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
 				</div>
@@ -138,7 +137,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 			{displayChangeEmailPrompt && (
 				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
 			)}
-		</div>
+		</>
 
 	);
 }
