@@ -104,11 +104,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			});
 			let {Items: items} = batch;
 			const rawLastViewed = await service.get(`${url}/lastViewed`);
-			const lastViewedDate = new Date(parseFloat(rawLastViewed, 10) / 1000);
+			const lastViewedDate = new Date(parseFloat(rawLastViewed, 10) * 1000);
 			let unreadCount = 0;
 			for (let i = 0; i < items.length; ++i) {
 				const itemTime = items[i].getLastModified() || items[i].getCreatedAt();
-				if (itemTime < lastViewedDate) {
+				if (itemTime > lastViewedDate) {
 					unreadCount++;
 				} else {
 					break;

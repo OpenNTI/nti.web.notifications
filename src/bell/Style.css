@@ -1,8 +1,6 @@
 .bell {
-	width: 50px;
 	cursor: pointer;
-	height: 70px;
-	position: relative;
+	height: 24px;
 }
 
 .bell::after {
@@ -19,6 +17,10 @@
 	margin-top: -12px;
 	margin-left: -10px;
 	background-image: url("../assets/icon-dark.svg");
+}
+
+.bell:focus {
+	outline: 0;
 }
 
 .dark::after {
