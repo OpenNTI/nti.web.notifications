@@ -4,7 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 
 
-import { useIconTheme } from '../util';
+import { useNavigationIconTheme } from '../utils';
 
 import styles from './Style.css';
 
@@ -14,7 +14,7 @@ Bell.propTypes = {
 };
 
 export default function Bell ({ count, onClick } ) {
-	const theme = useIconTheme();
+	const theme = useNavigationIconTheme();
 	return (
 		<>
 			<Badge badge={count}>
