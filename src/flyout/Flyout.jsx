@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Flyout } from '@nti/web-commons';
 import React, { useState } from 'react';
 import cx from 'classnames';
@@ -11,11 +10,7 @@ import { getComponent } from '../types';
 import styles from './Style.css';
 
 
-NotificationFlyout.propTypes = {
-	dark: PropTypes.bool,
-};
-
-function NotificationFlyout ( { dark } ) {
+function NotificationFlyout () {
 	const {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
@@ -66,7 +61,7 @@ function NotificationFlyout ( { dark } ) {
 				}
 			})}
 
-			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} dark={dark}/></div>)}>
+			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed}/></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 					onPromptToggle={(toggle) => onPromptToggle(toggle)} />
