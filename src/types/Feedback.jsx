@@ -4,7 +4,7 @@ import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
-import NotificationItemFrame from '../frame';
+import NotificationItemFrame from '../Frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 

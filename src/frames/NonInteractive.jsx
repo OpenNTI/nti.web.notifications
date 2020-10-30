@@ -2,7 +2,7 @@ import { Avatar, DateTime, DisplayName } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from '../Style.css';
+import styles from '../Frame.css';
 
 NonInteractiveFrame.propTypes = {
 	item: PropTypes.object.isRequired,

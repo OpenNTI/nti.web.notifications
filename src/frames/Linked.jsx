@@ -3,7 +3,7 @@ import { LinkTo } from '@nti/web-routing';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from '../Style.css';
+import styles from '../Frame.css';
 
 LinkedFrame.propTypes = {
 	item: PropTypes.object.isRequired,

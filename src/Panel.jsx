@@ -5,11 +5,10 @@ import { Errors, Loading, Text } from '@nti/web-commons';
 import React, { useState , useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Store from '../Store';
-import { getComponent } from '../types/index';
-import ItemPlaceholder from '../frame/frames/Placeholder';
-
-import styles from './Style.css';
+import Store from './Store';
+import { getComponent } from './types';
+import ItemPlaceholder from './frames/Placeholder';
+import styles from './Panel.css';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {

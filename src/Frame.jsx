@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './Style.css';
+import styles from './Frame.css';
 import LinkedFrame from './frames/Linked';
 import NonInteractiveFrame from './frames/NonInteractive';
 import EmailVerifyFrame from './frames/EmailVerify';

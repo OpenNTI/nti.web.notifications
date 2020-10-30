@@ -3,7 +3,7 @@ import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../frame';
+import NotificationItemFrame from '../Frame';
 
 import { register } from './Registry';
 

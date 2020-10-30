@@ -2,12 +2,11 @@ import { Flyout } from '@nti/web-commons';
 import React, { useState } from 'react';
 import cx from 'classnames';
 
-import Bell from '../bell/Bell';
-import Panel from '../panel/Panel';
-import Store from '../Store';
-import { getComponent } from '../types';
-
-import styles from './Style.css';
+import Bell from './Bell';
+import Panel from './Panel';
+import Store from './Store';
+import { getComponent } from './types';
+import styles from './Flyout.css';
 
 function NotificationFlyout () {
 	const {

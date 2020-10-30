@@ -1,8 +1,4 @@
 .panel-container {
-	position: fixed;
-	top: 85px !important;
-	right: 15px !important;
-	left: auto !important;
 	width: 360px;
 	overflow: visible;
 	background-color: var(--panel-background);

@@ -3,7 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
-import NotificationItemFrame from '../../frame';
+import NotificationItemFrame from '../../Frame';
 
 import styles from './Style.css';
 

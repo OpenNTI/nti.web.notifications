@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-import styles from '../Style.css';
+import styles from '../Frame.css';
 
 
 Bar.propTypes = {

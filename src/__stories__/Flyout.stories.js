@@ -1,10 +1,10 @@
 import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
-import useMockServer from '../../__test__/utils/use-mock-server';
+import useMockServer from '../__test__/utils/use-mock-server';
 import NotificationsIcon from '../Flyout';
-import {emitIncoming} from '../../Socket';
-import EmailVerifyToast from '../../toast/Toast';
+import {emitIncoming} from '../Socket';
+import EmailVerifyToast from '../Toast';
 
 export default {
 	title: 'NotificationsIcon',

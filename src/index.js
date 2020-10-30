@@ -1,3 +1,3 @@
 export { emitIncoming } from './Socket';
-export NotificationsTab from './flyout/Flyout';
-export EmailVerifyToast from './toast/Toast';
+export { default as NotificationsTab } from './Flyout';
+export { default as EmailVerifyToast } from './Toast';
