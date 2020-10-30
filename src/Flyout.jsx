@@ -8,7 +8,7 @@ import Store from './Store';
 import { getComponent } from './types';
 import styles from './Flyout.css';
 
-function NotificationFlyout () {
+const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
 		[Store.UnreadCount]: unreadCount,
 		[Store.Load]: load,
@@ -66,6 +66,6 @@ function NotificationFlyout () {
 			</Flyout.Triggered>
 		</>
 	);
-}
+});
 
-export default Store.WrapCmp(NotificationFlyout);
+export default Store.compose(NotificationFlyout);

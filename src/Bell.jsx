@@ -15,7 +15,7 @@ const Bell = React.forwardRef(function Bell ({ count, onClick }, ref ) {
 });
 
 Bell.propTypes = {
-	count: PropTypes.number.isRequired,
+	count: PropTypes.number,
 	onClick: PropTypes.func.isRequired,
 };
 
