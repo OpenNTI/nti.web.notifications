@@ -3,9 +3,10 @@ import React from 'react';
 import { Toast } from '@nti/web-commons';
 import cx from 'classnames';
 
-import EmailVerify from './types/EmailVerify/EmailVerify';
-import { register } from './types/Registry';
-import styles from './Toast.css';
+import { register } from '../types/Registry';
+import EmailVerifyToastContent from '../types/EmailVerify/Toast';
+
+import styles from './Style.css';
 
 
 EmailVerifyToast.propTypes = {
@@ -15,11 +16,11 @@ EmailVerifyToast.propTypes = {
 
 register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');
 
-export default function EmailVerifyToast ( { onDismiss, onPromptToggle } ) {
+export default function EmailVerifyToast ( { onDismiss } ) {
 
 	return (
 		<Toast location={Toast.Locations.TopRight}>
-			<EmailVerify className={cx(styles.toastFrame)} onDismiss={onDismiss} togglePrompt={onPromptToggle} toast/>
+			<EmailVerifyToastContent className={cx(styles.toastFrame)} onDismiss={onDismiss} />
 		</Toast>
 	);
 }

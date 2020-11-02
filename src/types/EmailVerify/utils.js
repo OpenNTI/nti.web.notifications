@@ -43,4 +43,3 @@ export async function verifyEmailToken (user, token) {
 		throw new Error(e);
 	}
 }
-

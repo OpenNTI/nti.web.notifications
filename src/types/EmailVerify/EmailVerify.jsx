@@ -3,16 +3,12 @@ import { Hooks, Prompt } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import { COMMON_PREFIX, register } from '../Registry';
+import Store from '../../Store';
 
-import EmailVerifyNotification from './Notification';
 import styles from './Style.css';
-import { sendEmailVerification, verifyEmailToken } from './utils';
+import { verifyEmailToken } from './utils';
 import CongratsPrompt from './prompts/Congrats';
-import InfoPrompt from './prompts/Info';
 import EmailVerifyPrompt from './prompts/Verify';
-import EmailVerifyToastContent from './Toast';
-
 
 // This handles getting async data
 const {useResolver} = Hooks;
@@ -25,65 +21,34 @@ EmailVerify.propTypes = {
 	toast: PropTypes.bool,
 };
 
-EmailVerify.MimeTypes = [
-	COMMON_PREFIX + 'emailverify',
-];
+export default function EmailVerify ( { user:userProp } ) {
+	const {
+		[Store.ToggleEmailVerify]: toggleEmailVerify,
+	} = Store.useValue();
 
-register(EmailVerify, 'emailVerify');
-
-export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, className, toast } ) {
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
 	const [tokenInvalid, setTokenInvalid] = useState(null);
-	// Verify Dialog State
-	const [verifyPrompt, setVerifyPrompt] = useState(false);
+	const [verifyPrompt, setVerifyPrompt] = useState(true);
+	const [congratsPrompt, setCongratsPrompt] = useState(false);
 
-	const closeVerifyPrompt = () => {
-		setVerifyPrompt(false);
+	const cancelCallback = () => {
+		verifyPrompt && setVerifyPrompt(false);
+		congratsPrompt && setCongratsPrompt(false);
+		toggleEmailVerify(false);
 	};
-
-	// Info Dialog State
-	const [infoPrompt, setInfoPrompt] = useState(false);
-	const openInfoPrompt = () => {
-		setInfoPrompt(true);
-		togglePrompt(true);
-	};
-	const closeInfoPrompt = () => {
-		setInfoPrompt(false);
-	};
-
-	// Congrats Dialog State
-	const[congratsPrompt, setCongratsPrompt] = useState(false);
-	const openCongratsPrompt = () => {
-		setCongratsPrompt(true);
-		togglePrompt(true);
-	};
-	const closeCongratsPrompt = () => {
-		setCongratsPrompt(false);
-	};
-
-	// Function that closes all open prompts
-	const closePrompt = () => {
-		infoPrompt && closeInfoPrompt();
-		verifyPrompt && closeVerifyPrompt();
-		congratsPrompt && closeCongratsPrompt();
-		togglePrompt(false);
-	};
-
-	function cancelDismissCallback () {
-		closePrompt();
-	}
 
 	const completeVerification = () => {
 		setVerifyPrompt(false);
-		openCongratsPrompt();
+		setCongratsPrompt(true);
 	};
+
 	const onTokenSubmission = (token) => {
 		if (token && token !== '') {
 			try {
 				return verifyEmailToken(user, token)
-					.then((response) => {
+					.then(() => {
 						completeVerification();
 					}, () => {
 						setTokenInvalid(true);
@@ -96,37 +61,18 @@ export default function EmailVerify ( { user:userProp, onDismiss, togglePrompt, 
 			setTokenInvalid(true);
 		}
 	};
-	function verifyClickCallback () {
-		setTokenInvalid(false);
-		sendEmailVerification(user)
-			.then(() => {
-				setVerifyPrompt(true);
-				togglePrompt(true);
-			}, (error) => {
-				throw new Error(error.toString());
-			});
-	}
-	const delegateProps = {
-		className: className,
-		onDismiss,
-		onVerifyClick: verifyClickCallback,
-		onInfoClick: openInfoPrompt,
-	};
+
 	return (
 		<>
-			{toast ? <EmailVerifyToastContent {...delegateProps} isPromptOpen={(verifyPrompt || infoPrompt || congratsPrompt)} /> : <EmailVerifyNotification {...delegateProps} />}
-			{(verifyPrompt || infoPrompt || congratsPrompt) && (
-				<Prompt.Dialog onBeforeDismiss={closePrompt} >
+			{(verifyPrompt || congratsPrompt) && (
+				<Prompt.Dialog onBeforeDismiss={cancelCallback} >
 					<div className={styles.promptView}>
 						<div className={styles.dialogContent}>
 							{verifyPrompt && (
-								<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelDismissCallback} tokenInvalid={tokenInvalid} />
-							)}
-							{infoPrompt && (
-								<InfoPrompt onClose={cancelDismissCallback} />
+								<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelCallback} tokenInvalid={tokenInvalid} />
 							)}
 							{congratsPrompt && (
-								<CongratsPrompt onDismiss={cancelDismissCallback} />
+								<CongratsPrompt onDismiss={cancelCallback} />
 							)}
 						</div>
 					</div>

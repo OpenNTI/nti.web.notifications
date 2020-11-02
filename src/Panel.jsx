@@ -124,4 +124,4 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 	);
 }
 
-export default Store.WrapCmp(Panel);
+export default Store.Compose(Panel);

@@ -1,12 +1,12 @@
 import { Flyout } from '@nti/web-commons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAppUser } from '@nti/web-client';
 import cx from 'classnames';
 
-import Bell from './Bell';
-import Panel from './Panel';
-import Store from './Store';
-import { getComponent } from './types';
-import styles from './Flyout.css';
+import Bell from '../bell/Bell';
+import Panel from '../panel/Panel';
+import Store from '../Store';
+import EmailVerificationWorkflow from '../types/EmailVerify/Workflow';
 
 const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
@@ -15,14 +15,17 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		[Store.UpdateLastViewed]: updateLastViewed,
 		[Store.UpdateNewItems]: updateNewItems,
 		[Store.CheckNewItemsExist]: checkNewItemsExist,
-		[Store.Toasts]: toasts,
 	} = Store.useValue();
 
-	const [dismissedToasts, setDismissedToasts] = useState([
-		null,
-	]);
-	const hasToasts = toasts && toasts.length > 0;
+	const [user, setUser] = useState('');
 
+	useEffect(() => {
+		async function setUserAsync () {
+			const _user = await getAppUser();
+			setUser(_user);
+		}
+		setUserAsync();
+	}, []);
 
 	const [isPromptOpen, setIsPromptOpen] = useState(false);
 
@@ -38,26 +41,13 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		flyoutProps.open = true;
 	}
 
-	const dismissClickCallBack = (Toast) => {
-		setDismissedToasts([...dismissedToasts, Toast]);
-	};
-
 	React.useEffect(() => {
 		load();
 	}, [load]);
 
 	return (
 		<>
-			{hasToasts && toasts.map((toast, key) => {
-				const ToastDelegate = getComponent(toast);
-				if (!dismissedToasts.includes(ToastDelegate)) {
-					return (
-						<div key={key}>
-							<ToastDelegate onDismiss={() => dismissClickCallBack(ToastDelegate)} onPromptToggle={(toggle) => onPromptToggle(toggle, true)}/>
-						</div>
-					);
-				}
-			})}
+			{user && user.email && user.hasLink('RequestEmailVerification') && <EmailVerificationWorkflow /> }
 
 			<Flyout.Triggered {...flyoutProps} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
@@ -68,4 +58,4 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 	);
 });
 
-export default Store.compose(NotificationFlyout);
+export default Store.Compose(NotificationFlyout);

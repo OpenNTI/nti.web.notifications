@@ -5,11 +5,11 @@ import { action } from '@storybook/addon-actions';
 import React from 'react';
 
 import useMockServer from '../../__test__/utils/use-mock-server';
-import EmailVerify from '../EmailVerify';
+import EmailVerifyNotification from '../EmailVerify/Notification';
 
 export default {
 	title: 'Email Verify',
-	component: EmailVerify,
+	component: EmailVerifyNotification,
 	argTypes: {
 		userSave: { action: 'user-save' },
 	}
@@ -31,5 +31,5 @@ export const EmailVerifyTemplate = () => {
 			action('user-save', ...user);
 		},
 	};
-	return <EmailVerify user={user} onDismiss={action('dismiss-notification')} />;
+	return <EmailVerifyNotification onDismiss={action('dismiss-notification')} />;
 };

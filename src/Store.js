@@ -2,6 +2,7 @@ import { Stores } from '@nti/lib-store';
 import { getAppUser, getService } from '@nti/web-client';
 
 import { subscribeToIncoming } from './Socket';
+import { sendEmailVerification } from './types/EmailVerify/utils';
 
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
@@ -14,6 +15,7 @@ const Error = 'errorProp';
 const UnreadCount = 'unreadCount';
 const MoreItems = 'moreItems';
 const Toasts = 'toasts';
+const EmailVerify = 'emailVerify';
 
 const UpdateLastViewed = 'updateLastViewed';
 const UpdateNewItems = 'updateNewItems';
@@ -57,6 +59,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	static UnreadCount = UnreadCount;
 	static MoreItems = MoreItems;
 	static Toasts = Toasts;
+	static EmailVerify = EmailVerify;
 
 	static UpdateLastViewed = UpdateLastViewed;
 	static UpdateNewItems = UpdateNewItems;
@@ -170,7 +173,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async [UpdateNewItems] () {
 		try {
-			// Check that we have more items to shwo
+			// Check that we have more items to show
 			const batch = this.get('batch');
 			const currentlyShown =
 				this.get('currentlyShown') || batch.ItemCount;
@@ -208,4 +211,14 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
+	async startEmailVerification () {
+		this.set({ emailVerificationRequested: new Date() });
+		const user = await getAppUser();
+		try {
+			await sendEmailVerification(user);
+			this.set({ emailVerificationSent: new Date() });
+		} catch (error) {
+			this.set({ error });
+		}
+	}
 }
