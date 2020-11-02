@@ -59,7 +59,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 				}
 			})}
 
-			<Flyout.Triggered {...flyoutProps} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
+			<Flyout.Triggered {...flyoutProps} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 					onPromptToggle={(toggle) => onPromptToggle(toggle)} />
