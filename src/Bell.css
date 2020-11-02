@@ -16,13 +16,13 @@
 	opacity: 1;
 	margin-top: -12px;
 	margin-left: -10px;
-	background-image: url("./assets/icon-dark.svg");
+	background-image: url("./assets/icon-white.svg");
 }
 
 .bell:focus {
 	outline: 0;
 }
 
-.dark::after {
-	background-image: url("./assets/icon-white.svg");
+.light::after {
+	background-image: url("./assets/icon-dark.svg");
 }
