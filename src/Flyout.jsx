@@ -19,45 +19,43 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 	} = Store.useValue();
 
 	const [user, setUser] = useState(null);
-	const [isPromptOpen, setIsPromptOpen] = useState(false);
-
-	const onPromptToggle = (toggle, fromToast) => {
-		if (!fromToast) {
-			setIsPromptOpen(toggle);
-		}
-	};
-
-	let flyoutProps = {};
-
-	if (isPromptOpen) {
-		flyoutProps.open = true;
-	}
 
 	useEffect(() => {
-		async function setUserAsync () {
-			try {
-				const _user = await getAppUser();
-				setUser(_user);
-			} catch (e) {
-				throw new Error(e);
-			}
-		}
-		setUserAsync();
+		let mounted = true;
 
-		load();
+		(async function setup () {
+
+			load();
+
+			const _user = await getAppUser();
+			if (mounted) {
+				setUser(_user);
+			}
+
+		}());
+
+		return () => {
+			mounted = false;
+		};
 	}, [load]);
+
+	const trigger = (
+		<div className={cx(styles.triggerContainer)}>
+			<Bell count={unreadCount} onClick={updateLastViewed} />
+		</div>
+	);
 
 	return (
 		<>
 			{user && user.email && user.hasLink('RequestEmailVerification') && <EmailVerificationWorkflow /> }
 
-			<Flyout.Triggered {...flyoutProps} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={(<div className={cx(styles.triggerContainer)}><Bell count={unreadCount} onClick={updateLastViewed} /></div>)}>
+			<Flyout.Triggered horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger}>
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
-					onPromptToggle={(toggle) => onPromptToggle(toggle)} />
+				/>
 			</Flyout.Triggered>
 		</>
 	);
 });
 
-export default Store.WrapCmp(NotificationFlyout);
+export default Store.compose(NotificationFlyout);

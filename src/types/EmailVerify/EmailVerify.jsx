@@ -15,7 +15,6 @@ const {isResolved} = useResolver;
 EmailVerify.propTypes = {
 	user: PropTypes.object,
 	onDismiss: PropTypes.func.isRequired,
-	togglePrompt: PropTypes.func.isRequired,
 	toast: PropTypes.bool,
 };
 

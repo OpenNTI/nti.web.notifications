@@ -53,6 +53,7 @@ const Toastable = [
  */
 
 export default class NotificationsStore extends Stores.SimpleStore {
+	static Singleton = true;
 	static Loading = Loading;
 	static Items = Items;
 	static Error = Error;

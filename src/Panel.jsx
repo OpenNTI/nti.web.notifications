@@ -35,10 +35,9 @@ const Translate = Text.Translator(translation);
 Panel.propTypes = {
 	newItemsExist: PropTypes.func.isRequired,
 	loadNewItems: PropTypes.func.isRequired,
-	onPromptToggle: PropTypes.func.isRequired,
 };
 
-export default function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
+export default function Panel ( { newItemsExist, loadNewItems } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
@@ -98,7 +97,7 @@ export default function Panel ( { newItemsExist, loadNewItems, onPromptToggle } 
 								if (!dismissedNotifications.includes(ItemDelegate)) {
 									return (
 										<div key={key}>
-											<ItemDelegate item={item} onDismiss={(Item) => dismissClickCallBack(Item)} togglePrompt={(toggle) => onPromptToggle(toggle)} />
+											<ItemDelegate item={item} onDismiss={(Item) => dismissClickCallBack(Item)} />
 										</div>
 									);
 								}
