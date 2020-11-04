@@ -2,7 +2,7 @@ import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
 import useMockServer from '../__test__/utils/use-mock-server';
-import NotificationsIcon from '../Flyout';
+import NotificationsIcon from '../View';
 import {emitIncoming} from '../Socket';
 
 export default {

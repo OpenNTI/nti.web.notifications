@@ -14,6 +14,7 @@ export ForumTopic from './ForumTopic';
 export Grade from './Grade';
 export Note from './Note';
 export Unknown from './Unknown';
+export EmailVerifyNotification from './EmailVerify/Notification';
 import { getComponent } from './Registry';
 
 export {
