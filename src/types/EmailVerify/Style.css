@@ -46,4 +46,5 @@
 .timeout-bar {
 	height: 6px;
 	background-color: var(--secondary-orange);
+	transition: width 0.2s;
 }
