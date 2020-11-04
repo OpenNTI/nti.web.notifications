@@ -67,6 +67,8 @@ export default function Panel ( { newItemsExist, loadNewItems, onPromptToggle } 
 	function handleScroll (e) {
 		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 		if (bottom) {
+			// User scrolled down to the bottom
+			// Check if new items exist
 			if (newItemsExist()) {
 				setLoadingScroll(true);
 			}
@@ -120,4 +122,3 @@ export default function Panel ( { newItemsExist, loadNewItems, onPromptToggle } 
 		</Loading.Placeholder>
 	);
 }
-

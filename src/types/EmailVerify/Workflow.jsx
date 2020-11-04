@@ -5,7 +5,7 @@ import Store from '../../Store';
 
 import EmailVerify from './EmailVerify';
 
-function EmailVerificationWorkflow () {
+export default function EmailVerificationWorkflow () {
 	const {
 		emailVerificationSent,
 	} = Store.useValue();
@@ -19,5 +19,3 @@ function EmailVerificationWorkflow () {
 		</>
 	);
 }
-
-export default Store.WrapCmp(EmailVerificationWorkflow);

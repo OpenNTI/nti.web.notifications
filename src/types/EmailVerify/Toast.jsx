@@ -21,7 +21,7 @@ EmailVerifyToastContent.propTypes = {
 	className: PropTypes.string,
 };
 
-function EmailVerifyToastContent ({ onDismiss, className }) {
+export default function EmailVerifyToastContent ({ onDismiss, className }) {
 	const {
 		emailVerificationSent: emailVerificationSent,
 		startEmailVerification: startEmailVerification,
@@ -60,5 +60,3 @@ function EmailVerifyToastContent ({ onDismiss, className }) {
 		</>
 	);
 }
-
-export default Store.WrapCmp(EmailVerifyToastContent);
