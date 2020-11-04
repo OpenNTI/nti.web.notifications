@@ -5,13 +5,12 @@ import cx from 'classnames';
 import styles from '../Frame.css';
 
 EmailVerifyFrame.propTypes = {
-	onDismiss: PropTypes.func.isRequired,
-	children: PropTypes.object.isRequired,
+	children: PropTypes.array.isRequired,
 	className: PropTypes.string,
 	onClick: PropTypes.func,
 };
 
-export default function EmailVerifyFrame ( { onDismiss: dismiss, children, className, onClick } ) {
+export default function EmailVerifyFrame ( { children, className, onClick } ) {
 	return (
 		<div className={cx(styles.emailVerifyFrame, className)} onClick={onClick}>
 			<div className={cx(styles.notificationItem)}>

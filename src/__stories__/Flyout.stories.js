@@ -4,7 +4,6 @@ import React from 'react';
 import useMockServer from '../__test__/utils/use-mock-server';
 import NotificationsIcon from '../Flyout';
 import {emitIncoming} from '../Socket';
-import EmailVerifyToast from '../Toast';
 
 export default {
 	title: 'NotificationsIcon',
@@ -115,8 +114,6 @@ export const DefaultTemplate = () => {
 			<NotificationsIcon />
 			<br/>
 			<NewNotificationTrigger />
-			<br/>
-			<EmailVerifyToast />
 		</>
 	);
 };

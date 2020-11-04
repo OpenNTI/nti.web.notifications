@@ -3,8 +3,6 @@ import { Hooks, Prompt } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import Store from '../../Store';
-
 import styles from './Style.css';
 import { verifyEmailToken } from './utils';
 import CongratsPrompt from './prompts/Congrats';
@@ -22,10 +20,6 @@ EmailVerify.propTypes = {
 };
 
 export default function EmailVerify ( { user:userProp } ) {
-	const {
-		[Store.ToggleEmailVerify]: toggleEmailVerify,
-	} = Store.useValue();
-
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
@@ -36,7 +30,6 @@ export default function EmailVerify ( { user:userProp } ) {
 	const cancelCallback = () => {
 		verifyPrompt && setVerifyPrompt(false);
 		congratsPrompt && setCongratsPrompt(false);
-		toggleEmailVerify(false);
 	};
 
 	const completeVerification = () => {

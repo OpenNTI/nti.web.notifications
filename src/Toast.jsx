@@ -3,15 +3,13 @@ import React from 'react';
 import { Toast } from '@nti/web-commons';
 import cx from 'classnames';
 
-import { register } from '../types/Registry';
-import EmailVerifyToastContent from '../types/EmailVerify/Toast';
-
-import styles from './Style.css';
+import EmailVerifyToastContent from './types/EmailVerify/Toast';
+import { register } from './types/Registry';
+import styles from './Toast.css';
 
 
 EmailVerifyToast.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
-	onPromptToggle: PropTypes.func
 };
 
 register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');

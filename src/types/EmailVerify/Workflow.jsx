@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 
-import EmailVerifyToast from '../../toast/Toast';
+import EmailVerifyToast from '../../Toast';
 import Store from '../../Store';
 
 import EmailVerify from './EmailVerify';
 
 function EmailVerificationWorkflow () {
+	const {
+		emailVerificationSent,
+	} = Store.useValue();
+
 	const [showToast, setShowToast] = useState(true);
+
 	return (
 		<>
-			{ showToast && <EmailVerifyToast onDismiss={() => setShowToast(false)}/> }
-			<EmailVerify />
+			{ showToast && <EmailVerifyToast onDismiss={() => setShowToast(false)} /> }
+			{ emailVerificationSent && <EmailVerify /> }
 		</>
 	);
 }
 
-export default Store.Compose(EmailVerificationWorkflow);
+export default Store.WrapCmp(EmailVerificationWorkflow);

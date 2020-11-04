@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { getAppUser } from '@nti/web-client';
 import cx from 'classnames';
 
-import Bell from '../bell/Bell';
-import Panel from '../panel/Panel';
-import Store from '../Store';
-import EmailVerificationWorkflow from '../types/EmailVerify/Workflow';
+import Bell from './Bell';
+import Panel from './Panel';
+import Store from './Store';
+import EmailVerificationWorkflow from './types/EmailVerify/Workflow';
+import styles from './Flyout.css';
 
 const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
@@ -17,16 +18,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		[Store.CheckNewItemsExist]: checkNewItemsExist,
 	} = Store.useValue();
 
-	const [user, setUser] = useState('');
-
-	useEffect(() => {
-		async function setUserAsync () {
-			const _user = await getAppUser();
-			setUser(_user);
-		}
-		setUserAsync();
-	}, []);
-
+	const [user, setUser] = useState(null);
 	const [isPromptOpen, setIsPromptOpen] = useState(false);
 
 	const onPromptToggle = (toggle, fromToast) => {
@@ -41,7 +33,17 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		flyoutProps.open = true;
 	}
 
-	React.useEffect(() => {
+	useEffect(() => {
+		async function setUserAsync () {
+			try {
+				const _user = await getAppUser();
+				setUser(_user);
+			} catch (e) {
+				throw new Error(e);
+			}
+		}
+		setUserAsync();
+
 		load();
 	}, [load]);
 
@@ -58,4 +60,4 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 	);
 });
 
-export default Store.Compose(NotificationFlyout);
+export default Store.WrapCmp(NotificationFlyout);

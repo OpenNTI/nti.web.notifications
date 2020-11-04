@@ -36,10 +36,9 @@ Panel.propTypes = {
 	newItemsExist: PropTypes.func.isRequired,
 	loadNewItems: PropTypes.func.isRequired,
 	onPromptToggle: PropTypes.func.isRequired,
-	onShowAllClick: PropTypes.func.isRequired,
 };
 
-function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick } ) {
+export default function Panel ( { newItemsExist, loadNewItems, onPromptToggle } ) {
 	const {
 		[Store.Items]: items,
 		[Store.Loading]: loading,
@@ -68,8 +67,6 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 	function handleScroll (e) {
 		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 		if (bottom) {
-			// User scrolled down to the bottom
-			// Check if new items exist
 			if (newItemsExist()) {
 				setLoadingScroll(true);
 			}
@@ -113,8 +110,8 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 							</div>
 						)}
 					</div>
-					<div className={styles.showAllContainer} onClick={onShowAllClick}>
-						<LinkTo.Path to="notifications" exact>
+					<div className={styles.showAllContainer}>
+						<LinkTo.Path to="notifications">
 							<Translate localeKey="showAll" />
 						</LinkTo.Path>
 					</div>
@@ -124,4 +121,3 @@ function Panel ( { newItemsExist, loadNewItems, onPromptToggle, onShowAllClick }
 	);
 }
 
-export default Store.Compose(Panel);

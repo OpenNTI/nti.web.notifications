@@ -3,7 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
-import NotificationItemFrame from '../../frame';
+import NotificationItemFrame from '../../Frame';
 import Store from '../../Store';
 
 import styles from './Style.css';
@@ -21,9 +21,9 @@ EmailVerifyToastContent.propTypes = {
 	className: PropTypes.string,
 };
 
-export default function EmailVerifyToastContent ({ onDismiss, className }) {
+function EmailVerifyToastContent ({ onDismiss, className }) {
 	const {
-		emailVerificationRequested: emailVerificationRequested,
+		emailVerificationSent: emailVerificationSent,
 		startEmailVerification: startEmailVerification,
 	} = Store.useValue();
 
@@ -33,18 +33,22 @@ export default function EmailVerifyToastContent ({ onDismiss, className }) {
 
 	useEffect(() => {
 		if (time < timeout && ticks > 0) {
-			if (!emailVerificationRequested) {
+			if (!emailVerificationSent) {
 				setTime(time + 1);
 			}
 		}
-		if (time === timeout && !emailVerificationRequested) {
+		if (time === timeout && !emailVerificationSent) {
 			onDismiss();
 		}
 	}, [ticks]);
 
+	const clickCallback = () => {
+		startEmailVerification();
+	};
+
 	return (
 		<>
-			<NotificationItemFrame emailVerify={true} onClick={() => startEmailVerification()} dismissCallBack={() => onDismiss()} className={className}>
+			<NotificationItemFrame emailVerify={true} onClick={clickCallback} dismissCallBack={() => onDismiss()} className={className}>
 				<div className={styles.dismissButton} onClick={onDismiss}>&times;</div>
 				<div className={styles.emailVerifyContainer}>
 					<Translate localeKey="message" />
@@ -56,3 +60,5 @@ export default function EmailVerifyToastContent ({ onDismiss, className }) {
 		</>
 	);
 }
+
+export default Store.WrapCmp(EmailVerifyToastContent);

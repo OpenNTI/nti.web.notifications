@@ -3,7 +3,7 @@ import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../../frame';
+import NotificationItemFrame from '../../Frame';
 import { register, COMMON_PREFIX } from '../Registry';
 import Store from '../../Store';
 
@@ -32,7 +32,6 @@ register(EmailVerifyNotification, 'emailVerify');
 
 export default function EmailVerifyNotification ( { onDismiss, className } ) {
 	const {
-		// emailVerificationRequested: emailVerificationRequested,
 		startEmailVerification: startEmailVerification,
 	} = Store.useValue();
 
