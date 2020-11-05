@@ -17,7 +17,7 @@ export default function Change ({ item }) {
 	const ItemType = getComponent(item.Item);
 
 	if (ItemType) {
-		return <ItemType item={item.getItem() || item.Item}/>;
+		return <ItemType item={item.Item}/>;
 	}
 
 }
