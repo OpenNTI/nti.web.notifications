@@ -1,13 +1,11 @@
 export default function useMockServer (mockService) {
-	const old = global.$AppConfig;
 	global.$AppConfig = {
-		...(global.$AppConfig ?? {}),
+		...global.$AppConfig,
 		nodeService: mockService,
 		nodeInterface: {
-			getServiceDocument: () => {
-				Promise.resolve(global.$AppConfig.nodeService);
+			async getServiceDocument () {
+				return mockService;
 			},
 		},
 	};
-	return () => (global.$AppConfig = old);
 }
