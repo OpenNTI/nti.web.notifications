@@ -2,12 +2,12 @@ import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
 import useMockServer from '../__test__/utils/use-mock-server';
-import NotificationsIcon from '../View';
+import Notifications from '../View';
 import {emitIncoming} from '../Socket';
 
 export default {
 	title: 'NotificationsIcon',
-	component: NotificationsIcon,
+	component: Notifications,
 };
 
 function getRandomNotable () {
@@ -18,12 +18,6 @@ function getRandomNotable () {
 		MimeType: mimeTypes[Math.round((mimeTypes.length - 1) * Math.random())],
 		name: 'Test',
 	};
-}
-
-function NewNotificationTrigger () {
-	return (
-		<button onClick={() => emitIncoming(getRandomNotable())}>Push Notification</button>
-	);
 }
 
 export const DefaultTemplate = () => {
@@ -111,9 +105,11 @@ export const DefaultTemplate = () => {
 
 	return (
 		<>
-			<NotificationsIcon />
-			<br/>
-			<NewNotificationTrigger />
+			<div style={{position: 'absolute', right: 10}}>
+				<Notifications />
+			</div>
+
+			<button onClick={() => emitIncoming(getRandomNotable())}>Push Notification</button>
 		</>
 	);
 };
