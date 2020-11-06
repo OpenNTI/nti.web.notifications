@@ -48,8 +48,12 @@ export const DefaultTemplate = () => {
 			}, {
 				creator: 'quiz_tester',
 				getLastModified: () => { return new Date(0); },
-				MimeType: Models.entities.User.MimeType,
+				MimeType: 'bogus-item-force-unknown',
 				name: 'Test',
+			}, {
+				creator: 'who?',
+				MimeType: Models.entities.User.MimeType,
+				name: 'Phony',
 			}, {
 				creator: 'quiz_tester',
 				getLastModified: () => { return new Date(0); },
