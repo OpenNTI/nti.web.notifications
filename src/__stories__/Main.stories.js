@@ -46,14 +46,12 @@ export const DefaultTemplate = () => {
 				MimeType: Models.forums.Post.MimeTypes[5],
 				name: 'Test',
 			}, {
+				MimeType: 'bogus-item-force-unknown',
+			}, {
 				creator: 'quiz_tester',
 				getLastModified: () => { return new Date(0); },
-				MimeType: 'bogus-item-force-unknown',
-				name: 'Test',
-			}, {
-				creator: 'who?',
 				MimeType: Models.entities.User.MimeType,
-				name: 'Phony',
+				name: 'Test',
 			}, {
 				creator: 'quiz_tester',
 				getLastModified: () => { return new Date(0); },
