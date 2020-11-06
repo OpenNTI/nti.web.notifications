@@ -2,7 +2,7 @@ import {Array as arrays, Registry} from '@nti/lib-commons';
 
 export default class NotificationItemRegistry extends Registry.Map {
 	static setDefault (Component) {
-		this.getInstance().register(Registry.DEFAULT, Component);
+		this.getInstance().register(Registry.Default, Component);
 	}
 }
 
