@@ -7,15 +7,16 @@ import EmailVerify from './EmailVerify';
 
 export default function EmailVerificationWorkflow () {
 	const {
-		emailVerificationSent,
+		startEmailVerification,
+		isEmailVerifyHidden,
 	} = Store.useValue();
 
 	const [showToast, setShowToast] = useState(true);
 
 	return (
 		<>
-			{ showToast && <EmailVerifyToast onDismiss={() => setShowToast(false)} /> }
-			{ emailVerificationSent && <EmailVerify /> }
+			{ showToast && <EmailVerifyToast onDismiss={() => setShowToast(false)} startEmailVerification={startEmailVerification} /> }
+			{ isEmailVerifyHidden === false && <EmailVerify /> }
 		</>
 	);
 }

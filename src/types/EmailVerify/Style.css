@@ -43,8 +43,19 @@
 	border-bottom-right-radius: 4px;
 }
 
+@keyframes timeout-bar-keyframes {
+	from {
+		width: 0%;
+	}
+
+	to {
+		width: 100%;
+	}
+}
+
 .timeout-bar {
 	height: 6px;
 	background-color: var(--secondary-orange);
-	transition: width 0.2s;
+	animation-name: timeout-bar-keyframes;
+	animation-duration: 10s;
 }

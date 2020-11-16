@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from '../Frame.css';
 
 EmailVerifyFrame.propTypes = {
-	children: PropTypes.array.isRequired,
+	children: PropTypes.any.isRequired,
 	className: PropTypes.string,
 	onClick: PropTypes.func,
 };

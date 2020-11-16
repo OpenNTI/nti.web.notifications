@@ -1,42 +1,41 @@
 import { scoped } from '@nti/lib-locale';
-import {getService} from  '@nti/web-client';
-import { Text } from '@nti/web-commons';
+import { getService } from  '@nti/web-client';
+import { Hooks, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import NotificationItemFrame from '../Frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 
-// String localization
 const translation = scoped('nti-notifications.notifications.types.Feedback', {
 	action: 'posted feedback on %(t)s',
 });
+
+const Translate = Text.Translator(translation);
+
+const { useResolver } = Hooks;
 
 Feedback.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-const Translate = Text.Translator(translation);
-
 Feedback.MimeTypes = [
 	COMMON_PREFIX + 'assessment.userscourseassignmenthistoryitemfeedback',
 ];
 
-async function resolveAssignment (item, apply) {
-	const assignmentId = item.AssignmentId;
-	const service = await getService();
-	apply(await service.getObject(assignmentId));
-}
-
 register(Feedback, 'feedback');
 
-export default function Feedback ({ item }) {
-	const [assignment, setAssignment] = useState('');
+async function resolveAssignment (item) {
+	const assignmentId = item.AssignmentId;
+	const service = await getService();
+	const assignment = await service.getObject(assignmentId);
 
-	useEffect(() => {
-		resolveAssignment(item, setAssignment);
-	}, [assignment]);
+	return assignment;
+}
+
+export default function Feedback ({ item }) {
+	const assignment = useResolver(() => resolveAssignment(item), [item]);
 
 	return (
 		<NotificationItemFrame item={item}>
@@ -44,7 +43,7 @@ export default function Feedback ({ item }) {
 			<Translate
 				localeKey="action"
 				with={{
-					t: assignment.title || item.title,
+					t: assignment?.title ?? item.title,
 				}}
 			/>
 		</NotificationItemFrame>

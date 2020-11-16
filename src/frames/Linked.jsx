@@ -7,8 +7,8 @@ import styles from '../Frame.css';
 
 LinkedFrame.propTypes = {
 	item: PropTypes.object.isRequired,
-	username: PropTypes.string.isRequired,
 	children: PropTypes.object.isRequired,
+	username: PropTypes.string,
 };
 
 export default function LinkedFrame ( { item, username, children } ) {

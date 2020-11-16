@@ -3,6 +3,8 @@ import { Hooks, Prompt } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
+import Store from '../../Store';
+
 import styles from './Style.css';
 import { verifyEmailToken } from './utils';
 import CongratsPrompt from './prompts/Congrats';
@@ -14,11 +16,13 @@ const {isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
-	onDismiss: PropTypes.func.isRequired,
-	toast: PropTypes.bool,
 };
 
 export default function EmailVerify ( { user:userProp } ) {
+	const {
+		hideEmailVerify,
+	} = Store.useValue();
+
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 
@@ -29,6 +33,7 @@ export default function EmailVerify ( { user:userProp } ) {
 	const cancelCallback = () => {
 		verifyPrompt && setVerifyPrompt(false);
 		congratsPrompt && setCongratsPrompt(false);
+		hideEmailVerify();
 	};
 
 	const completeVerification = () => {
@@ -56,20 +61,18 @@ export default function EmailVerify ( { user:userProp } ) {
 
 	return (
 		<>
-			{(verifyPrompt || congratsPrompt) && (
-				<Prompt.Dialog onBeforeDismiss={cancelCallback} >
-					<div className={styles.promptView}>
-						<div className={styles.dialogContent}>
-							{verifyPrompt && (
-								<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelCallback} tokenInvalid={tokenInvalid} />
-							)}
-							{congratsPrompt && (
-								<CongratsPrompt onDismiss={cancelCallback} />
-							)}
-						</div>
+			<Prompt.Dialog onBeforeDismiss={cancelCallback} >
+				<div className={styles.promptView}>
+					<div className={styles.dialogContent}>
+						{(verifyPrompt && user) && (
+							<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelCallback} tokenInvalid={tokenInvalid} />
+						)}
+						{congratsPrompt && (
+							<CongratsPrompt onDismiss={cancelCallback} />
+						)}
 					</div>
-				</Prompt.Dialog>
-			)}
+				</div>
+			</Prompt.Dialog>
 		</>
 
 	);

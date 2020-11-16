@@ -20,7 +20,6 @@ const Translate = Text.Translator(translation);
 
 EmailVerifyNotification.propTypes = {
 	onDismiss: PropTypes.func.isRequired,
-	onVerifyClick: PropTypes.func.isRequired,
 	className: PropTypes.string
 };
 

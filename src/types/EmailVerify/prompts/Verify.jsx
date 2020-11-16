@@ -27,10 +27,10 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Em
 const Translate = Text.Translator(translation);
 
 EmailVerifyPrompt.propTypes = {
-	user: PropTypes.object.isRequired,
+	user: PropTypes.object,
+	tokenInvalid: PropTypes.bool,
 	onTokenSubmission: PropTypes.func.isRequired,
 	onClose: PropTypes.func.isRequired,
-	tokenInvalid: PropTypes.bool.isRequired,
 };
 
 const SENDING_STATE = 'SENDING';

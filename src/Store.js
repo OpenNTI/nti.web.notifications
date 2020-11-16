@@ -128,7 +128,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			const pinned = await Promise.all(Pinnable.map((n) => n()));
 			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
 			// and Boolean(x) returns the boolean representation of x.
-			const notifications = [...pinned.filter(Boolean), ...(batch.Items)];
+			const notifications = [...pinned.filter(Boolean), ...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
+
+			[].map((item) => {
+				return item.Item ? item.Item : item;
+			});
 
 			// Get toasts
 			const toasts = await Promise.all(Toastable.map((n) => n()));
@@ -214,12 +218,20 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async startEmailVerification () {
 		this.set({ emailVerificationRequested: new Date() });
+		this.set({ isEmailVerifyHidden: false });
+
 		const user = await getAppUser();
 		try {
-			await sendEmailVerification(user);
-			this.set({ emailVerificationSent: new Date() });
+			if (!this.get('emailVerificationSent')) {
+				await sendEmailVerification(user);
+				this.set({ emailVerificationSent: new Date() });
+			}
 		} catch (error) {
 			this.set({ error });
 		}
+	}
+
+	async hideEmailVerify () {
+		this.set({ isEmailVerifyHidden: true });
 	}
 }
