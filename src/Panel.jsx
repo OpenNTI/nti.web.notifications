@@ -39,10 +39,10 @@ Panel.propTypes = {
 
 export default function Panel ( { newItemsExist, loadNewItems } ) {
 	const {
-		[Store.Items]: items,
-		[Store.Loading]: loading,
-		[Store.MoreItems]: moreItems,
-		[Store.Error]: error,
+		items,
+		loading,
+		moreItems,
+		error,
 	} = Store.useValue();
 
 	const hasItems = items && items.length > 0;

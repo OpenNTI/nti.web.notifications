@@ -1,6 +1,5 @@
 import { Flyout } from '@nti/web-commons';
-import React, { useState, useEffect } from 'react';
-import { getAppUser } from '@nti/web-client';
+import React, { useEffect } from 'react';
 import cx from 'classnames';
 
 import Bell from './Bell';
@@ -11,33 +10,18 @@ import styles from './View.css';
 
 const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
-		[Store.UnreadCount]: unreadCount,
-		[Store.Load]: load,
-		[Store.UpdateLastViewed]: updateLastViewed,
-		[Store.UpdateNewItems]: updateNewItems,
-		[Store.CheckNewItemsExist]: checkNewItemsExist,
+		unreadCount,
+		load,
+		updateLastViewed,
+		updateNewItems,
+		checkNewItemsExist,
+		loadEmailVerification,
 	} = Store.useValue();
 
-	const [user, setUser] = useState(null);
-
 	useEffect(() => {
-		let mounted = true;
-
-		(async function setup () {
-
-			load();
-
-			const _user = await getAppUser();
-			if (mounted) {
-				setUser(_user);
-			}
-
-		}());
-
-		return () => {
-			mounted = false;
-		};
-	}, [load]);
+		load();
+		loadEmailVerification();
+	}, [load, loadEmailVerification]);
 
 	const trigger = (
 		<div className={cx(styles.triggerContainer)}>
@@ -47,7 +31,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 
 	return (
 		<>
-			{user && user.email && user.hasLink('RequestEmailVerification') && <EmailVerificationWorkflow /> }
+			<EmailVerificationWorkflow />
 
 			<Flyout.Triggered horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger}>
 				<Panel newItemsExist={checkNewItemsExist}

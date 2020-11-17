@@ -9,33 +9,11 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
 
-const Loading = 'loadingProp';
-const Items = 'itemsProp';
-const Error = 'errorProp';
-const UnreadCount = 'unreadCount';
-const MoreItems = 'moreItems';
-const Toasts = 'toasts';
-const EmailVerify = 'emailVerify';
-
-const UpdateLastViewed = 'updateLastViewed';
-const UpdateNewItems = 'updateNewItems';
-const CheckNewItemsExist = 'checkNewItemsExist';
-const Load = 'load';
-
 const Pinnable = [
 	async () => {
 		const user = await getAppUser();
 		if (user && user.email && user.hasLink('RequestEmailVerification')) {
 			return { MimeType: 'application/vnd.nextthought.emailverify' };
-		}
-	}
-];
-
-const Toastable = [
-	async () => {
-		const user = await getAppUser();
-		if (user && user.email && user.hasLink('RequestEmailVerification')) {
-			return { MimeType: 'application/vnd.nextthought.toasts.emailverify' };
 		}
 	}
 ];
@@ -54,21 +32,9 @@ const Toastable = [
 
 export default class NotificationsStore extends Stores.SimpleStore {
 	static Singleton = true;
-	static Loading = Loading;
-	static Items = Items;
-	static Error = Error;
-	static UnreadCount = UnreadCount;
-	static MoreItems = MoreItems;
-	static Toasts = Toasts;
-	static EmailVerify = EmailVerify;
-
-	static UpdateLastViewed = UpdateLastViewed;
-	static UpdateNewItems = UpdateNewItems;
-	static CheckNewItemsExist = CheckNewItemsExist;
-	static Load = Load;
 
 	async onIncoming (notable) {
-		let oldItems = this.get(Items) ?? [];
+		let oldItems = this.get('items') ?? [];
 		let pinnedItems = await Promise.all(Pinnable.map((n) => n()));
 		pinnedItems = pinnedItems.filter(Boolean);
 		oldItems = oldItems.filter((item) => {
@@ -82,19 +48,19 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		});
 
 		this.set({
-			[Items]: [...pinnedItems, notable, ...oldItems],
-			[UnreadCount]: this.get(UnreadCount) + 1,
+			items: [...pinnedItems, notable, ...oldItems],
+			unreadCount: this.get('unreadCount') + 1,
 		});
 	}
 
-	async [Load] () {
+	async load () {
 		if (this.initialLoad) { return;}
 		this.initialLoad = true;
 		// Subscribe to incoming notifications emitted from the legacy code, for now.
 		subscribeToIncoming((item) => this.onIncoming(item));
 
 		this.set({
-			[Loading]: true,
+			loading: true,
 		});
 
 		try {
@@ -130,41 +96,32 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			// and Boolean(x) returns the boolean representation of x.
 			const notifications = [...pinned.filter(Boolean), ...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
 
-			[].map((item) => {
-				return item.Item ? item.Item : item;
-			});
-
-			// Get toasts
-			const toasts = await Promise.all(Toastable.map((n) => n()));
-			let filteredToasts = toasts.filter(Boolean);
-
 			this.set({
 				batch,
-				[Loading]: false,
-				[Items]: notifications,
-				[UnreadCount]: unreadCount,
-				[MoreItems]: notifications.length < batch.TotalItemCount,
-				[Toasts]: filteredToasts,
+				loading: false,
+				items: notifications,
+				unreadCount: unreadCount,
+				moreItems: notifications.length < batch.TotalItemCount,
 			});
 		} catch (e) {
 			this.set({
-				[Loading]: false,
-				[Error]: e,
+				loading: false,
+				error: e,
 			});
 		}
 	}
 
-	async [UpdateLastViewed] () {
+	async updateLastViewed () {
 		const batch = this.get('batch');
 		if (batch && batch.hasLink('lastViewed')) {
 			batch.putToLink('lastViewed', Date.now() / 1000);
 			this.set({
-				[UnreadCount]: 0,
+				unreadCount: 0,
 			});
 		}
 	}
 
-	async [CheckNewItemsExist] () {
+	async checkNewItemsExist () {
 		const batch = this.get('batch');
 		const currentlyShown =
 				this.get('currentlyShown') || batch.ItemCount;
@@ -176,7 +133,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	}
 
-	async [UpdateNewItems] () {
+	async updateNewItems () {
 		try {
 			// Check that we have more items to show
 			const batch = this.get('batch');
@@ -194,7 +151,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchStart: currentlyShown,
 				batchSize: 5,
 			});
-			const alreadyPresentItems = this.get([Items]);
+			const alreadyPresentItems = this.get('items');
 			const itemsToAppend = newBatch.Items;
 
 			this.set({
@@ -203,23 +160,29 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			const items = [...alreadyPresentItems, ...itemsToAppend];
 
 			this.set({
-				[Items]: items,
-				[MoreItems]: items.length < batch.TotalItemCount,
+				items: items,
+				moreItems: items.length < batch.TotalItemCount,
 			});
 
 			return true;
 		} catch (e) {
 			this.set({
-				[Loading]: false,
-				[Error]: e,
+				loading: false,
+				error: e,
 			});
 		}
 	}
 
+	async loadEmailVerification () {
+		const user = await getAppUser();
+		this.set({
+			needsVerification: user && user.email && user.hasLink('RequestEmailVerification'),
+			completedDate: null,
+		});
+	}
+
 	async startEmailVerification () {
 		this.set({ emailVerificationRequested: new Date() });
-		this.set({ isEmailVerifyHidden: false });
-
 		const user = await getAppUser();
 		try {
 			if (!this.get('emailVerificationSent')) {
@@ -231,7 +194,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async hideEmailVerify () {
-		this.set({ isEmailVerifyHidden: true });
+	stopEmailVerification () {
+		this.set({ emailVerificationRequested: null });
+	}
+
+	completeEmailVerification () {
+		this.set({ completedData: new Date() });
 	}
 }

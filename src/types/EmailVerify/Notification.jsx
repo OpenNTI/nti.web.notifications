@@ -31,7 +31,7 @@ register(EmailVerifyNotification, 'emailVerify');
 
 export default function EmailVerifyNotification ( { onDismiss, className } ) {
 	const {
-		startEmailVerification: startEmailVerification,
+		startEmailVerification,
 	} = Store.useValue();
 
 	return (
