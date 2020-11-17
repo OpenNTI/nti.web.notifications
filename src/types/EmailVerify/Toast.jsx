@@ -1,7 +1,7 @@
 import { Timer, Text } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import NotificationItemFrame from '../../Frame';
 
@@ -12,32 +12,48 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify', 
 });
 const Translate = Text.Translator(translation);
 const TimeoutPeriod = 10000;
+let dismissed = false;
 
 EmailVerifyToastContent.propTypes = {
-	onDismiss: PropTypes.func.isRequired,
 	className: PropTypes.string.isRequired,
 	startEmailVerification: PropTypes.func.isRequired,
 };
 
-export default function EmailVerifyToastContent ({ onDismiss, className, startEmailVerification }) {
-	Timer.useWait(onDismiss, TimeoutPeriod);
+export default function EmailVerifyToastContent ({ className, startEmailVerification }) {
+	const [show, setShow] = useState(!dismissed);
+
+	Timer.useWait(() => setShow(false), TimeoutPeriod);
+
+	const dismiss = () => {
+		setShow(false);
+		dismissed = true;
+	};
 
 	const clickCallback = () => {
 		startEmailVerification();
-		onDismiss();
+		dismiss();
+	};
+
+	const handleDismissButton = (e) => {
+		dismiss();
+		e.stopPropagation();
 	};
 
 	return (
 		<>
-			<NotificationItemFrame emailVerify={true} onClick={clickCallback} dismissCallBack={() => onDismiss()} className={className}>
-				<div className={styles.dismissButton} onClick={onDismiss}>&times;</div>
-				<div className={styles.emailVerifyContainer}>
-					<Translate localeKey="message" />
-				</div>
-			</NotificationItemFrame>
-			<div className={styles.timeoutBarContainer}>
-				<div className={styles.timeoutBar} ></div>
-			</div>
+			{show && (
+				<>
+					<NotificationItemFrame emailVerify={true} onClick={clickCallback} className={className}>
+						<div className={styles.dismissButton} onClick={handleDismissButton}>&times;</div>
+						<div className={styles.emailVerifyContainer}>
+							<Translate localeKey="message" />
+						</div>
+					</NotificationItemFrame>
+					<div className={styles.timeoutBarContainer}>
+						<div className={styles.timeoutBar} ></div>
+					</div>
+				</>
+			)}
 		</>
 	);
 }

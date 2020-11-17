@@ -16,11 +16,13 @@ const {isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
+	onDismiss: PropTypes.func.isRequired
 };
 
-export default function EmailVerify ( { user:userProp } ) {
+export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const {
-		hideEmailVerify,
+		needsVerification,
+		completedDate,
 	} = Store.useValue();
 
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
@@ -33,7 +35,7 @@ export default function EmailVerify ( { user:userProp } ) {
 	const cancelCallback = () => {
 		verifyPrompt && setVerifyPrompt(false);
 		congratsPrompt && setCongratsPrompt(false);
-		hideEmailVerify();
+		onDismiss();
 	};
 
 	const completeVerification = () => {
@@ -59,12 +61,14 @@ export default function EmailVerify ( { user:userProp } ) {
 		}
 	};
 
+	const showVerifyWindow = needsVerification && completedDate === null;
+
 	return (
 		<>
 			<Prompt.Dialog onBeforeDismiss={cancelCallback} >
 				<div className={styles.promptView}>
 					<div className={styles.dialogContent}>
-						{(verifyPrompt && user) && (
+						{(showVerifyWindow && user) && (
 							<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={cancelCallback} tokenInvalid={tokenInvalid} />
 						)}
 						{congratsPrompt && (
