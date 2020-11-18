@@ -1,3 +1,18 @@
+.prompt-view {
+	width: 450px;
+	perspective: 800;
+}
+
+.dialog-content {
+	width: 100%;
+	height: 100%;
+	background-color: #fcfcfc;
+	border: 1px solid var(--quad-grey);
+	box-shadow: rgba(0, 0, 0, 0.137255) 0 2px 4px 1px, rgba(255, 255, 255, 0.498039) 0 2px inset;
+	backface-visibility: hidden;
+	border-radius: 4px;
+}
+
 .dialog-header {
 	margin: 10px 15px;
 	color: var(--primary-grey);

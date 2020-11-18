@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import cx from 'classnames';
 
 import {sendEmailVerification} from '../utils';
+import Store from '../../../Store';
 
 import styles from './Style.css';
 import ChangeEmailPrompt from './ChangeEmail';
@@ -28,7 +29,6 @@ const Translate = Text.Translator(translation);
 
 EmailVerifyPrompt.propTypes = {
 	user: PropTypes.object,
-	tokenInvalid: PropTypes.bool,
 	onTokenSubmission: PropTypes.func.isRequired,
 	onClose: PropTypes.func.isRequired,
 };
@@ -38,7 +38,11 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, tokenInvalid } ) {
+export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
+	const {
+		tokenInvalid,
+	} = Store.useValue();
+
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
@@ -135,7 +139,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 				</div>
 			)}
 			{displayChangeEmailPrompt && (
-				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(load) => closeChangeEmail(load)}/>
+				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>
 			)}
 		</>
 

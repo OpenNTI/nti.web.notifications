@@ -2,7 +2,7 @@ import { Stores } from '@nti/lib-store';
 import { getAppUser, getService } from '@nti/web-client';
 
 import { subscribeToIncoming } from './Socket';
-import { sendEmailVerification } from './types/EmailVerify/utils';
+import { sendEmailVerification, verifyEmailToken } from './types/EmailVerify/utils';
 
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
@@ -198,7 +198,21 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		this.set({ emailVerificationRequested: null });
 	}
 
-	completeEmailVerification () {
-		this.set({ completedData: new Date() });
+	async submitToken (user, token) {
+		if (token && token !== '') {
+			try {
+				await verifyEmailToken(user, token);
+				this.set({
+					completedDate: new Date(),
+					tokenInvalid: false,
+					needsVerification: false,
+				});
+			} catch (e) {
+				this.set({ tokenInvalid: true });
+			}
+		}
+		else {
+			this.set({ tokenInvalid: true });
+		}
 	}
 }
