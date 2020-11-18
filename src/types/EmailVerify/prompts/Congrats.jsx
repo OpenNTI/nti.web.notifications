@@ -26,7 +26,7 @@ export default function CongratsPrompt ({ onDismiss } ) {
 				<div className={styles.thankyouTitle}><Translate localeKey="thankyou" /></div>
 				<div className={styles.congratsMsg}><Translate localeKey="message" /></div>
 				<div className={styles.footer}>
-					<Button className={styles.dismissButton} type="submit" onClick={onDismiss} rounded={true} plain><Translate localeKey="dismiss" /></Button>
+					<Button className={styles.dismissButton} onClick={onDismiss} rounded={true} plain><Translate localeKey="dismiss" /></Button>
 				</div>
 			</div>
 		</PromptTemplate>
