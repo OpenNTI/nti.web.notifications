@@ -25,11 +25,10 @@ const Translate = Text.Translator(translation);
 
 ChangeEmailPrompt.propTypes = {
 	user: PropTypes.object.isRequired,
-	onClose: PropTypes.func.isRequired,
 	onReturn: PropTypes.func,
 };
 
-export default function ChangeEmailPrompt ( { user, onClose, onReturn } ) {
+export default function ChangeEmailPrompt ( { user, onReturn } ) {
 	const [email, setEmail] = useState(user.email);
 	const [emailChanged, setEmailChanged] = useState(false);
 	const [emailValid, setEmailValid] = useState(true);

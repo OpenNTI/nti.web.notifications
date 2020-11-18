@@ -111,6 +111,13 @@
 	width: 161px !important;
 }
 
+.dismiss-button {
+	background-color: white !important;
+	color: var(--primary-blue) !important;
+	height: 24px !important;
+	width: 161px !important;
+}
+
 .footer {
 	text-align: right;
 	padding: 0 10px 10px 0;

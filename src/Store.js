@@ -177,7 +177,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		const user = await getAppUser();
 		this.set({
 			needsVerification: user && user.email && user.hasLink('RequestEmailVerification'),
-			completedDate: null,
+			verifiedDate: null,
 		});
 	}
 
@@ -203,7 +203,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			try {
 				await verifyEmailToken(user, token);
 				this.set({
-					completedDate: new Date(),
+					verifiedDate: new Date(),
 					tokenInvalid: false,
 					needsVerification: false,
 				});
@@ -214,5 +214,9 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		else {
 			this.set({ tokenInvalid: true });
 		}
+	}
+
+	completeEmailVerification () {
+		this.set({ completedDate: new Date() });
 	}
 }

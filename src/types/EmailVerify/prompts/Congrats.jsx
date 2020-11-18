@@ -1,5 +1,5 @@
 import { scoped } from '@nti/lib-locale';
-import { DialogButtons, Text } from '@nti/web-commons';
+import { Button, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -15,13 +15,10 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Co
 const Translate = Text.Translator(translation);
 
 CongratsPrompt.propTypes = {
-	onClose: PropTypes.func.isRequired,
+	onDismiss: PropTypes.func.isRequired,
 };
 
-export default function CongratsPrompt ({ onClose } ) {
-	const buttons = [
-		{ label: <Translate localeKey="dismiss" />, type: 'submit', onClick: onClose },
-	];
+export default function CongratsPrompt ({ onDismiss } ) {
 	return (
 		<PromptTemplate>
 			<div className={styles.congratsContainer} style={{ width: 'inherit', }}>
@@ -29,9 +26,7 @@ export default function CongratsPrompt ({ onClose } ) {
 				<div className={styles.thankyouTitle}><Translate localeKey="thankyou" /></div>
 				<div className={styles.congratsMsg}><Translate localeKey="message" /></div>
 				<div className={styles.footer}>
-					<div className={styles.controlsContainer}>
-						<DialogButtons flat buttons={buttons} />
-					</div>
+					<Button className={styles.dismissButton} type="submit" onClick={onDismiss} rounded={true} plain><Translate localeKey="dismiss" /></Button>
 				</div>
 			</div>
 		</PromptTemplate>

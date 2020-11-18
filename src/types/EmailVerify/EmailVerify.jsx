@@ -20,13 +20,13 @@ EmailVerify.propTypes = {
 export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const {
 		needsVerification,
-		completedDate,
+		verifiedDate,
 		submitToken,
 	} = Store.useValue();
 
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
-	const showVerifyWindow = needsVerification && completedDate === null;
+	const showVerifyWindow = needsVerification && verifiedDate === null;
 	const onTokenSubmission = (token) => {
 		submitToken(user, token);
 		onDismiss();

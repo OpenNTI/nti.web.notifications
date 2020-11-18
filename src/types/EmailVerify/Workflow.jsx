@@ -8,9 +8,11 @@ import CongratsPrompt from './prompts/Congrats';
 
 export default function EmailVerificationWorkflow () {
 	const {
-		emailVerificationRequested,
 		stopEmailVerification,
+		completeEmailVerification,
+		emailVerificationRequested,
 		needsVerification,
+		verifiedDate,
 		completedDate,
 	} = Store.useValue();
 
@@ -18,7 +20,7 @@ export default function EmailVerificationWorkflow () {
 		<>
 			{ needsVerification && <EmailVerifyToast /> }
 			{ emailVerificationRequested && <EmailVerify onDismiss={stopEmailVerification} /> }
-			{ completedDate && completedDate <= Date.now() && <CongratsPrompt onDismiss={stopEmailVerification} /> }
+			{ !completedDate && verifiedDate && verifiedDate <= Date.now() && <CongratsPrompt onDismiss={completeEmailVerification} /> }
 		</>
 	);
 }
