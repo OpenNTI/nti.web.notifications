@@ -47,9 +47,6 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 
 	const hasItems = items && items.length > 0;
 
-	const [dismissedNotifications, setDismissedNotifications] = useState([
-		null,
-	]);
 	const [loadingScroll, setLoadingScroll] = useState(false);
 
 	useEffect(() => {
@@ -74,10 +71,6 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 		}
 	}
 
-	const dismissClickCallBack = (ItemDelegate) => {
-		setDismissedNotifications([...dismissedNotifications, ItemDelegate]);
-	};
-
 	const defaultHeight = 6 * 78;
 	let notificationsContainerHeight = defaultHeight;
 	if (window.innerHeight <= defaultHeight) {
@@ -94,13 +87,11 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 						{hasItems ? (
 							items.map((item, key) => {
 								const ItemDelegate = getComponent(item);
-								if (!dismissedNotifications.includes(ItemDelegate)) {
-									return (
-										<div key={key}>
-											<ItemDelegate item={item} onDismiss={(Item) => dismissClickCallBack(Item)} />
-										</div>
-									);
-								}
+								return (
+									<div key={key}>
+										<ItemDelegate item={item} />
+									</div>
+								);
 							})
 						) : (
 							<div className={styles.noNotifications}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
