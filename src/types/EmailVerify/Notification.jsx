@@ -13,7 +13,6 @@ import styles from './Style.css';
 const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
 	message: 'Please take a moment to verify your email address.',
 	verifyNow: 'Verify Now',
-	moreInfo: 'More Info',
 });
 
 const Translate = Text.Translator(translation);
