@@ -2,6 +2,16 @@
 	line-height: 19px;
 }
 
+.email-verify-toast-text {
+	height: 40px;
+	width: 272px;
+	color: #000;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0.03px;
+	line-height: 19px;
+}
+
 .action-link {
 	color: var(--primary-blue);
 	cursor: pointer;
