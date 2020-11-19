@@ -1,7 +1,8 @@
-import { Timer, Text } from '@nti/web-commons';
+import { Hooks, Timer, Text } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
+import cx from 'classnames';
 
 import NotificationItemFrame from '../../Frame';
 
@@ -12,7 +13,7 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify', 
 });
 const Translate = Text.Translator(translation);
 const TimeoutPeriod = 10000;
-let dismissed = false;
+const { usePersistentState } = Hooks;
 
 EmailVerifyToastContent.propTypes = {
 	className: PropTypes.string.isRequired,
@@ -20,13 +21,10 @@ EmailVerifyToastContent.propTypes = {
 };
 
 export default function EmailVerifyToastContent ({ className, startEmailVerification }) {
-	const [show, setShow] = useState(!dismissed);
-
-	Timer.useWait(() => setShow(false), TimeoutPeriod);
+	const [dismissed, setDismissed] = usePersistentState('email-verify-dismissed', { expireIn: 3.6 * Math.pow(10, 6), initial: false });
 
 	const dismiss = () => {
-		setShow(false);
-		dismissed = true;
+		setDismissed(true);
 	};
 
 	const clickCallback = () => {
@@ -39,13 +37,15 @@ export default function EmailVerifyToastContent ({ className, startEmailVerifica
 		e.stopPropagation();
 	};
 
+	!dismissed && Timer.useWait(dismiss, TimeoutPeriod);
+
 	return (
 		<>
-			{show && (
+			{!dismissed && (
 				<>
 					<NotificationItemFrame emailVerify={true} onClick={clickCallback} className={className}>
 						<div className={styles.dismissButton} onClick={handleDismissButton}>&times;</div>
-						<div className={styles.emailVerifyContainer}>
+						<div className={cx(styles.emailVerifyContainer, styles.emailVerifyToastText)}>
 							<Translate localeKey="message" />
 						</div>
 					</NotificationItemFrame>
