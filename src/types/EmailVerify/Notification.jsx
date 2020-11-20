@@ -18,7 +18,7 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify', 
 const Translate = Text.Translator(translation);
 
 EmailVerifyNotification.propTypes = {
-	onDismiss: PropTypes.func.isRequired,
+	onDismiss: PropTypes.func,
 	className: PropTypes.string
 };
 
