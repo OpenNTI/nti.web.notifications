@@ -1,0 +1,46 @@
+.email-verify-container {
+	line-height: 19px;
+}
+
+.action-link {
+	color: var(--primary-blue);
+	cursor: pointer;
+}
+
+.dismiss-button {
+	color: #979797;
+	font-size: 1.5rem;
+	float: right;
+	position: absolute;
+	top: 4px;
+	right: 14px;
+}
+
+.timeout-bar-container {
+	background-color: var(--panel-background-alt);
+	position: absolute;
+	right: 95px;
+	width: 360px;
+	height: 6px;
+	top: calc(80px + 24px - 6px);
+	overflow: hidden;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+@keyframes timeout-bar-keyframes {
+	from {
+		width: 0%;
+	}
+
+	to {
+		width: 100%;
+	}
+}
+
+.timeout-bar {
+	height: 6px;
+	background-color: var(--secondary-orange);
+	animation-name: timeout-bar-keyframes;
+	animation-duration: 10s;
+}

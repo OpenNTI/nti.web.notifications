@@ -1,0 +1,28 @@
+.bell {
+	cursor: pointer;
+	height: 24px;
+}
+
+.bell::after {
+	content: "";
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	right: auto;
+	background-position: center;
+	width: 21px;
+	height: 24px;
+	position: absolute;
+	opacity: 1;
+	margin-top: -12px;
+	margin-left: -10px;
+	background-image: url("./assets/icon-dark.svg");
+}
+
+.bell:focus {
+	outline: 0;
+}
+
+.light::after {
+	background-image: url("./assets/icon-white.svg");
+}

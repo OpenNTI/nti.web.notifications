@@ -1,0 +1,30 @@
+.panel-container {
+	width: 360px;
+	overflow: visible;
+	background-color: var(--panel-background);
+	border-radius: 4px;
+	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.show-all-container {
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 0;
+	color: var(--primary-blue);
+	text-decoration: none;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 600;
+	font-size: 16px;
+	border-top: lightgray 0.5px solid;
+}
+
+.notifications-container {
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.no-notifications {
+	text-align: center;
+	margin: 10px 0;
+}
