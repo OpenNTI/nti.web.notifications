@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import { scoped } from '@nti/lib-locale';
-import { Text } from '@nti/web-commons';
+import { Text, Timer } from '@nti/web-commons';
 import React from 'react';
 
 import styles from './Style.css';
@@ -12,7 +13,13 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify.Co
 
 const Translate = Text.Translator(translation);
 
-export default function CongratsPrompt () {
+CongratsPrompt.propTypes = {
+	onDismiss: PropTypes.func,
+};
+
+export default function CongratsPrompt ( { onDismiss } ) {
+	onDismiss && Timer.useWait(onDismiss, 3000);
+
 	return (
 		<PromptTemplate height={118}>
 			<div className={styles.congratsContainer} style={{ width: 'inherit', }}>
