@@ -15,13 +15,11 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		updateLastViewed,
 		updateNewItems,
 		checkNewItemsExist,
-		loadEmailVerification,
 	} = Store.useValue();
 
 	useEffect(() => {
 		load();
-		loadEmailVerification();
-	}, [load, loadEmailVerification]);
+	}, [load]);
 
 	const trigger = (
 		<div className={cx(styles.triggerContainer)}>
