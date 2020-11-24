@@ -1,3 +1,4 @@
+import { SessionStorage } from '@nti/web-storage';
 import { Stores } from '@nti/lib-store';
 import { getAppUser, getService } from '@nti/web-client';
 
@@ -8,6 +9,8 @@ const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
+
+const ToastSnoozeTimeout = 3.6 * Math.pow(10, 6); /*one hour*/
 
 const Pinnable = [
 	async () => {
@@ -92,8 +95,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			});
 
 			const pinned = await Promise.all(Pinnable.map((n) => n()));
-			// Note: pinned.filter(Boolean) is short-hand for pinned.filter((x) => return Boolean(x))
-			// and Boolean(x) returns the boolean representation of x.
 			const notifications = [...pinned.filter(Boolean), ...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
 
 			this.set({
@@ -103,6 +104,28 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				unreadCount: unreadCount,
 				moreItems: notifications.length < batch.TotalItemCount,
 			});
+
+			// Email Verify load
+			const user = await getAppUser();
+			const needsVerification = user && user.email && user.hasLink('RequestEmailVerification');
+			this.set({
+				needsVerification,
+				verifiedDate: null,
+			});
+
+			if (!needsVerification) { return; }
+
+			const verificationSnoozed = Date.parse(SessionStorage.getItem('verificationSnoozed'));
+			if (verificationSnoozed) {
+				if (verificationSnoozed - Date.now() <= ToastSnoozeTimeout) {
+					this.set({ verificationSnoozed: null });
+					this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
+				}
+			}
+			else {
+				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
+			}
+
 		} catch (e) {
 			this.set({
 				loading: false,
@@ -173,14 +196,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async loadEmailVerification () {
-		const user = await getAppUser();
-		this.set({
-			needsVerification: user && user.email && user.hasLink('RequestEmailVerification'),
-			verifiedDate: null,
-		});
-	}
-
 	async startEmailVerification () {
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
@@ -218,5 +233,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	completeEmailVerification () {
 		this.set({ completedDate: new Date() });
+	}
+
+	snoozeVerification () {
+		this.set({ verificationSnoozed: new Date() });
+		SessionStorage.setItem('verificationSnoozed', this.get('verificationSnoozed'));
 	}
 }
