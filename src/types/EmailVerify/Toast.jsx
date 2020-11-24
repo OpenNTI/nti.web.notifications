@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import NotificationItemFrame from '../../Frame';
 
+import TimeoutProgress from './TimeoutProgress';
 import styles from './Style.css';
 
 
@@ -19,9 +20,10 @@ EmailVerifyToastContent.propTypes = {
 	startEmailVerification: PropTypes.func.isRequired,
 	verificationSnoozed: PropTypes.any,
 	snoozeVerification: PropTypes.func,
+	timerStart: PropTypes.any,
 };
 
-export default function EmailVerifyToastContent ({ className, startEmailVerification, verificationSnoozed, snoozeVerification }) {
+export default function EmailVerifyToastContent ({ className, startEmailVerification, verificationSnoozed, snoozeVerification, timerStart }) {
 	const handleToastClick = () => {
 		startEmailVerification();
 		snoozeVerification();
@@ -30,6 +32,10 @@ export default function EmailVerifyToastContent ({ className, startEmailVerifica
 	const handleDismissButton = (e) => {
 		snoozeVerification();
 		e.stopPropagation();
+	};
+
+	const progress = () => {
+		return (Date.now() - Date.parse(timerStart)) / 10000;
 	};
 
 	return (
@@ -42,9 +48,7 @@ export default function EmailVerifyToastContent ({ className, startEmailVerifica
 							<Translate localeKey="message" />
 						</div>
 					</NotificationItemFrame>
-					<div className={styles.timeoutBarContainer}>
-						<div className={styles.timeoutBar} ></div>
-					</div>
+					<TimeoutProgress progress={progress} />
 				</>
 			)}
 		</>
