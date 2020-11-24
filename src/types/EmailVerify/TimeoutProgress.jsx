@@ -1,22 +1,42 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './Style.css';
+const styles = css`
+	.container {
+		background-color: var(--panel-background-alt);
+		position: absolute;
+		right: 95px;
+		width: 360px;
+		height: 6px;
+		top: calc(80px + 24px - 6px);
+		overflow: hidden;
+		border-bottom-left-radius: 4px;
+		border-bottom-right-radius: 4px;
+	}
+
+	.bar {
+		height: 6px;
+		background-color: var(--secondary-orange);
+		transition: "width 1s linear";
+		position: "absolute";
+	}
+`;
 
 const toPercent = (x) => `${(Math.min(1, x) * 100).toFixed(0)}%`;
 
 function useTick (done) {
 	const [, update] = React.useReducer(() => Date.now());
 	React.useEffect(() => {
+		let t = null;
+
 		const next = () => {
-			let t;
-			update();
 			if (!done) {
+				update();
 				t = requestAnimationFrame(next);
 			}
-			return t;
 		};
-		let t = next();
+
+		next();
 		return () => cancelAnimationFrame(t);
 	}, [done]);
 }
@@ -30,8 +50,8 @@ export default function TimeoutProgress ({ progress }) {
 	useTick(percent === '100%');
 
 	return (
-		<div className={styles.timeoutBarContainer}>
-			<div style={{ width: percent }} className={styles.timeoutBar}></div>
+		<div className={styles.container}>
+			<div style={{ width: percent }} className={styles.bar}></div>
 		</div>
 	);
 }

@@ -7,7 +7,16 @@ import NotificationItemFrame from '../../Frame';
 import { register, COMMON_PREFIX } from '../Registry';
 import Store from '../../Store';
 
-import styles from './Style.css';
+const styles = css`
+	.container {
+		line-height: 19px;
+	}
+
+	.action {
+		color: var(--primary-blue);
+		cursor: pointer;
+	}
+`;
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
@@ -35,10 +44,10 @@ export default function EmailVerifyNotification ( { onDismiss, className } ) {
 
 	return (
 		<NotificationItemFrame emailVerify={true} dismissCallBack={() => onDismiss()} className={className}>
-			<div className={styles.emailVerifyContainer}>
+			<div className={styles.container}>
 				<Translate localeKey="message" />
 				<br/>
-				<a className={styles.actionLink} onClick={() => startEmailVerification()}><Translate localeKey="verifyNow" /></a>
+				<a className={styles.action} onClick={() => startEmailVerification()}><Translate localeKey="verifyNow" /></a>
 			</div>
 		</NotificationItemFrame>
 	);
