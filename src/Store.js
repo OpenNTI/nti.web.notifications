@@ -116,13 +116,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			if (!needsVerification) { return; }
 
 			const verificationSnoozed = Date.parse(SessionStorage.getItem('verificationSnoozed'));
-			if (verificationSnoozed) {
-				if (verificationSnoozed - Date.now() <= ToastSnoozeTimeout) {
-					this.set({ verificationSnoozed: null });
-					this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
-				}
-			}
-			else {
+			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= ToastSnoozeTimeout)) {
+				this.set({
+					verificationSnoozed: null,
+					timerStart: new Date(),
+				});
 				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
 			}
 

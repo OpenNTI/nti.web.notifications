@@ -14,6 +14,7 @@ export default function EmailVerifyToast () {
 		startEmailVerification,
 		verificationSnoozed,
 		snoozeVerification,
+		timerStart,
 	} = Store.useValue();
 
 	return (
@@ -23,6 +24,7 @@ export default function EmailVerifyToast () {
 				startEmailVerification={startEmailVerification}
 				verificationSnoozed={verificationSnoozed}
 				snoozeVerification={snoozeVerification}
+				timerStart={timerStart}
 			/>
 		</Toast>
 	);
