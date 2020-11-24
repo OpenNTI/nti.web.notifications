@@ -10,11 +10,20 @@ import styles from './Toast.css';
 register(EmailVerifyToast, 'application/vnd.nextthought.toasts.emailverify');
 
 export default function EmailVerifyToast () {
-	const { startEmailVerification } = Store.useValue();
+	const {
+		startEmailVerification,
+		verificationSnoozed,
+		snoozeVerification,
+	} = Store.useValue();
 
 	return (
 		<Toast location={Toast.Locations.TopRight}>
-			<EmailVerifyToastContent className={cx(styles.toastFrame)} startEmailVerification={startEmailVerification} />
+			<EmailVerifyToastContent
+				className={cx(styles.toastFrame)}
+				startEmailVerification={startEmailVerification}
+				verificationSnoozed={verificationSnoozed}
+				snoozeVerification={snoozeVerification}
+			/>
 		</Toast>
 	);
 }
