@@ -6,7 +6,20 @@ import Bell from './Bell';
 import Panel from './Panel';
 import Store from './Store';
 import EmailVerificationWorkflow from './types/EmailVerify/Workflow';
-import styles from './View.css';
+
+const styles = css`
+.trigger-container {
+	cursor: pointer;
+	width: 21px;
+	text-align: center;
+	z-index: 900;
+	margin: 23px;
+
+	&:focus {
+		box-shadow: none;
+	}
+}
+`;
 
 const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
