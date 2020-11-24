@@ -25,12 +25,11 @@ const styles = css`
 	}
 
 	.dismiss {
-		color: #979797;
-		font-size: 1.5rem;
-		float: right;
 		position: absolute;
-		top: 4px;
-		right: 14px;
+		font-size: initial;
+		opacity: 0.5;
+		top: 10px;
+		right: 10px;
 	}
 
 	.container {
@@ -73,7 +72,7 @@ export default function EmailVerificationNotice () {
 	return ( verificationSnoozed ? null : (
 		<Toast location={Toast.Locations.TopRight}>
 			<NotificationItemFrame emailVerify={true} onClick={handleToastClick} className={styles.frame}>
-				<div className={styles.dismiss} onClick={handleDismissButton}>&times;</div>
+				<a onClick={handleDismissButton} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
 				<div className={cx(styles.container, styles.text)}>
 					<Translate localeKey="message" />
 				</div>
