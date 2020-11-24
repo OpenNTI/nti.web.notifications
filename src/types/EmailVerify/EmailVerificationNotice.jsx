@@ -20,10 +20,7 @@ const Translate = Text.Translator(
 const styles = css`
 	.frame {
 		background-color: white;
-		width: 360px;
-		height: 80px;
-		position: absolute;
-		right: 95px;
+		position: relative;
 		border-radius: 4px;
 	}
 
@@ -41,27 +38,11 @@ const styles = css`
 	}
 
 	.text {
-		height: 40px;
-		width: 272px;
 		color: #000;
 		font-size: 14px;
 		font-weight: 600;
 		letter-spacing: 0.03px;
 		line-height: 19px;
-	}
-
-	@media only screen and (max-width: 1195px) {
-		.frame {
-			width: 360px;
-			right: 15px;
-		}
-	}
-
-	@media only screen and (max-width: 350px) {
-		.frame {
-			width: 90vw;
-			right: 15px;
-		}
 	}
 `;
 
@@ -89,19 +70,15 @@ export default function EmailVerificationNotice () {
 		return (Date.now() - Date.parse(timerStart)) / 10000;
 	};
 
-	return (
-		verificationSnoozed ? null : (
-			<Toast location={Toast.Locations.TopRight}>
-				<>
-					<NotificationItemFrame emailVerify={true} onClick={handleToastClick} className={styles.frame}>
-						<div className={styles.dismiss} onClick={handleDismissButton}>&times;</div>
-						<div className={cx(styles.container, styles.text)}>
-							<Translate localeKey="message" />
-						</div>
-					</NotificationItemFrame>
-					<TimeoutProgress progress={progress} />
-				</>
-			</Toast>
-		)
-	);
+	return ( verificationSnoozed ? null : (
+		<Toast location={Toast.Locations.TopRight}>
+			<NotificationItemFrame emailVerify={true} onClick={handleToastClick} className={styles.frame}>
+				<div className={styles.dismiss} onClick={handleDismissButton}>&times;</div>
+				<div className={cx(styles.container, styles.text)}>
+					<Translate localeKey="message" />
+				</div>
+				<TimeoutProgress progress={progress} />
+			</NotificationItemFrame>
+		</Toast>
+	));
 }
