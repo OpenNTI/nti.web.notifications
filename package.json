@@ -43,6 +43,7 @@
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@nti/web-routing": "NextThought/nti.web.routing",
+    "@nti/web-storage": "NextThought/nti.web.storage",
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2"
   },
