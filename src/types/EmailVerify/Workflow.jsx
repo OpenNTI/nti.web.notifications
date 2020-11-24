@@ -1,8 +1,8 @@
 import React from 'react';
 
-import EmailVerifyToast from '../../Toast';
 import Store from '../../Store';
 
+import EmailVerifyToast from './EmailVerificationNotice';
 import EmailVerify from './EmailVerify';
 import CongratsPrompt from './prompts/Congrats';
 
