@@ -22,6 +22,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 		needsVerification,
 		verifiedDate,
 		submitToken,
+		tokenInvalid,
 	} = Store.useValue();
 
 	const resolver = useResolver(() => userProp ?? 	getAppUser(), [userProp]);
@@ -29,7 +30,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const showVerifyWindow = needsVerification && verifiedDate === null;
 	const onTokenSubmission = (token) => {
 		submitToken(user, token);
-		onDismiss();
+		if (tokenInvalid === false) { onDismiss(); }
 	};
 
 	return (
