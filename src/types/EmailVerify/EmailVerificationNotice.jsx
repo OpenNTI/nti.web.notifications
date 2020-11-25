@@ -63,7 +63,7 @@ export default function EmailVerificationNotice () {
 	};
 
 	const progress = () => {
-		const duration = VerificationNoticeExpiry - VerificationNoticeStart;
+		const duration = VerificationNoticeExpiry - Date.parse(VerificationNoticeStart);
 		return (Date.now() - VerificationNoticeStart) / duration;
 	};
 
