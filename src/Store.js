@@ -10,7 +10,8 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
 
-const VerificationNoticeExpiryPeriod = 360000; //one hour (in milliseconds)
+const VerificationNoticeExpiryPeriod = 10000; //10 seconds (in milliseconds)
+const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
 
 const Pinnable = [
 	async () => {
@@ -113,17 +114,21 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				verifiedDate: null,
 			});
 
-			if (!needsVerification) { return; }
+			if (!needsVerification) {
+				return;
+			}
+
 			const verificationSnoozed = new Date(parseInt(SessionStorage.getItem('verificationSnoozed'), 10));
-			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= VerificationNoticeExpiryPeriod)) {
+			const elapsedSnoozed = verificationSnoozed - Date.now();
+			if (isNaN(verificationSnoozed.getTime()) || VerificationNoticeSnoozeDuration > elapsedSnoozed) {
 				const VerificationNoticeStart = new Date();
-				const VerificationNoticeExpiry = new Date().getTime() + 10000;
+				const VerificationNoticeExpiry = new Date(VerificationNoticeStart.getTime() + VerificationNoticeExpiryPeriod);
 				this.set({
 					verificationSnoozed: null,
 					VerificationNoticeStart,
 					VerificationNoticeExpiry,
 				});
-				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
+				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), VerificationNoticeExpiryPeriod);
 			}
 
 		} catch (e) {
@@ -197,7 +202,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	async startEmailVerification () {
-		this.snoozeVerification();
+		clearTimeout(this.autoSnoozeTimer);
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
 		try {
@@ -238,6 +243,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	snoozeVerification () {
 		const verificationSnoozed = new Date();
+		clearTimeout(this.autoSnoozeTimer);
 		this.set({ verificationSnoozed });
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
