@@ -175,19 +175,16 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
-			const newBatch = await service.getBatch(url, {
+
+			const {Items: newItems} = await service.getBatch(url, {
 				batchStart: currentlyShown,
 				batchSize: 5,
 			});
-			const alreadyPresentItems = this.get('items');
-			const itemsToAppend = newBatch.Items;
+
+			const items = [...this.get('items'), ...newItems];
 
 			this.set({
-				currentlyShown: currentlyShown + itemsToAppend.length,
-			});
-			const items = [...alreadyPresentItems, ...itemsToAppend];
-
-			this.set({
+				currentlyShown: currentlyShown + newItems.length,
 				items: items,
 				moreItems: items.length < batch.TotalItemCount,
 			});
