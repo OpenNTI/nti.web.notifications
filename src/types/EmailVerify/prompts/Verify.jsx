@@ -40,7 +40,7 @@ const SENT_STATE = 'SENT';
 
 export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
 	const {
-		tokenInvalid,
+		validToken,
 	} = Store.useValue();
 
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
@@ -119,12 +119,12 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 						</div>
 					</div>
 					<Form className={styles.form} onSubmit={onSubmit} noValidate={false}>
-						<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: tokenInvalid })}>
-							<Input.Text value={token} name="token" className={cx(styles.inputField, {[styles.redInputField]: tokenInvalid })}
+						<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: !validToken })}>
+							<Input.Text value={token} name="token" className={cx(styles.inputField, {[styles.redInputField]: !validToken })}
 								placeholder="Enter your verification code" onChange={onTokenChange} autoFocus/>
 						</Input.Clearable>
 						<div className={styles.errorMessage}>
-							{tokenInvalid && (
+							{!validToken && (
 								<span>This token is not valid.</span>
 							)}
 							{error && (
