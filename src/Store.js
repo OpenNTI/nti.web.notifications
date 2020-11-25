@@ -234,7 +234,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	snoozeVerification () {
-		this.set({ verificationSnoozed: new Date() });
-		SessionStorage.setItem('verificationSnoozed', this.get('verificationSnoozed'));
+		const verificationSnoozed = new Date();
+		this.set({ verificationSnoozed });
+		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
 }
