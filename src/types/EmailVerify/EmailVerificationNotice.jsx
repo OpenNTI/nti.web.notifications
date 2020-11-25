@@ -50,11 +50,13 @@ register(EmailVerificationNotice, 'application/vnd.nextthought.toasts.emailverif
 
 export default function EmailVerificationNotice () {
 	const {
-		startEmailVerification,
-		verificationSnoozed,
+		emailVerificationRequested,
+		needsVerification,
 		snoozeVerification,
-		VerificationNoticeStart,
+		startEmailVerification,
 		VerificationNoticeExpiry,
+		VerificationNoticeStart,
+		verificationSnoozed,
 	} = Store.useValue();
 
 	const handleDismiss = (e) => {
@@ -63,9 +65,13 @@ export default function EmailVerificationNotice () {
 	};
 
 	const progress = () => {
-		const duration = VerificationNoticeExpiry - Date.parse(VerificationNoticeStart);
+		const duration = VerificationNoticeExpiry - VerificationNoticeStart;
 		return (Date.now() - VerificationNoticeStart) / duration;
 	};
+
+	if (!needsVerification || emailVerificationRequested) {
+		return null;
+	}
 
 	return ( verificationSnoozed ? null : (
 		<Toast location={Toast.Locations.TopRight}>
