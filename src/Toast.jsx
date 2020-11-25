@@ -24,7 +24,7 @@ export default function EmailVerifyToast () {
 		snoozeVerification();
 	};
 
-	const handleDismissButton = (e) => {
+	const handleDismiss = (e) => {
 		snoozeVerification();
 		e.stopPropagation();
 	};
@@ -35,7 +35,7 @@ export default function EmailVerifyToast () {
 				{!verificationSnoozed && (
 					<>
 						<NotificationItemFrame emailVerify={true} onClick={handleToastClick} className={cx(styles.toastFrame)}>
-							<div className={styles.dismissButton} onClick={handleDismissButton}>&times;</div>
+							<div className={styles.dismissButton} onClick={handleDismiss}>&times;</div>
 							<div className={cx(styles.emailVerifyContainer, styles.emailVerifyToastText)}>
 								<Translate localeKey="message" />
 							</div>

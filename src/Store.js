@@ -10,7 +10,7 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
 
-const NotificationNoticeExpiry = 360000; //one hour (in milliseconds)
+const VerificationNoticeExpiry = 360000; //one hour (in milliseconds)
 
 const Pinnable = [
 	async () => {
@@ -116,7 +116,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			if (!needsVerification) { return; }
 
 			const verificationSnoozed = Date.parse(SessionStorage.getItem('verificationSnoozed'));
-			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= ToastSnoozeTimeout)) {
+			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= VerificationNoticeExpiry)) {
 				this.set({
 					verificationSnoozed: null,
 					timerStart: new Date(),
@@ -195,6 +195,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	async startEmailVerification () {
+		this.snoozeVerification();
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
 		try {
