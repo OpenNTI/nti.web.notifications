@@ -12,7 +12,7 @@ const styles = css`
 	.content {
 		width: 100%;
 		height: 100%;
-		background-color: #fcfcfc;
+		background-color: var(--panel-background);
 		border: 1px solid var(--quad-grey);
 		box-shadow: rgba(0, 0, 0, 0.137255) 0 2px 4px 1px, rgba(255, 255, 255, 0.498039) 0 2px inset;
 		backface-visibility: hidden;
