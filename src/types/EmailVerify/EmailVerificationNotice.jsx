@@ -62,8 +62,8 @@ export default function EmailVerificationNotice () {
 	};
 
 	const handleDismissButton = (e) => {
-		snoozeVerification();
 		e.stopPropagation();
+		snoozeVerification();
 	};
 
 	const progress = () => {
