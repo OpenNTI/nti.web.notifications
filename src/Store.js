@@ -10,7 +10,7 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
 
-const VerificationNoticeExpiry = 360000; //one hour (in milliseconds)
+const VerificationNoticeExpiryPeriod = 360000; //one hour (in milliseconds)
 
 const Pinnable = [
 	async () => {
@@ -114,12 +114,14 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			});
 
 			if (!needsVerification) { return; }
-
 			const verificationSnoozed = Date.parse(SessionStorage.getItem('verificationSnoozed'));
-			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= VerificationNoticeExpiry)) {
+			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= VerificationNoticeExpiryPeriod)) {
+				const VerificationNoticeStart = new Date();
+				const VerificationNoticeExpiry = new Date().getTime() + 10000;
 				this.set({
 					verificationSnoozed: null,
-					timerStart: new Date(),
+					VerificationNoticeStart,
+					VerificationNoticeExpiry,
 				});
 				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), 10000);
 			}
