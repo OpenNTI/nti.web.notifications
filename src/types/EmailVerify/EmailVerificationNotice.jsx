@@ -53,7 +53,8 @@ export default function EmailVerificationNotice () {
 		startEmailVerification,
 		verificationSnoozed,
 		snoozeVerification,
-		timerStart,
+		NotificationNoticeStart,
+		NotificationNoticeExpire,
 	} = Store.useValue();
 
 	const handleToastClick = () => {
