@@ -114,7 +114,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			});
 
 			if (!needsVerification) { return; }
-			const verificationSnoozed = Date.parse(SessionStorage.getItem('verificationSnoozed'));
+			const verificationSnoozed = new Date(parseInt(SessionStorage.getItem('verificationSnoozed'), 10));
 			if (!verificationSnoozed || (verificationSnoozed && verificationSnoozed - Date.now() <= VerificationNoticeExpiryPeriod)) {
 				const VerificationNoticeStart = new Date();
 				const VerificationNoticeExpiry = new Date().getTime() + 10000;
