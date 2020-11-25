@@ -17,8 +17,8 @@ const styles = css`
 	.bar {
 		height: 6px;
 		background-color: var(--secondary-orange);
-		transition: "width 1s linear";
-		position: "absolute";
+		transition: width 75ms linear;
+		position: absolute;
 	}
 `;
 
