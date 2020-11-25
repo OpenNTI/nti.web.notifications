@@ -68,7 +68,8 @@ export default function EmailVerificationNotice () {
 	};
 
 	const progress = () => {
-		return (Date.now() - Date.parse(timerStart)) / 10000;
+		const duration = NotificationNoticeExpiry - NotificationNoticeStart;
+		return (Date.now() - NotificationNoticeStart) / duration;
 	};
 
 	return ( verificationSnoozed ? null : (
