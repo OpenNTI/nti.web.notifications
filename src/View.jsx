@@ -15,9 +15,6 @@ const styles = css`
 	z-index: 900;
 	margin: 23px;
 
-	&:focus {
-		box-shadow: none;
-	}
 }
 `;
 
