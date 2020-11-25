@@ -107,7 +107,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 			// Email Verify load
 			const user = await getAppUser();
-			const needsVerification = user && user.email && user.hasLink('RequestEmailVerification');
+			const needsVerification = user?.email && user.hasLink('RequestEmailVerification');
 			this.set({
 				needsVerification,
 				verifiedDate: null,
