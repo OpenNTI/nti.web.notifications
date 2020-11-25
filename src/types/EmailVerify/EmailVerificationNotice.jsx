@@ -53,29 +53,24 @@ export default function EmailVerificationNotice () {
 		startEmailVerification,
 		verificationSnoozed,
 		snoozeVerification,
-		NotificationNoticeStart,
-		NotificationNoticeExpire,
+		VerificationNoticeStart,
+		VerificationNoticeExpiry,
 	} = Store.useValue();
 
-	const handleToastClick = () => {
-		startEmailVerification();
-		snoozeVerification();
-	};
-
-	const handleDismissButton = (e) => {
+	const handleDismiss = (e) => {
 		e.stopPropagation();
 		snoozeVerification();
 	};
 
 	const progress = () => {
-		const duration = NotificationNoticeExpiry - NotificationNoticeStart;
-		return (Date.now() - NotificationNoticeStart) / duration;
+		const duration = VerificationNoticeExpiry - VerificationNoticeStart;
+		return (Date.now() - VerificationNoticeStart) / duration;
 	};
 
 	return ( verificationSnoozed ? null : (
 		<Toast location={Toast.Locations.TopRight}>
-			<NotificationItemFrame emailVerify={true} onClick={handleToastClick} className={styles.frame}>
-				<a onClick={handleDismissButton} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
+			<NotificationItemFrame emailVerify={true} onClick={startEmailVerification} className={styles.frame}>
+				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
 				<div className={cx(styles.container, styles.text)}>
 					<Translate localeKey="message" />
 				</div>

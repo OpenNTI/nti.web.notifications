@@ -12,9 +12,7 @@ const styles = css`
 	cursor: pointer;
 	width: 21px;
 	text-align: center;
-	z-index: 900;
 	margin: 23px;
-
 }
 `;
 
