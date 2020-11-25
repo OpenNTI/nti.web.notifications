@@ -228,6 +228,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 					validToken: true,
 					needsVerification: false,
 				});
+				return true;
 			} catch (e) {
 				this.set({ validToken: false });
 				return false;
