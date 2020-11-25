@@ -10,7 +10,7 @@ const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
 const NOTIFICATIONS_INIT_NUM = 10;
 
-const ToastSnoozeTimeout = 3.6 * Math.pow(10, 6); /*one hour*/
+const NotificationNoticeExpiry = 360000; //one hour (in milliseconds)
 
 const Pinnable = [
 	async () => {
