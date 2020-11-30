@@ -29,8 +29,8 @@ export async function verifyEmailToken (user, token) {
 		service = await getService();
 		const result = await service.post(reqLink, { token: token });
 		if (result.success) {
-			let userLinks = user.Links;
-			const indexToRemove = userLinks.indexOf('RequestEmailVerification');
+			const userLinks = [...user.Links];
+			const indexToRemove = userLinks.findIndex(link => link.rel === 'RequestEmailVerification');
 			if (indexToRemove > -1) {
 				userLinks.splice(indexToRemove, 1);
 				user.Links = userLinks;
