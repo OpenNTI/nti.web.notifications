@@ -28,9 +28,11 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 	const user = isResolved(resolver) ? resolver : null;
 	const showVerifyWindow = needsVerification && verifiedDate === null;
 	const onTokenSubmission = (token) => {
-		if (submitToken(user, token)) {
-			onDismiss();
-		}
+		submitToken(user, token).then((result) => {
+			if (result) {
+				onDismiss();
+			}
+		});
 	};
 
 	return (
