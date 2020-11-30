@@ -14,12 +14,11 @@ export default function EmailVerificationWorkflow () {
 		needsVerification,
 		verifiedDate,
 		completedDate,
-		verificationSnoozed,
 	} = Store.useValue();
 
 	return (
 		<>
-			{ needsVerification && !verificationSnoozed && <EmailVerifyToast /> }
+			{ needsVerification && <EmailVerifyToast /> }
 			{ emailVerificationRequested && <EmailVerify onDismiss={stopEmailVerification} /> }
 			{ !completedDate && verifiedDate && verifiedDate <= Date.now() && <CongratsPrompt onDismiss={completeEmailVerification} /> }
 		</>
