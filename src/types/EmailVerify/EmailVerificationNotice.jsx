@@ -69,13 +69,13 @@ export default function EmailVerificationNotice () {
 		return (Date.now() - VerificationNoticeStart) / duration;
 	};
 
-	if (!needsVerification || emailVerificationRequested) {
+	if (!needsVerification || emailVerificationRequested || verificationSnoozed) {
 		return null;
 	}
 
 	return ( verificationSnoozed ? null : (
 		<Toast location={Toast.Locations.TopRight}>
-			<NotificationItemFrame emailVerify={true} onClick={startEmailVerification} className={styles.frame}>
+			<NotificationItemFrame emailVerify={true} onClick={() => {startEmailVerification(); snoozeVerification();}} className={styles.frame}>
 				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
 				<div className={cx(styles.container, styles.text)}>
 					<Translate localeKey="message" />

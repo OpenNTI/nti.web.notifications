@@ -219,13 +219,17 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	async submitToken (user, token) {
 		if (token && token !== '') {
 			try {
-				await verifyEmailToken(user, token);
-				this.set({
-					verifiedDate: new Date(),
-					validToken: true,
-					needsVerification: false,
-				});
-				return true;
+				const returnValue = await verifyEmailToken(user, token);
+				if (returnValue) {
+					this.set({
+						verifiedDate: new Date(),
+						validToken: true,
+						needsVerification: false,
+					});
+				} else {
+					this.set({ validToken: false });
+				}
+				return returnValue;
 			} catch (e) {
 				this.set({ validToken: false });
 				return false;

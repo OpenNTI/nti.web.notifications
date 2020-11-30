@@ -119,12 +119,12 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 						</div>
 					</div>
 					<Form className={styles.form} onSubmit={onSubmit} noValidate={false}>
-						<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: !validToken })}>
-							<Input.Text value={token} name="token" className={cx(styles.inputField, {[styles.redInputField]: !validToken })}
+						<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: validToken === false })}>
+							<Input.Text value={token} name="token" className={cx(styles.inputField, {[styles.redInputField]: validToken === false })}
 								placeholder="Enter your verification code" onChange={onTokenChange} autoFocus/>
 						</Input.Clearable>
 						<div className={styles.errorMessage}>
-							{!validToken && (
+							{validToken === false && (
 								<span>This token is not valid.</span>
 							)}
 							{error && (
