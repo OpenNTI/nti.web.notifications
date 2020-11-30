@@ -37,9 +37,12 @@ async function resolveAssignment (item) {
 
 export default function Grade ({ item }) {
 	const assignment = useResolver(() => resolveAssignment(item), [item]);
-
+	let username;
+	if (item.creator === 'system') {
+		username = item?.Item.CourseName;
+	}
 	return (
-		<NotificationItemFrame item={item}>
+		<NotificationItemFrame username={username} item={item}>
 			<Translate
 				localeKey="action"
 				with={{
