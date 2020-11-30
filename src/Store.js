@@ -203,6 +203,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async startEmailVerification () {
 		clearTimeout(this.autoSnoozeTimer);
+		this.snoozeVerification();
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
 		try {
