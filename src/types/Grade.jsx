@@ -39,7 +39,7 @@ export default function Grade ({ item }) {
 	const assignment = useResolver(() => resolveAssignment(item), [item]);
 
 	return (
-		<NotificationItemFrame item={item}>
+		<NotificationItemFrame username={item.creator} item={item}>
 			<Translate
 				localeKey="action"
 				with={{
