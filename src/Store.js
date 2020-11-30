@@ -203,7 +203,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async startEmailVerification () {
 		clearTimeout(this.autoSnoozeTimer);
-		this.snoozeVerification();
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
 		try {
@@ -223,18 +222,16 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	async submitToken (user, token) {
 		if (token && token !== '') {
 			try {
-				let returnValue = false;
-				verifyEmailToken(user, token).then(() => {
+				const returnValue = await verifyEmailToken(user, token);
+				if (returnValue) {
 					this.set({
 						verifiedDate: new Date(),
 						validToken: true,
 						needsVerification: false,
 					});
-					returnValue = true;
-				}, () => {
+				} else {
 					this.set({ validToken: false });
-					returnValue = false;
-				});
+				}
 				return returnValue;
 			} catch (e) {
 				this.set({ validToken: false });
