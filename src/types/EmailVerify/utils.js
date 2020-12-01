@@ -27,18 +27,14 @@ export async function verifyEmailToken (user, token) {
 	let service;
 	try {
 		service = await getService();
-		const result = await service.post(reqLink, { token: token });
-		if (result.success) {
-			const userLinks = [...user.Links];
-			const indexToRemove = userLinks.findIndex(link => link.rel === 'RequestEmailVerification');
-			if (indexToRemove > -1) {
-				userLinks.splice(indexToRemove, 1);
-				user.Links = userLinks;
-			}
-			return true;
-		} else {
-			return false;
+		await service.post(reqLink, { token: token });
+		const userLinks = [...user.Links];
+		const indexToRemove = userLinks.findIndex(link => link.rel === 'RequestEmailVerification');
+		if (indexToRemove > -1) {
+			userLinks.splice(indexToRemove, 1);
+			user.Links = userLinks;
 		}
+		return true;
 	} catch (e) {
 		throw new Error(e);
 	}
