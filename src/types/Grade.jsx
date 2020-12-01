@@ -39,7 +39,7 @@ export default function Grade ({ item }) {
 	const assignment = useResolver(() => resolveAssignment(item), [item]);
 	let username;
 	if (item.creator === 'system' && item.Item) {
-		username = item.Item?.CourseName;
+		username = item.Item.CourseName;
 	}
 	return (
 		<NotificationItemFrame username={username} item={item}>
