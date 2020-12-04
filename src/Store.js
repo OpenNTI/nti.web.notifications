@@ -119,8 +119,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			}
 
 			const verificationSnoozed = new Date(parseInt(SessionStorage.getItem('verificationSnoozed'), 10));
-			const elapsedSnoozed = verificationSnoozed - Date.now();
-			if (isNaN(verificationSnoozed.getTime()) || VerificationNoticeSnoozeDuration > elapsedSnoozed) {
+			const elapsedSnoozed = Date.now() - verificationSnoozed;
+			if (isNaN(verificationSnoozed.getTime()) || elapsedSnoozed >= VerificationNoticeSnoozeDuration) {
 				const VerificationNoticeStart = new Date();
 				const VerificationNoticeExpiry = new Date(VerificationNoticeStart.getTime() + VerificationNoticeExpiryPeriod);
 				this.set({
@@ -129,6 +129,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 					VerificationNoticeExpiry,
 				});
 				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), VerificationNoticeExpiryPeriod);
+			} else {
+				this.set({verificationSnoozed});
 			}
 
 		} catch (e) {
