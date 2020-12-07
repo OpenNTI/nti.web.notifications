@@ -6,18 +6,18 @@ import styles from '../Frame.css';
 
 NonInteractiveFrame.propTypes = {
 	item: PropTypes.object.isRequired,
-	username: PropTypes.string.isRequired,
+	attribution: PropTypes.string.isRequired,
 	children: PropTypes.object.isRequired,
 };
 
-export default function NonInteractiveFrame ( { item, username, children } ) {
-	username = username ? username : item.creator || item.Creator;
+export default function NonInteractiveFrame ( { item, attribution, children } ) {
+	attribution = attribution ? attribution : item.creator || item.Creator;
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 	return (
 		<div className={styles.notificationItem}>
-			{username && <div><Avatar className={styles.avatar} entity={username} width="42" height="42" /></div>}
+			{attribution && <div><Avatar className={styles.avatar} entity={attribution} width="42" height="42" /></div>}
 			<div className={styles.wrap}>
-				{username && <DisplayName className={styles.displayName} entity={username} />}
+				{attribution && <DisplayName className={styles.displayName} entity={attribution} />}
 				{children}
 				<br></br>
 				<div className={styles.notificationItemTime}>

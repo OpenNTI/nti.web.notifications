@@ -8,11 +8,21 @@ import styles from '../Frame.css';
 LinkedFrame.propTypes = {
 	item: PropTypes.object.isRequired,
 	children: PropTypes.object.isRequired,
-	username: PropTypes.string,
+	attribution: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+	icon: PropTypes.node,
 };
 
-export default function LinkedFrame ( { item, username, children } ) {
-	username = username ? username : item.creator || item.Creator;
+
+export default function LinkedFrame ( { icon, item, attribution, children } ) {
+	const attributionInput = attribution || item.creator || item.Creator;
+	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
+		<DisplayName className={styles.displayName} entity={attributionInput} />
+	);
+
+	const selectedIcon = icon || typeof attributionInput !== 'string' ? null : (
+		<Avatar className={styles.avatar} entity={attributionInput} width="42" height="42" />
+	);
+
 	const eventTime = item.getLastModified() || item.getCreatedAt();
 	// In case the item is of type change, get the subitem ID
 	const subItemId = item.Item && item.Item.getID();
@@ -20,11 +30,10 @@ export default function LinkedFrame ( { item, username, children } ) {
 	return (
 		<LinkTo.Object object={subItemId ? item.Item : item}>
 			<div className={styles.notificationItem}>
-				{username && <div><Avatar className={styles.avatar} entity={username} width="42" height="42" /></div>}
+				<div>{selectedIcon}</div>
 				<div className={styles.wrap}>
-					{username && <DisplayName className={styles.displayName} entity={username} />}
+					{attributionContent}
 					{children}
-					<br></br>
 					<div className={styles.notificationItemTime}>
 						<DateTime date={eventTime} relative />
 					</div>
