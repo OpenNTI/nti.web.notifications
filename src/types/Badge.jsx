@@ -27,7 +27,7 @@ register(Badge, 'badge');
 
 export default function Badge ( { item } ) {
 	return (
-		<NotificationItemFrame item={item} username={item.creator}>
+		<NotificationItemFrame item={item} attribution={item.creator}>
 			{/* Building string to show to the user */}
 			<Translate
 				localeKey="action"
