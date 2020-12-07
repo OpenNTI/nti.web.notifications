@@ -36,6 +36,12 @@
 .notification-item {
 	line-height: 1;
 	display: flex;
+
+	& img,
+	& svg {
+		width: 42px;
+		height: 42px;
+	}
 }
 
 .wrap {
