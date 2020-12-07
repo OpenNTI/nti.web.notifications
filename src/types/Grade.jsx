@@ -1,6 +1,6 @@
 import { scoped } from '@nti/lib-locale';
 import { getService } from '@nti/web-client';
-import { Hooks, Text } from '@nti/web-commons';
+import { Hooks, Presentation, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -35,14 +35,22 @@ async function resolveAssignment (item) {
 	return assignment;
 }
 
-export default function Grade ({ item }) {
+export default function Grade ({ item, item: {creator, Item: grade} }) {
 	const assignment = useResolver(() => resolveAssignment(item), [item]);
-	let username;
-	if (item.creator === 'system' && item.Item) {
-		username = item.Item.CourseName;
-	}
+
+	Hooks.useChanges(grade);
+
+	const frameProps = {
+		item,
+		attribution: creator === 'system' ? <span>grade.CourseName</span> : creator,
+		icon: creator === 'system' ? (
+			<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">
+				<img className="icon" alt={item.title} />
+			</Presentation.Asset>
+		) : null,
+	};
 	return (
-		<NotificationItemFrame username={username} item={item}>
+		<NotificationItemFrame {...frameProps}>
 			<Translate
 				localeKey="action"
 				with={{
