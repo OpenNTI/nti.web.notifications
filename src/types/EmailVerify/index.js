@@ -1,3 +1,3 @@
-import EmailVerify from './EmailVerify';
+import Notification from './Notification';
 
-export default EmailVerify;
+export default Notification;

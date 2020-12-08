@@ -3,7 +3,11 @@ import { LinkTo } from '@nti/web-routing';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from '../Frame.css';
+import Attribution from './Attribution';
+import Content from './Content';
+import Icon from './IconContainer';
+import Item from './Item';
+import Time from './Time';
 
 LinkedFrame.propTypes = {
 	item: PropTypes.object.isRequired,
@@ -16,29 +20,27 @@ LinkedFrame.propTypes = {
 export default function LinkedFrame ( { icon, item, attribution, children } ) {
 	const attributionInput = attribution || item.creator || item.Creator;
 	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
-		<DisplayName className={styles.displayName} entity={attributionInput} />
+		<DisplayName entity={attributionInput} />
 	);
 
 	const selectedIcon = icon || typeof attributionInput !== 'string' ? null : (
-		<Avatar className={styles.avatar} entity={attributionInput} width="42" height="42" />
+		<Avatar entity={attributionInput} />
 	);
 
 	const eventTime = item.getLastModified() || item.getCreatedAt();
-	// In case the item is of type change, get the subitem ID
-	const subItemId = item.Item && item.Item.getID();
 
 	return (
-		<LinkTo.Object object={subItemId ? item.Item : item}>
-			<div className={styles.notificationItem}>
-				<div>{selectedIcon}</div>
-				<div className={styles.wrap}>
-					{attributionContent}
+		<LinkTo.Object object={item?.Item || item}>
+			<Item>
+				<Icon>{selectedIcon}</Icon>
+				<Content>
+					<Attribution>{attributionContent}</Attribution>
 					{children}
-					<div className={styles.notificationItemTime}>
+					<Time>
 						<DateTime date={eventTime} relative />
-					</div>
-				</div>
-			</div>
+					</Time>
+				</Content>
+			</Item>
 		</LinkTo.Object>
 	);
 }

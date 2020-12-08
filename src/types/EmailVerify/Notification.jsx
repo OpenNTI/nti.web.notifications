@@ -3,16 +3,14 @@ import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../../Frame';
+import NotificationItemFrame from '../../frame/Pinned';
 import { register, COMMON_PREFIX } from '../Registry';
 import Store from '../../Store';
 
 const styles = css`
-	.container {
-		line-height: 19px;
-	}
 
 	.action {
+
 		color: var(--primary-blue);
 		cursor: pointer;
 	}
@@ -43,12 +41,12 @@ export default function EmailVerifyNotification ( { onDismiss, className } ) {
 	} = Store.useValue();
 
 	return (
-		<NotificationItemFrame emailVerify={true} dismissCallBack={() => onDismiss()} className={className}>
-			<div className={styles.container}>
-				<Translate localeKey="message" />
-				<br/>
-				<a className={styles.action} onClick={() => startEmailVerification()}><Translate localeKey="verifyNow" /></a>
-			</div>
+		<NotificationItemFrame dismissCallBack={() => onDismiss()} className={className}>
+			<Translate localeKey="message" as="div"/>
+
+			<a className={styles.action} onClick={() => startEmailVerification()}>
+				<Translate localeKey="verifyNow" />
+			</a>
 		</NotificationItemFrame>
 	);
 }

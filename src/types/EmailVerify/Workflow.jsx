@@ -3,7 +3,7 @@ import React from 'react';
 import Store from '../../Store';
 
 import EmailVerifyToast from './EmailVerificationNotice';
-import EmailVerify from './EmailVerify';
+import EmailVerifyDialog from './EmailVerifyDialog';
 import CongratsPrompt from './prompts/Congrats';
 
 export default function EmailVerificationWorkflow () {
@@ -19,7 +19,7 @@ export default function EmailVerificationWorkflow () {
 	return (
 		<>
 			{ needsVerification && <EmailVerifyToast /> }
-			{ emailVerificationRequested && <EmailVerify onDismiss={stopEmailVerification} /> }
+			{ emailVerificationRequested && <EmailVerifyDialog onDismiss={stopEmailVerification} /> }
 			{ !completedDate && verifiedDate && verifiedDate <= Date.now() && <CongratsPrompt onDismiss={completeEmailVerification} /> }
 		</>
 	);

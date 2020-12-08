@@ -1,12 +1,10 @@
 import React from 'react';
 import { Text, Toast } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import cx from 'classnames';
 
 
 import Store from '../../Store';
-import { register } from '../Registry';
-import NotificationItemFrame from '../../Frame';
+import Frame from '../../frame/Pinned';
 
 import TimeoutProgress from './TimeoutProgress';
 
@@ -33,10 +31,6 @@ const styles = css`
 		right: 10px;
 	}
 
-	.container {
-		line-height: 19px;
-	}
-
 	.text {
 		color: #000;
 		font-size: 14px;
@@ -46,14 +40,11 @@ const styles = css`
 	}
 `;
 
-register(EmailVerificationNotice, 'application/vnd.nextthought.toasts.emailverify');
-
 export default function EmailVerificationNotice () {
 	const {
 		emailVerificationRequested,
 		needsVerification,
 		snoozeVerification,
-		startEmailVerification,
 		VerificationNoticeExpiry,
 		VerificationNoticeStart,
 		verificationSnoozed,
@@ -75,13 +66,13 @@ export default function EmailVerificationNotice () {
 
 	return ( verificationSnoozed ? null : (
 		<Toast location={Toast.Locations.TopRight}>
-			<NotificationItemFrame emailVerify={true} onClick={() => {startEmailVerification(); snoozeVerification();}} className={styles.frame}>
+			<Frame className={styles.frame}>
 				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
-				<div className={cx(styles.container, styles.text)}>
+				<div className={styles.text}>
 					<Translate localeKey="message" />
 				</div>
 				<TimeoutProgress progress={progress} />
-			</NotificationItemFrame>
+			</Frame>
 		</Toast>
 	));
 }

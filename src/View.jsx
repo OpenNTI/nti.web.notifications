@@ -12,7 +12,7 @@ const styles = css`
 	cursor: pointer;
 	width: 21px;
 	text-align: center;
-	margin: 23px;
+	padding: 23px;
 }
 `;
 
@@ -39,7 +39,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		<>
 			<EmailVerificationWorkflow />
 
-			<Flyout.Triggered horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger}>
+			<Flyout.Triggered horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger} arrow >
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 				/>
