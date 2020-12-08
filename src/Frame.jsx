@@ -11,7 +11,6 @@ NotificationItemFrame.propTypes = {
 	emailVerify: PropTypes.bool,
 	className: PropTypes.string,
 	onClick: PropTypes.func,
-	gradeCreatedBySystem: PropTypes.bool,
 	attribution: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 	icon: PropTypes.node,
 };
