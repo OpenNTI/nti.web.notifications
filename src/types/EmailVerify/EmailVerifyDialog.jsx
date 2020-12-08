@@ -14,10 +14,11 @@ const {isResolved} = useResolver;
 
 EmailVerify.propTypes = {
 	user: PropTypes.object,
-	onDismiss: PropTypes.func.isRequired
+	onDismiss: PropTypes.func.isRequired,
+	onSnooze: PropTypes.func.isRequired,
 };
 
-export default function EmailVerify ( { user:userProp, onDismiss } ) {
+export default function EmailVerify ( { user:userProp, onDismiss, onSnooze } ) {
 	const {
 		needsVerification,
 		verifiedDate,
@@ -37,7 +38,7 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 		<>
 			{showVerifyWindow && user && (
 				<PromptTemplate>
-					<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={onDismiss} />
+					<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} onClose={onDismiss} onSnooze={onSnooze} />
 				</PromptTemplate>
 			)}
 		</>

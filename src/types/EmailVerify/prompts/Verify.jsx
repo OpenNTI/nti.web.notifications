@@ -31,6 +31,7 @@ EmailVerifyPrompt.propTypes = {
 	user: PropTypes.object,
 	onTokenSubmission: PropTypes.func.isRequired,
 	onClose: PropTypes.func.isRequired,
+	onSnooze: PropTypes.func.isRequired,
 };
 
 const SENDING_STATE = 'SENDING';
@@ -38,7 +39,7 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
+export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, onSnooze } ) {
 	const {
 		validToken,
 	} = Store.useValue();
@@ -132,7 +133,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 							)}
 						</div>
 						<div className={styles.footer}>
-							<Button className={styles.remindLaterButton} onClick={onClose} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
+							<Button className={styles.remindLaterButton} onClick={() => { onClose(); onSnooze(); }} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
 							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
