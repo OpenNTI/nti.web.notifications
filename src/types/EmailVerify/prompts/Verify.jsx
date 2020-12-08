@@ -31,7 +31,6 @@ EmailVerifyPrompt.propTypes = {
 	user: PropTypes.object,
 	onTokenSubmission: PropTypes.func.isRequired,
 	onClose: PropTypes.func.isRequired,
-	onSnooze: PropTypes.func.isRequired,
 };
 
 const SENDING_STATE = 'SENDING';
@@ -39,9 +38,11 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, onSnooze } ) {
+export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
 	const {
 		validToken,
+		snoozeVerification,
+		cancelEmailVerification,
 	} = Store.useValue();
 
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
@@ -95,7 +96,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 		<>
 			{displayVerifyPrompt && (
 				<div style={{ width: 'inherit', }}>
-					<StandardUI.Window.TitleBar onClose={onClose} title={<Translate localeKey="title" />}/>
+					<StandardUI.Window.TitleBar onClose={cancelEmailVerification} title={<Translate localeKey="title" />}/>
 					<div className={styles.promptBody}>
 						<div className={styles.title}><Translate localeKey="enterCode" /></div>
 						<div className={styles.bodyText}>
@@ -133,7 +134,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose, 
 							)}
 						</div>
 						<div className={styles.footer}>
-							<Button className={styles.remindLaterButton} onClick={() => { onClose(); onSnooze(); }} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
+							<Button className={styles.remindLaterButton} onClick={() => snoozeVerification()} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
 							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
