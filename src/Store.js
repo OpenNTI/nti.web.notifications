@@ -13,15 +13,6 @@ const NOTIFICATIONS_INIT_NUM = 10;
 const VerificationNoticeExpiryPeriod = 10000; //10 seconds (in milliseconds)
 const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
 
-const Pinnable = [
-	async () => {
-		const user = await getAppUser();
-		if (user && user.email && user.hasLink('RequestEmailVerification')) {
-			return { MimeType: 'application/vnd.nextthought.emailverify' };
-		}
-	}
-];
-
 /**
  * The NotificationStore connects to the nti server and gets
  * the notifications of the current session's user. After it
@@ -226,6 +217,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
+	cancelEmailVerification () {
+		this.set({ emailVerificationRequested: null });
+	}
+
 	completeEmailVerification () {
 		this.set({ completedDate: new Date() });
 	}
@@ -235,7 +230,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		clearTimeout(this.autoSnoozeTimer);
 		this.set({
 			verificationSnoozed,
-			emailVerificationRequested: null,
 		});
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
