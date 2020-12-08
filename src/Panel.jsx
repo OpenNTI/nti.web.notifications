@@ -36,9 +36,10 @@ const Translate = Text.Translator(translation);
 Panel.propTypes = {
 	newItemsExist: PropTypes.func.isRequired,
 	loadNewItems: PropTypes.func.isRequired,
+	onDismiss: PropTypes.func,
 };
 
-export default function Panel ( { newItemsExist, loadNewItems } ) {
+export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close } ) {
 	const {
 		items,
 		loading,
@@ -63,6 +64,7 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 	}, [loadingScroll]);
 
 	function handleScroll (e) {
+		e.stopPropagation();
 		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 		if (bottom) {
 			// User scrolled down to the bottom
@@ -84,7 +86,7 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 			{error ? (
 				<Errors.Message error={error} />
 			) : (
-				<div className={styles.panelContainer} onScroll={handleScroll}>
+				<div className={styles.panelContainer} onScroll={handleScroll} onClick={close}>
 					<div style={{ maxHeight: notificationsContainerHeight}} className={styles.notificationsContainer}>
 						{needsVerification && (
 							<div>

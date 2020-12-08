@@ -29,8 +29,7 @@ const Translate = Text.Translator(translation);
 
 EmailVerifyPrompt.propTypes = {
 	user: PropTypes.object,
-	onTokenSubmission: PropTypes.func.isRequired,
-	onClose: PropTypes.func.isRequired,
+	onTokenSubmission: PropTypes.func.isRequired
 };
 
 const SENDING_STATE = 'SENDING';
@@ -38,7 +37,7 @@ const NULL_STATE = 'NULL';
 const SENT_STATE = 'SENT';
 
 
-export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
+export default function EmailVerifyPrompt ( { user, onTokenSubmission } ) {
 	const {
 		validToken,
 		snoozeVerification,
@@ -70,18 +69,15 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 	const sendAnotherEmail = async () => {
 		setSendingEmail(SENDING_STATE);
 		await wait(1000);
-		sendEmailVerification(user)
-			.then(() => {
-				setSendingEmail(SENT_STATE);
-				setSentAnotherVerifyEmail(true);
-
-				wait(1000)
-					.then(() => {
-						setSendingEmail(NULL_STATE);
-					});
-			}, (e) => {
-				setError(e);
-			});
+		try {
+			await sendEmailVerification(user);
+			setSendingEmail(SENT_STATE);
+			setSentAnotherVerifyEmail(true);
+			await wait(1000);
+			setSendingEmail(NULL_STATE);
+		} catch (e) {
+			setError(e);
+		}
 	};
 
 	const onTokenChange = (e) => {
