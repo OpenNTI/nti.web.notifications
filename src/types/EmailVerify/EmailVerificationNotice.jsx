@@ -64,7 +64,7 @@ export default function EmailVerificationNotice () {
 		return null;
 	}
 
-	return ( verificationSnoozed ? null : (
+	return (
 		<Toast location={Toast.Locations.TopRight}>
 			<Frame className={styles.frame}>
 				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
@@ -74,5 +74,5 @@ export default function EmailVerificationNotice () {
 				<TimeoutProgress progress={progress} />
 			</Frame>
 		</Toast>
-	));
+	);
 }
