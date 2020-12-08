@@ -134,14 +134,14 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 							)}
 						</div>
 						<div className={styles.footer}>
-							<Button className={styles.remindLaterButton} onClick={() => snoozeVerification()} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
+							<Button className={styles.remindLaterButton} onClick={snoozeVerification} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
 							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
 				</div>
 			)}
 			{displayChangeEmailPrompt && (
-				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>
+				<ChangeEmailPrompt user={user} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>
 			)}
 		</>
 
