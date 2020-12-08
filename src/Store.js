@@ -214,10 +214,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	stopEmailVerification () {
-		this.set({ emailVerificationRequested: null });
-	}
-
 	async submitToken (user, token) {
 		if (token && token !== '') {
 			try {
@@ -250,7 +246,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	snoozeVerification () {
 		const verificationSnoozed = new Date();
 		clearTimeout(this.autoSnoozeTimer);
-		this.set({ verificationSnoozed });
+		this.set({
+			verificationSnoozed,
+			emailVerificationRequested: null,
+		});
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
 }
