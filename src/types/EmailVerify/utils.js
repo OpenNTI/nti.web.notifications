@@ -33,6 +33,7 @@ export async function verifyEmailToken (user, token) {
 		if (indexToRemove > -1) {
 			userLinks.splice(indexToRemove, 1);
 			user.Links = userLinks;
+			await user.save();
 		}
 		return true;
 	} catch (e) {

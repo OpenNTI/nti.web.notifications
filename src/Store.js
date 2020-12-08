@@ -39,20 +39,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async onIncoming (notable) {
 		let oldItems = this.get('items') ?? [];
-		let pinnedItems = await Promise.all(Pinnable.map((n) => n()));
-		pinnedItems = pinnedItems.filter(Boolean);
-		oldItems = oldItems.filter((item) => {
-			for (let i = 0; i < pinnedItems.length; ++i) {
-				const pinnedItem = pinnedItems[i];
-				if (pinnedItem.MimeType === item.MimeType) {
-					return false;
-				}
-			}
-			return true;
-		});
-
 		this.set({
-			items: [...pinnedItems, notable, ...oldItems],
+			items: [notable, ...oldItems],
 			unreadCount: this.get('unreadCount') + 1,
 		});
 	}
@@ -95,8 +83,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchSize: NOTIFICATIONS_INIT_NUM,
 			});
 
-			const pinned = await Promise.all(Pinnable.map((n) => n()));
-			const notifications = [...pinned.filter(Boolean), ...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
+			const notifications = [...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
 
 			this.set({
 				batch,
@@ -108,7 +95,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 			// Email Verify load
 			const user = await getAppUser();
-			const needsVerification = user?.email && user.hasLink('RequestEmailVerification');
+			const needsVerification = user && user.email && user.hasLink('RequestEmailVerification');
 			this.set({
 				needsVerification,
 				verifiedDate: null,

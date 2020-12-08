@@ -19,7 +19,7 @@ export default function EmailVerificationWorkflow () {
 	return (
 		<>
 			{ needsVerification && <EmailVerifyToast /> }
-			{ emailVerificationRequested && <EmailVerifyDialog onDismiss={snoozeVerification} /> }
+			{ emailVerificationRequested && needsVerification && <EmailVerifyDialog onDismiss={snoozeVerification} /> }
 			{ !completedDate && verifiedDate && verifiedDate <= Date.now() && <CongratsPrompt onDismiss={completeEmailVerification} /> }
 		</>
 	);
