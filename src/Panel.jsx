@@ -9,6 +9,7 @@ import Store from './Store';
 import { getComponent } from './types';
 import ItemPlaceholder from './frame/Placeholder';
 import styles from './Panel.css';
+import EmailVerifyNotification from './types/EmailVerify/Notification';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
@@ -43,6 +44,7 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 		loading,
 		moreItems,
 		error,
+		needsVerification,
 	} = Store.useValue();
 
 	const hasItems = items && items.length > 0;
@@ -84,6 +86,11 @@ export default function Panel ( { newItemsExist, loadNewItems } ) {
 			) : (
 				<div className={styles.panelContainer} onScroll={handleScroll}>
 					<div style={{ maxHeight: notificationsContainerHeight}} className={styles.notificationsContainer}>
+						{needsVerification && (
+							<div>
+								<EmailVerifyNotification />
+							</div>
+						)}
 						{hasItems ? (
 							items.map((item, key) => {
 								const ItemDelegate = getComponent(item);
