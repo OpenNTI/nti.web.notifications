@@ -25,7 +25,6 @@ const translation = scoped('nti-notifications.notifications.types.EmailVerify', 
 const Translate = Text.Translator(translation);
 
 EmailVerifyNotification.propTypes = {
-	onDismiss: PropTypes.func,
 	className: PropTypes.string
 };
 
@@ -35,16 +34,16 @@ EmailVerifyNotification.MimeTypes = [
 
 register(EmailVerifyNotification, 'emailVerify');
 
-export default function EmailVerifyNotification ( { onDismiss, className } ) {
+export default function EmailVerifyNotification ( { className } ) {
 	const {
 		startEmailVerification,
 	} = Store.useValue();
 
 	return (
-		<NotificationItemFrame dismissCallBack={() => onDismiss()} className={className}>
+		<NotificationItemFrame className={className}>
 			<Translate localeKey="message" as="div"/>
 
-			<a className={styles.action} onClick={() => startEmailVerification()}>
+			<a className={styles.action} onClick={startEmailVerification}>
 				<Translate localeKey="verifyNow" />
 			</a>
 		</NotificationItemFrame>

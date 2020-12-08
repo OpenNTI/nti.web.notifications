@@ -13,15 +13,6 @@ const NOTIFICATIONS_INIT_NUM = 10;
 const VerificationNoticeExpiryPeriod = 10000; //10 seconds (in milliseconds)
 const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
 
-const Pinnable = [
-	async () => {
-		const user = await getAppUser();
-		if (user && user.email && user.hasLink('RequestEmailVerification')) {
-			return { MimeType: 'application/vnd.nextthought.emailverify' };
-		}
-	}
-];
-
 /**
  * The NotificationStore connects to the nti server and gets
  * the notifications of the current session's user. After it
@@ -39,20 +30,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async onIncoming (notable) {
 		let oldItems = this.get('items') ?? [];
-		let pinnedItems = await Promise.all(Pinnable.map((n) => n()));
-		pinnedItems = pinnedItems.filter(Boolean);
-		oldItems = oldItems.filter((item) => {
-			for (let i = 0; i < pinnedItems.length; ++i) {
-				const pinnedItem = pinnedItems[i];
-				if (pinnedItem.MimeType === item.MimeType) {
-					return false;
-				}
-			}
-			return true;
-		});
-
 		this.set({
-			items: [...pinnedItems, notable, ...oldItems],
+			items: [notable, ...oldItems],
 			unreadCount: this.get('unreadCount') + 1,
 		});
 	}
@@ -95,8 +74,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchSize: NOTIFICATIONS_INIT_NUM,
 			});
 
-			const pinned = await Promise.all(Pinnable.map((n) => n()));
-			const notifications = [...pinned.filter(Boolean), ...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
+			const notifications = [...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
 
 			this.set({
 				batch,
@@ -108,7 +86,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 			// Email Verify load
 			const user = await getAppUser();
-			const needsVerification = user?.email && user.hasLink('RequestEmailVerification');
+			const needsVerification = user && user.email && user.hasLink('RequestEmailVerification');
 			this.set({
 				needsVerification,
 				verifiedDate: null,
@@ -214,10 +192,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	stopEmailVerification () {
-		this.set({ emailVerificationRequested: null });
-	}
-
 	async submitToken (user, token) {
 		if (token && token !== '') {
 			try {
@@ -243,6 +217,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
+	cancelEmailVerification () {
+		this.set({ emailVerificationRequested: null });
+	}
+
 	completeEmailVerification () {
 		this.set({ completedDate: new Date() });
 	}
@@ -250,7 +228,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	snoozeVerification () {
 		const verificationSnoozed = new Date();
 		clearTimeout(this.autoSnoozeTimer);
-		this.set({ verificationSnoozed });
+		this.set({
+			verificationSnoozed,
+			emailVerificationRequested: null,
+		});
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
 }

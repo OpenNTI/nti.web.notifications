@@ -41,6 +41,8 @@ const SENT_STATE = 'SENT';
 export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose } ) {
 	const {
 		validToken,
+		snoozeVerification,
+		cancelEmailVerification,
 	} = Store.useValue();
 
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
@@ -94,7 +96,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 		<>
 			{displayVerifyPrompt && (
 				<div style={{ width: 'inherit', }}>
-					<StandardUI.Window.TitleBar onClose={onClose} title={<Translate localeKey="title" />}/>
+					<StandardUI.Window.TitleBar onClose={cancelEmailVerification} title={<Translate localeKey="title" />}/>
 					<div className={styles.promptBody}>
 						<div className={styles.title}><Translate localeKey="enterCode" /></div>
 						<div className={styles.bodyText}>
@@ -132,14 +134,14 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission, onClose }
 							)}
 						</div>
 						<div className={styles.footer}>
-							<Button className={styles.remindLaterButton} onClick={onClose} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
+							<Button className={styles.remindLaterButton} onClick={snoozeVerification} rounded={true} secondary plain><Translate localeKey="remindMeLater" /></Button>
 							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
 				</div>
 			)}
 			{displayChangeEmailPrompt && (
-				<ChangeEmailPrompt user={user} onClose={onClose} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>
+				<ChangeEmailPrompt user={user} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>
 			)}
 		</>
 
