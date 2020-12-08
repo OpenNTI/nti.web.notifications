@@ -4,7 +4,7 @@ import { Hooks, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../Frame';
+import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 

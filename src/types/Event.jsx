@@ -3,7 +3,7 @@ import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../Frame';
+import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 

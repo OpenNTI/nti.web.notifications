@@ -3,7 +3,7 @@ import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NotificationItemFrame from '../Frame';
+import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 
@@ -27,7 +27,7 @@ register(Badge, 'badge');
 
 export default function Badge ( { item } ) {
 	return (
-		<NotificationItemFrame item={item} username={item.creator}>
+		<NotificationItemFrame item={item} attribution={item.creator}>
 			{/* Building string to show to the user */}
 			<Translate
 				localeKey="action"

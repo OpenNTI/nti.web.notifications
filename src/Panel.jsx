@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import Store from './Store';
 import { getComponent } from './types';
-import ItemPlaceholder from './frames/Placeholder';
+import ItemPlaceholder from './frame/Placeholder';
 import styles from './Panel.css';
 
 // String localization
