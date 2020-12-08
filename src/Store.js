@@ -230,6 +230,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		clearTimeout(this.autoSnoozeTimer);
 		this.set({
 			verificationSnoozed,
+			emailVerificationRequested: null,
 		});
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
