@@ -28,10 +28,14 @@ const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
 export default class NotificationsStore extends Stores.SimpleStore {
 	static Singleton = true;
 
-	async onIncoming (notable) {
+	async onIncoming (change) {
+		const service = await getService();
+		// parse raw json object into Model
+		change = await service.getObject(change);
+
 		let oldItems = this.get('items') ?? [];
 		this.set({
-			items: [notable, ...oldItems],
+			items: [change, ...oldItems],
 			unreadCount: this.get('unreadCount') + 1,
 		});
 	}
