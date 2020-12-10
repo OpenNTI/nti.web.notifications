@@ -1,4 +1,5 @@
 import { scoped } from '@nti/lib-locale';
+import { String as StringUtils } from '@nti/lib-commons';
 import { getService } from  '@nti/web-client';
 import { Hooks, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
@@ -7,6 +8,9 @@ import React from 'react';
 import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
+
+
+const {escapeHTML} = StringUtils;
 
 const translation = scoped('nti-notifications.notifications.types.Feedback', {
 	action: 'posted feedback on %(t)s',
@@ -43,7 +47,7 @@ export default function Feedback ({ item }) {
 			<Translate
 				localeKey="action"
 				with={{
-					t: assignment?.title ?? item.title,
+					t: escapeHTML(assignment?.title ?? item.title),
 				}}
 			/>
 		</NotificationItemFrame>

@@ -1,3 +1,4 @@
+import { String as StringUtils } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { getService } from '@nti/web-client';
 import { Hooks, Presentation, Text } from '@nti/web-commons';
@@ -7,6 +8,8 @@ import React from 'react';
 import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
+
+const {escapeHTML} = StringUtils;
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Grade', {
@@ -54,7 +57,7 @@ export default function Grade ({ item, item: {creator, Item: grade} }) {
 			<Translate
 				localeKey="action"
 				with={{
-					assignment: assignment?.title ?? item.title,
+					assignment: escapeHTML(assignment?.title ?? item.title),
 				}}
 			/>
 		</NotificationItemFrame>
