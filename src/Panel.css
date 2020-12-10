@@ -19,9 +19,13 @@
 }
 
 .notifications-container {
+	--show-all-button: 50px;
+	--bottom-gap: 15px;
+
 	height: auto;
 	overflow-y: auto;
 	overflow-x: hidden;
+	max-height: calc(100vh - var(--flyout-top, 0) - var(--show-all-button, 0) - var(--bottom-gap, 0));
 }
 
 .no-notifications {

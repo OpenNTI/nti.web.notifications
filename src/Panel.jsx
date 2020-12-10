@@ -75,11 +75,6 @@ export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close 
 		}
 	}
 
-	const defaultHeight = 6 * 78;
-	let notificationsContainerHeight = defaultHeight;
-	if (window.innerHeight <= defaultHeight) {
-		notificationsContainerHeight = window.innerHeight - 137;
-	}
 
 	return (
 		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
@@ -87,7 +82,7 @@ export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close 
 				<Errors.Message error={error} />
 			) : (
 				<div className={styles.panelContainer} onScroll={handleScroll} onClick={close}>
-					<div style={{ maxHeight: notificationsContainerHeight}} className={styles.notificationsContainer}>
+					<div className={styles.notificationsContainer}>
 						{needsVerification && (
 							<div>
 								<EmailVerifyNotification />
