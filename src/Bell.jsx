@@ -33,9 +33,9 @@ const styles = css`
 const Bell = React.forwardRef(function Bell ({ count, onClick }, ref ) {
 	const theme = Theme.useThemeProperty('icon');
 	return (
-		<div className={styles.container}>
-			<Badge badge={count} ref={ref}>
-				<div ref={ref} className={cx(styles.bell, styles[theme])} onClick={onClick}/>
+		<div className={styles.container} ref={ref}>
+			<Badge badge={count}>
+				<div className={cx(styles.bell, styles[theme])} onClick={onClick}/>
 			</Badge>
 		</div>
 	);
