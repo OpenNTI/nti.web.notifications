@@ -6,6 +6,14 @@ import Panel from './Panel';
 import Store from './Store';
 import EmailVerificationWorkflow from './types/EmailVerify/Workflow';
 
+const styles = css`
+	.flyout {
+		&:global(.aligned-flyout.right .flyout-arrow) {
+			right: 26px;
+		}
+	}
+`;
+
 const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, ref) {
 	const {
 		unreadCount,
@@ -27,7 +35,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		<>
 			<EmailVerificationWorkflow />
 
-			<Flyout.Triggered horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger} arrow >
+			<Flyout.Triggered className={styles.flyout} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger} arrow >
 				<Panel newItemsExist={checkNewItemsExist}
 					loadNewItems={updateNewItems}
 				/>
