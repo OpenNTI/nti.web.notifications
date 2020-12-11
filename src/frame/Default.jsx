@@ -9,7 +9,7 @@ import Icon from './IconContainer';
 import Item from './Item';
 import Time from './Time';
 
-LinkedFrame.propTypes = {
+DefaultFrame.propTypes = {
 	item: PropTypes.object.isRequired,
 	children: PropTypes.object.isRequired,
 	attribution: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -17,7 +17,7 @@ LinkedFrame.propTypes = {
 };
 
 
-export default function LinkedFrame ( { icon, item, attribution, children } ) {
+export default function DefaultFrame ( { icon, item, attribution, children } ) {
 	const attributionInput = attribution || item.creator || item.Creator;
 	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
 		<DisplayName entity={attributionInput} />
@@ -27,7 +27,7 @@ export default function LinkedFrame ( { icon, item, attribution, children } ) {
 		<Avatar entity={attributionInput} />
 	);
 
-	const eventTime = item.getLastModified() || item.getCreatedAt();
+	const eventTime = item?.getLastModified() || item?.getCreatedAt();
 
 	return (
 		<LinkTo.Object object={item?.Item || item}>

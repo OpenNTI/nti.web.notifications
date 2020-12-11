@@ -28,13 +28,13 @@ const styles = css`
 	}
 `;
 
-EmailVerifyFrame.propTypes = {
+Pinned.propTypes = {
 	children: PropTypes.any.isRequired,
 	className: PropTypes.string,
 	onClick: PropTypes.func,
 };
 
-function EmailVerifyFrame ( { children, className } ) {
+function Pinned ( { children, className } ) {
 	const {
 		startEmailVerification,
 	} = Store.useValue();
@@ -52,4 +52,4 @@ function EmailVerifyFrame ( { children, className } ) {
 }
 
 // Toast in commons is breaking context, so connect this component to the store directly.
-export default Store.compose(EmailVerifyFrame);
+export default Store.compose(Pinned);
