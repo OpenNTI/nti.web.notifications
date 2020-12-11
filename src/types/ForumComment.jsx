@@ -28,7 +28,6 @@ register(ForumComment, 'forumComment');
 export default function ForumComment ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
-			{/* Building string to show to the user */}
 			<Translate localeKey="action"/>
 		</NotificationItemFrame>
 	);

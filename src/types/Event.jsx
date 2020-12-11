@@ -1,3 +1,4 @@
+import { String as StringUtils } from '@nti/lib-commons';
 import { Text } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import PropTypes from 'prop-types';
@@ -6,6 +7,8 @@ import React from 'react';
 import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
+
+const { escapeHTML } = StringUtils;
 
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Event', {
@@ -34,7 +37,7 @@ export default function Event ({ item }) {
 			<Translate
 				localeKey={finalAction}
 				with={{
-					t: item.name,
+					t: escapeHTML(item.name),
 				}}
 			/>
 		</NotificationItemFrame>

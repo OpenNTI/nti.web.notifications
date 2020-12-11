@@ -7,7 +7,6 @@ import NotificationItemFrame from '../frame';
 
 import { COMMON_PREFIX, register } from './Registry';
 
-
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Contact', {
 	action: 'added you as a contact',
@@ -28,7 +27,6 @@ register(Contact, 'contact');
 export default function Contact ({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
-			{/* Building string to show to the user */}
 			<Translate localeKey="action"/>
 		</NotificationItemFrame>
 	);
