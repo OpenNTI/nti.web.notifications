@@ -1,6 +1,7 @@
 import { SessionStorage } from '@nti/web-storage';
 import { Stores } from '@nti/lib-store';
 import { getAppUser, getService } from '@nti/web-client';
+import { Models } from '@nti/lib-interfaces';
 
 import { subscribeToIncoming } from './Socket';
 import { sendEmailVerification, verifyEmailToken } from './types/EmailVerify/utils';
@@ -78,13 +79,20 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchSize: NOTIFICATIONS_INIT_NUM,
 			});
 
-			const notifications = [...(batch.Items.map((item) => { return item.Item ? item.Item : item; }))];
+			const notifications = batch.Items.map((notice) => {
+				if (!notice.Item) {
+					const change = Models.Change.wrap(notice);
+					change.Item = notice;
+					return change;
+				}
+				return notice;
+			});
 
 			this.set({
 				batch,
 				loading: false,
 				items: notifications,
-				unreadCount: unreadCount,
+				unreadCount,
 				moreItems: notifications.length < batch.TotalItemCount,
 			});
 
