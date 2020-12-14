@@ -32,3 +32,8 @@
 	text-align: center;
 	margin: 10px 0;
 }
+
+.loading {
+	min-height: 100px;
+	overflow: hidden;
+}

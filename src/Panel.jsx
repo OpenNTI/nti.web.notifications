@@ -77,42 +77,44 @@ export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close 
 
 
 	return (
-		<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner />)}>
-			{error ? (
-				<Errors.Message error={error} />
-			) : (
-				<div className={styles.panelContainer} onScroll={handleScroll} onClick={close}>
-					<div className={styles.notificationsContainer}>
-						{needsVerification && (
-							<div>
-								<EmailVerifyNotification />
-							</div>
-						)}
-						{hasItems ? (
-							items.map((item, key) => {
-								const ItemDelegate = getComponent(item);
-								return (
-									<div key={key}>
-										<ItemDelegate item={item} />
-									</div>
-								);
-							})
-						) : (
-							<div className={styles.noNotifications}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
-						)}
-						{moreItems && (
-							<div className={styles.emptyItem}>
-								<ItemPlaceholder />
-							</div>
-						)}
-					</div>
-					<div className={styles.showAllContainer}>
-						<LinkTo.Path to="notifications">
-							<Translate localeKey="showAll" />
-						</LinkTo.Path>
-					</div>
-				</div>
-			)}
-		</Loading.Placeholder>
+		<div className={styles.panelContainer} onScroll={handleScroll} onClick={close}>
+			<div className={styles.notificationsContainer}>
+				<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner className={styles.loading}/>)}>
+					{error ? (
+						<Errors.Message error={error} />
+					) : (
+						<>
+							{needsVerification && (
+								<div>
+									<EmailVerifyNotification />
+								</div>
+							)}
+							{hasItems ? (
+								items.map((item, key) => {
+									const ItemDelegate = getComponent(item);
+									return (
+										<div key={key}>
+											<ItemDelegate item={item} />
+										</div>
+									);
+								})
+							) : (
+								<div className={styles.noNotifications}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+							)}
+							{moreItems && (
+								<div className={styles.emptyItem}>
+									<ItemPlaceholder />
+								</div>
+							)}
+						</>
+					)}
+				</Loading.Placeholder>
+			</div>
+			<div className={styles.showAllContainer}>
+				<LinkTo.Path to="notifications">
+					<Translate localeKey="showAll" />
+				</LinkTo.Path>
+			</div>
+		</div>
 	);
 }
