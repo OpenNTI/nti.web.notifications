@@ -13,11 +13,8 @@ Change.MimeTypes = [
 
 register(Change, 'change');
 
-export default function Change ({ item }) {
-	const ItemType = getComponent(item.Item || item);
+export default function Change ({ item: {Item: target} }) {
+	const ItemType = target && getComponent(target);
 
-	if (ItemType) {
-		return <ItemType item={item.Item || item}/>;
-	}
-
+	return ItemType && ItemType !== Change ? <ItemType item={target}/> : null;
 }
