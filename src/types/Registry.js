@@ -39,6 +39,6 @@ function register (Component, mimeTypeOrSuffix) {
  * of the supplied item.
  */
 function getComponent (item) {
-	const type = item.MimeType || item.mimeType;
+	const type = item.MimeType;
 	return NotificationItemRegistry.getInstance().getItemFor(type);
 }
