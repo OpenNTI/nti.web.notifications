@@ -30,7 +30,7 @@ export default function DefaultFrame ( { icon, item, attribution, children } ) {
 	const eventTime = item?.getLastModified() || item?.getCreatedAt();
 
 	return (
-		<LinkTo.Object object={item?.Item || item}>
+		<LinkTo.Object object={item}>
 			<Item>
 				<Icon>{selectedIcon}</Icon>
 				<Content>
