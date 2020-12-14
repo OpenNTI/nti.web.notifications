@@ -92,7 +92,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission } ) {
 		<>
 			{displayVerifyPrompt && (
 				<div style={{ width: 'inherit', }}>
-					<StandardUI.Window.TitleBar onClose={cancelEmailVerification} title={<Translate localeKey="title" />}/>
+					<StandardUI.Window.TitleBar onClose={snoozeVerification} title={<Translate localeKey="title" />}/>
 					<div className={styles.promptBody}>
 						<div className={styles.title}><Translate localeKey="enterCode" /></div>
 						<div className={styles.bodyText}>
