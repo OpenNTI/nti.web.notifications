@@ -19,8 +19,6 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 		unreadCount,
 		load,
 		updateLastViewed,
-		updateNewItems,
-		checkNewItemsExist,
 	} = Store.useValue();
 
 	useEffect(() => {
@@ -36,9 +34,7 @@ const NotificationFlyout = React.forwardRef(function NotificationFlyout (props, 
 			<EmailVerificationWorkflow />
 
 			<Flyout.Triggered className={styles.flyout} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} trigger={trigger} arrow >
-				<Panel newItemsExist={checkNewItemsExist}
-					loadNewItems={updateNewItems}
-				/>
+				<Panel />
 			</Flyout.Triggered>
 		</>
 	);

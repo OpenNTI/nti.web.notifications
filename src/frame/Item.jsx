@@ -1,8 +1,5 @@
-import React from 'react';
-import cx from 'classnames';
+const Item = styled('div')`
 
-const styles = css`
-	.item {
 		cursor: pointer;
 		line-height: 1;
 		display: flex;
@@ -12,11 +9,7 @@ const styles = css`
 		&:hover {
 			background-color: var(--panel-background-alt);
 		}
-	}
+
 `;
 
-export default function Item ({className, ...props}) {
-	return (
-		<div className={cx(styles.item, className)} {...props}/>
-	);
-}
+export default Item;

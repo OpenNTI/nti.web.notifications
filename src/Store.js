@@ -141,51 +141,53 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async checkNewItemsExist () {
+	hasMore () {
 		const batch = this.get('batch');
-		const currentlyShown =
-				this.get('currentlyShown') || batch.ItemCount;
-		const totalItemCount = batch.TotalItemCount;
-		if (currentlyShown === totalItemCount) {
+		const items = this.get('items');
+		if (items?.length === batch.TotalItemCount) {
 			return false;
 		}
 		return true;
 
 	}
 
-	async updateNewItems () {
+	async loadNextBatch () {
 		try {
+
 			// Check that we have more items to show
-			const batch = this.get('batch');
-			const currentlyShown =
-				this.get('currentlyShown') || batch.ItemCount;
-			const totalItemCount = batch.TotalItemCount;
-			if (currentlyShown === totalItemCount) {
+			if (!this.hasMore()) {
 				return false;
 			}
+
+			const batch = this.get('batch');
+			let items = this.get('items');
+
+			this.set({ batchLoading: true });
+
 			// We have new items, get at most 5 of them
 			const service = await getService();
 			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 			const url = pageInfo.getLink(MESSAGE_INBOX);
 
 			const {Items: newItems} = await service.getBatch(url, {
-				batchStart: currentlyShown,
+				batchStart: items.length,
 				batchSize: 5,
 			});
 
-			const items = [...this.get('items'), ...newItems];
+			items = [...items, ...newItems];
 
 			this.set({
-				currentlyShown: currentlyShown + newItems.length,
-				items: items,
+				items,
 				moreItems: items.length < batch.TotalItemCount,
 			});
 
 			return true;
-		} catch (e) {
+		} catch (error) {
+			this.set({ error });
+		} finally {
 			this.set({
+				batchLoading: false,
 				loading: false,
-				error: e,
 			});
 		}
 	}

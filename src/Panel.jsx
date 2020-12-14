@@ -1,8 +1,7 @@
-import { wait } from '@nti/lib-commons';
 import { LinkTo } from '@nti/web-routing';
 import { scoped } from '@nti/lib-locale';
 import { Errors, Loading, Text } from '@nti/web-commons';
-import React, { useState , useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Store from './Store';
@@ -34,12 +33,10 @@ const Translate = Text.Translator(translation);
  */
 
 Panel.propTypes = {
-	newItemsExist: PropTypes.func.isRequired,
-	loadNewItems: PropTypes.func.isRequired,
 	onDismiss: PropTypes.func,
 };
 
-export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close } ) {
+export default function Panel ( { onDismiss: close } ) {
 	const {
 		items,
 		loading,
@@ -48,36 +45,12 @@ export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close 
 		needsVerification,
 	} = Store.useValue();
 
-	const hasItems = items && items.length > 0;
-
-	const [loadingScroll, setLoadingScroll] = useState(false);
-
-	useEffect(() => {
-		const handleLoadingScroll =  async () => {
-			await wait(500);
-			loadNewItems();
-		};
-		if (loadingScroll) {
-			handleLoadingScroll();
-			setLoadingScroll(false);
-		}
-	}, [loadingScroll]);
-
-	function handleScroll (e) {
-		e.stopPropagation();
-		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-		if (bottom) {
-			// User scrolled down to the bottom
-			// Check if new items exist
-			if (newItemsExist()) {
-				setLoadingScroll(true);
-			}
-		}
-	}
+	const hasItems = items?.length > 0;
+	const lastIndex = items?.length - 1;
 
 
 	return (
-		<div className={styles.panelContainer} onScroll={handleScroll} onClick={close}>
+		<div className={styles.panelContainer} onClick={close}>
 			<div className={styles.notificationsContainer}>
 				<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner className={styles.loading}/>)}>
 					{error ? (
@@ -85,27 +58,28 @@ export default function Panel ( { newItemsExist, loadNewItems, onDismiss: close 
 					) : (
 						<>
 							{needsVerification && (
-								<div>
-									<EmailVerifyNotification />
-								</div>
+								<EmailVerifyNotification />
 							)}
-							{hasItems ? (
-								items.map((item, key) => {
-									const ItemDelegate = getComponent(item);
-									return (
-										<div key={key}>
-											<ItemDelegate item={item} />
-										</div>
-									);
-								})
-							) : (
-								<div className={styles.noNotifications}><Text.Base><Translate localeKey="noNotifications" /></Text.Base></div>
+
+							{!hasItems && (
+								<Text.Base as="div" className={styles.noNotifications}>
+									<Translate localeKey="noNotifications" />
+								</Text.Base>
 							)}
-							{moreItems && (
-								<div className={styles.emptyItem}>
-									<ItemPlaceholder />
-								</div>
-							)}
+
+							{items?.map((item, index) => {
+								const ItemDelegate = getComponent(item);
+								return (
+									<React.Fragment key={index}>
+										<ItemDelegate item={item} />
+
+										{index === lastIndex && moreItems && (
+											<ItemPlaceholder key={index}/>
+										)}
+
+									</React.Fragment>
+								);
+							})}
 						</>
 					)}
 				</Loading.Placeholder>
