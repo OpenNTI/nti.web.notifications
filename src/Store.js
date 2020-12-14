@@ -116,10 +116,10 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 
 	updateLastViewed () {
-		const batch = this.get('batch');
-		if (batch && batch.hasLink('lastViewed')) {
+		console.log('updating');
+		if (this.batch?.hasLink('lastViewed')) {
 			const now = new Date();
-			batch.putToLink('lastViewed', now.getTime() / 1000);
+			this.batch.putToLink('lastViewed', now.getTime() / 1000);
 			this.set({
 				lastViewed: now,
 				unreadCount: 0,
@@ -129,9 +129,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	hasMore () {
-		const batch = this.get('batch');
 		const items = this.get('items');
-		if (items && batch && items.length === batch.TotalItemCount) {
+		if (items && items.length === this.batch?.TotalItemCount) {
 			return false;
 		}
 		return true;
@@ -151,10 +150,12 @@ export default class NotificationsStore extends Stores.SimpleStore {
 			// We have new items, get at most 5 of them
 			const service = await getService();
 
-			const {Items: newItems, TotalItemCount} = await service.getBatch(this.url, {
+			this.batch = await service.getBatch(this.url, {
 				batchStart: items.length,
 				batchSize: NOTIFICATIONS_BATCH_SIZE,
 			});
+
+			const {Items: newItems, TotalItemCount} = this.batch;
 
 			items = [...items, ...newItems.map(normalizeItems)];
 
