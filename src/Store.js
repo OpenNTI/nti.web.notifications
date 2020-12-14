@@ -9,7 +9,7 @@ import { sendEmailVerification, verifyEmailToken } from './types/EmailVerify/uti
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
 
-const NOTIFICATIONS_INIT_NUM = 10;
+const NOTIFICATIONS_BATCH_SIZE = 10;
 
 const VerificationNoticeExpiryPeriod = 10000; //10 seconds (in milliseconds)
 const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
@@ -34,11 +34,12 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		// parse raw json object into Model
 		change = await service.getObject(change);
 
-		let oldItems = this.get('items') ?? [];
+		const oldItems = this.get('items') ?? [];
 		this.set({
-			items: [change, ...oldItems],
-			unreadCount: this.get('unreadCount') + 1,
+			items: [change, ...oldItems]
 		});
+
+		this.updateUnread();
 	}
 
 	async load () {
@@ -52,49 +53,9 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		});
 
 		try {
-			// Get a large batch of 20 items and figure out the unread count
-			const service = await getService();
-			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
-			const url = pageInfo.getLink(MESSAGE_INBOX);
-			let batch = await service.getBatch(url, {
-				batchStart: 0,
-				batchSize: 20,
-			});
-			let {Items: items} = batch;
-			const rawLastViewed = await service.get(`${url}/lastViewed`);
-			const lastViewedDate = new Date(parseFloat(rawLastViewed, 10) * 1000);
-			let unreadCount = 0;
-			for (let i = 0; i < items.length; ++i) {
-				const itemTime = items[i].getLastModified() || items[i].getCreatedAt();
-				if (itemTime > lastViewedDate) {
-					unreadCount++;
-				} else {
-					break;
-				}
-			}
-
-			// Get a smaller batch to display to the user
-			batch = await service.getBatch(url, {
-				batchStart: 0,
-				batchSize: NOTIFICATIONS_INIT_NUM,
-			});
-
-			const notifications = batch.Items.map((notice) => {
-				if (!notice.Item) {
-					const change = Models.Change.wrap(notice);
-					change.Item = notice;
-					return change;
-				}
-				return notice;
-			});
-
-			this.set({
-				batch,
-				loading: false,
-				items: notifications,
-				unreadCount,
-				moreItems: notifications.length < batch.TotalItemCount,
-			});
+			await this.resolveInbox();
+			await this.loadNextBatch();
+			await this.updateUnread();
 
 			// Email Verify load
 			const user = await getAppUser();
@@ -131,20 +92,46 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async updateLastViewed () {
+	async resolveInbox () {
+		const service = await getService();
+		const pageInfo = await service.getPageInfo(CONTENT_ROOT);
+		this.url = pageInfo.getLink(MESSAGE_INBOX);
+
+		this.set({
+			lastViewed: new Date(parseFloat(await service.get(`${this.url}/lastViewed`), 10) * 1000),
+		});
+	}
+
+
+	updateUnread () {
+		const items = this.get('items') || [];
+		const lastViewed = this.get('lastViewed');
+
+		const mod = x => x.getLastModified() || x.getCreatedAt();
+		const inc = m => m > lastViewed ? 1 : 0;
+		this.set({
+			unreadCount: items.reduce((n, item) => n + inc(mod(item)), 0)
+		});
+	}
+
+
+	updateLastViewed () {
 		const batch = this.get('batch');
 		if (batch && batch.hasLink('lastViewed')) {
-			batch.putToLink('lastViewed', Date.now() / 1000);
+			const now = new Date();
+			batch.putToLink('lastViewed', now.getTime() / 1000);
 			this.set({
+				lastViewed: now,
 				unreadCount: 0,
 			});
+			this.updateUnread();
 		}
 	}
 
 	hasMore () {
 		const batch = this.get('batch');
 		const items = this.get('items');
-		if (items?.length === batch.TotalItemCount) {
+		if (items && batch && items.length === batch.TotalItemCount) {
 			return false;
 		}
 		return true;
@@ -153,32 +140,27 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 	async loadNextBatch () {
 		try {
-
-			// Check that we have more items to show
 			if (!this.hasMore()) {
 				return false;
 			}
 
-			const batch = this.get('batch');
-			let items = this.get('items');
+			let items = this.get('items') || [];
 
 			this.set({ batchLoading: true });
 
 			// We have new items, get at most 5 of them
 			const service = await getService();
-			const pageInfo = await service.getPageInfo(CONTENT_ROOT);
-			const url = pageInfo.getLink(MESSAGE_INBOX);
 
-			const {Items: newItems} = await service.getBatch(url, {
+			const {Items: newItems, TotalItemCount} = await service.getBatch(this.url, {
 				batchStart: items.length,
-				batchSize: 5,
+				batchSize: NOTIFICATIONS_BATCH_SIZE,
 			});
 
-			items = [...items, ...newItems];
+			items = [...items, ...newItems.map(normalizeItems)];
 
 			this.set({
 				items,
-				moreItems: items.length < batch.TotalItemCount,
+				moreItems: items.length < TotalItemCount,
 			});
 
 			return true;
@@ -248,4 +230,11 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		});
 		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
 	}
+}
+
+
+function normalizeItems (notice) {
+	return (notice.Item)
+		? notice
+		: Object.assign(Models.Change.wrap(notice), {Item: notice});
 }
