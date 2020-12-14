@@ -1,20 +1,18 @@
-export Badge from './Badge';
-export BlogComment from './BlogComment';
-export BlogEntry from './BlogEntry';
-export BlogEntryPost from './BlogEntryPost';
-export Change from './Change';
-export Chat from './Chat';
-export ChatGroup from './ChatGroup';
-export Contact from './Contact';
-export EmailVerify from './EmailVerify';
-export Event from './Event';
-export Feedback from './Feedback';
-export ForumComment from './ForumComment';
-export ForumTopic from './ForumTopic';
-export Grade from './Grade';
-export Note from './Note';
-export Unknown from './Unknown';
-export EmailVerifyNotification from './EmailVerify';
+export {default as Badge} from './Badge';
+export {default as BlogComment} from './BlogComment';
+export {default as BlogEntry} from './BlogEntry';
+export {default as BlogEntryPost} from './BlogEntryPost';
+export {default as Change} from './Change';
+export {default as Contact} from './Contact';
+export {default as EmailVerify} from './EmailVerify';
+export {default as Event} from './Event';
+export {default as Feedback} from './Feedback';
+export {default as ForumComment} from './ForumComment';
+export {default as ForumTopic} from './ForumTopic';
+export {default as Grade} from './Grade';
+export {default as Note} from './Note';
+export {default as Unknown} from './Unknown';
+export {default as EmailVerifyNotification} from './EmailVerify';
 import { getComponent } from './Registry';
 
 export {
