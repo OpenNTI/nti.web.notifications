@@ -10,9 +10,15 @@ import { COMMON_PREFIX, register } from './Registry';
 
 const { escapeHTML } = StringUtils;
 
+const Icon = styled('div')`
+	width: var(--size);
+	height: var(--size);
+	background-size: contain;
+`;
+
 // String localization
 const translation = scoped('nti-notifications.notifications.types.Badge', {
-	action: 'awarded you %(badge)s',
+	action: 'awarded you %(badge)s', //%(badge)s badge earned.
 });
 
 const Translate = Text.Translator(translation);
@@ -29,13 +35,17 @@ Badge.MimeTypes = [
 register(Badge, 'badge');
 
 export default function Badge ( { item } ) {
+	const {Item: badge} = item;
+
+	const icon = <Icon style={{backgroundImage: `url(${badge.image})`}}/>;
+
+
 	return (
-		<NotificationItemFrame item={item}>
-			{/* Building string to show to the user */}
+		<NotificationItemFrame item={item} icon={icon} link={false}>
 			<Translate
 				localeKey="action"
 				with={{
-					badge: escapeHTML(item.Item.name),
+					badge: escapeHTML(badge.name),
 				}}
 			/>
 		</NotificationItemFrame>
