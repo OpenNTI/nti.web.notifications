@@ -18,7 +18,7 @@ DefaultFrame.propTypes = {
 
 
 export default function DefaultFrame ( { icon, item, attribution, children } ) {
-	const attributionInput = attribution || item.creator || item.Creator;
+	const attributionInput = attribution || item.creator;
 	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
 		<DisplayName entity={attributionInput} />
 	);
