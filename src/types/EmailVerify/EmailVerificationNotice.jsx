@@ -24,6 +24,7 @@ const styles = css`
 	}
 
 	.dismiss {
+		text-decoration: none;
 		position: absolute;
 		font-size: initial;
 		opacity: 0.5;
