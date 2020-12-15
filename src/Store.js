@@ -116,7 +116,6 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 
 	updateLastViewed () {
-		console.log('updating');
 		if (this.batch?.hasLink('lastViewed')) {
 			const now = new Date();
 			this.batch.putToLink('lastViewed', now.getTime() / 1000);
