@@ -27,7 +27,7 @@ export default function DefaultFrame ( { icon, item, attribution, children } ) {
 		<Avatar entity={attributionInput} />
 	);
 
-	const eventTime = item?.getLastModified() || item?.getCreatedAt();
+	const eventTime = item?.getLastModified() || item?.getCreatedTime();
 
 	return (
 		<LinkTo.Object object={item}>
