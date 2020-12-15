@@ -32,7 +32,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	async onIncoming (change) {
 		const service = await getService();
 		// parse raw json object into Model
-		change = await service.getObject(change);
+		change = normalizeItems(await service.getObject(change));
 
 		const oldItems = this.get('items') ?? [];
 		this.set({
