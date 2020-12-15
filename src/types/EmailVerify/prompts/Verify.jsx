@@ -41,7 +41,6 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission } ) {
 	const {
 		validToken,
 		snoozeVerification,
-		cancelEmailVerification,
 	} = Store.useValue();
 
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
