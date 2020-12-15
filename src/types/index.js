@@ -2,7 +2,6 @@ export {default as Badge} from './Badge';
 export {default as BlogComment} from './BlogComment';
 export {default as BlogEntry} from './BlogEntry';
 export {default as BlogEntryPost} from './BlogEntryPost';
-export {default as Change} from './Change';
 export {default as Contact} from './Contact';
 export {default as EmailVerify} from './EmailVerify';
 export {default as Event} from './Event';

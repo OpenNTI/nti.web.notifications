@@ -13,11 +13,11 @@ Registry.setDefault(Unknown);
 const logger = Logger.get('web:notifications:types:Unknown');
 
 export default function Unknown ({ item }) {
-	const type = item.MimeType && item.MimeType.match(/[a-zA-Z]*$/gm);
+	const {Item: unknown} = item;
 
 	useEffect(() => {
-		logger.warn('Unknown type: ' + type);
-	});
+		logger.warn('Unknown type: ' + unknown.MimeType);
+	}, [unknown]);
 
 	return null;
 }

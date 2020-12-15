@@ -30,12 +30,12 @@ register(Badge, 'badge');
 
 export default function Badge ( { item } ) {
 	return (
-		<NotificationItemFrame item={item} attribution={item.creator}>
+		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}
 			<Translate
 				localeKey="action"
 				with={{
-					badge: escapeHTML(item.name),
+					badge: escapeHTML(item.Item.name),
 				}}
 			/>
 		</NotificationItemFrame>

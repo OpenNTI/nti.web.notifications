@@ -18,7 +18,8 @@ DefaultFrame.propTypes = {
 
 
 export default function DefaultFrame ( { icon, item, attribution, children } ) {
-	const attributionInput = attribution || item.creator;
+	const target = item.Item;
+	const attributionInput = attribution || target.creator;
 	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
 		<DisplayName entity={attributionInput} />
 	);
@@ -30,7 +31,7 @@ export default function DefaultFrame ( { icon, item, attribution, children } ) {
 	const eventTime = item?.getLastModified() || item?.getCreatedTime();
 
 	return (
-		<LinkTo.Object object={item}>
+		<LinkTo.Object object={target}>
 			<Item>
 				<Icon>{selectedIcon}</Icon>
 				<Content>

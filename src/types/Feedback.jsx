@@ -39,7 +39,7 @@ async function resolveAssignment (item) {
 }
 
 export default function Feedback ({ item }) {
-	const assignment = useResolver(() => resolveAssignment(item), [item]);
+	const assignment = useResolver(() => resolveAssignment(item?.Item), [item?.Item]);
 
 	return (
 		<NotificationItemFrame item={item}>
@@ -47,7 +47,7 @@ export default function Feedback ({ item }) {
 			<Translate
 				localeKey="action"
 				with={{
-					t: escapeHTML(assignment?.title ?? item.title),
+					t: escapeHTML(assignment?.title ?? item.Item.title),
 				}}
 			/>
 		</NotificationItemFrame>

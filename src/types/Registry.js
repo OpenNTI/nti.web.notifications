@@ -33,12 +33,11 @@ function register (Component, mimeTypeOrSuffix) {
  * to determine equivalence.
  *
  * @static
- * @param {*} item notification item given
- * @param {*} type optional type of notification
+ * @param {Change} notice notification item given
  * @return {*} A React component that represents the type
  * of the supplied item.
  */
-function getComponent (item) {
-	const type = item.MimeType;
-	return NotificationItemRegistry.getInstance().getItemFor(type);
+function getComponent (notice) {
+	const type = notice.Item.MimeType;
+	return NotificationItemRegistry.getInstance().getItem(type);
 }

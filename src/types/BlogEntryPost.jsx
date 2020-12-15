@@ -38,7 +38,7 @@ export default function BlogEntryPost ( { item } ) {
 			<Translate
 				localeKey="action"
 				with={{
-					t: escapeHTML(item.title),
+					t: escapeHTML(item.Item.title),
 				}}
 			/>
 		</NotificationItemFrame>

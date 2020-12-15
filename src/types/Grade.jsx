@@ -28,14 +28,15 @@ Grade.MimeTypes = [
 
 register(Grade, 'grade');
 
-export default function Grade ({ item: grade, item: {creator} }) {
+export default function Grade ({ item: {Item: grade}, item }) {
 
 	Hooks.useChanges(grade);
+	const {creator} = grade;
 
 	// AssignmentName, CourseName and CatalogEntry are resolved by properties on the grade model...
 	// See NTI-9992 for missing values.
 	const frameProps = {
-		grade,
+		item,
 		attribution: creator === 'system' ? <span>{grade.CourseName}</span> : creator,
 		icon: creator === 'system' ? (
 			<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">

@@ -37,7 +37,7 @@ export default function Event ({ item }) {
 			<Translate
 				localeKey={finalAction}
 				with={{
-					t: escapeHTML(item.name),
+					t: escapeHTML(item.Item.name),
 				}}
 			/>
 		</NotificationItemFrame>
