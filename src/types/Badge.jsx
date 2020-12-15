@@ -41,3 +41,27 @@ export default function Badge ( { item } ) {
 		</NotificationItemFrame>
 	);
 }
+
+
+/*
+{
+	"Class":"Badge",
+	"MimeType":"application/vnd.nextthought.openbadges.badge",
+	"alignment":null,
+	"criteria":"https://ensync-corp-alpha.nextthought.com/badges/Leadership_for_Team_Management/criteria.html",
+	"description":"Earn a badge by completing the leadership course offered by NextThought",
+	"image":"https://ensync-corp-alpha.nextthought.com/badges/Leadership_for_Team_Management/badge.png",
+	"issuer":{
+		"Class":"Issuer",
+		"MimeType":"application/vnd.nextthought.openbadges.issuer",
+		"description":"https://ensync-corp-alpha.nextthought.com",
+		"email":"ensync-corp-badges@nextthought.com",
+		"image":null,
+		"name":"enSYNC Corporation LMS",
+		"revocationList":null,
+		"url":"https://ensync-corp-alpha.nextthought.com"
+	},
+	"name":"Leadership for Team Management",
+	"tags":["leadership","management"]
+}
+*/
