@@ -107,7 +107,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		const items = this.get('items') || [];
 		const lastViewed = this.get('lastViewed');
 
-		const mod = x => x.getLastModified() || x.getCreatedAt();
+		const mod = x => x.getLastModified() || x.getCreatedTime();
 		const inc = m => m > lastViewed ? 1 : 0;
 		this.set({
 			unreadCount: items.reduce((n, item) => n + inc(mod(item)), 0)
