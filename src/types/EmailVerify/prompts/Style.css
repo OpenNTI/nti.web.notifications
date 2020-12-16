@@ -1,0 +1,234 @@
+.dialog-header {
+	margin: 10px 15px;
+	color: var(--primary-grey);
+	font: normal 400 14px/1 "Open Sans", sans-serif;
+}
+
+.dialog-title {
+	display: block;
+	font: normal 300 18px/1 "Open Sans", sans-serif;
+	color: var(--primary-grey);
+}
+
+.buttons {
+	display: inline-block;
+	width: 348px;
+	font-size: 14px;
+	letter-spacing: 0.03px;
+	margin-bottom: 10px;
+}
+
+.button {
+	float: left;
+	padding: 0 7px 0 9px;
+	color: var(--primary-blue);
+	cursor: pointer;
+	font: normal 300 14px/1 "Open Sans", sans-serif;
+	position: relative;
+}
+
+.send-email-btn {
+	padding: 0 7px 0 0 !important;
+}
+
+.send-email {
+	float: left;
+	padding: 0 7px 0 0;
+	font: normal 300 14px/1 "Open Sans", sans-serif;
+	position: relative;
+}
+
+.send-email::after {
+	content: "|";
+	position: absolute;
+	right: 0;
+	color: var(--tertiary-grey);
+	width: 3px;
+	font-size: 14px;
+}
+
+.input-box {
+	border: 1px solid var(--secondary-grey);
+	padding-right: 30px;
+	background: #fff;
+	margin: 0 34px 0 0;
+	position: relative;
+	display: block;
+}
+
+.input-field {
+	color: var(--secondary-grey);
+	font: normal 500 14px/25px "Open Sans", sans-serif;
+	border: 0;
+	border-left: 10px solid var(--secondary-grey);
+	background: #fff;
+	padding: 6px 10px;
+	margin: 0;
+	min-height: 39px;
+	width: calc(100% - 8px);
+	position: relative;
+	outline: none;
+	display: block;
+	border-radius: 0;
+}
+
+.input-field::placeholder {
+	color: var(--secondary-grey);
+}
+
+.error-message {
+	color: var(--incorrect);
+	margin: 10px 15px;
+	font: normal 300 15px/1 "Open Sans", sans-serif;
+	line-height: 20px;
+	min-height: 20px;
+}
+
+.submit-button {
+	height: 48px;
+	width: 151px;
+}
+
+.remind-later-button {
+	background-color: white !important;
+	color: var(--primary-blue) !important;
+	height: 24px !important;
+	width: 161px !important;
+}
+
+.dismiss-button {
+	background-color: white !important;
+	color: var(--primary-blue) !important;
+	height: 24px !important;
+	width: 161px !important;
+}
+
+.footer {
+	text-align: right;
+	padding: 0 10px 10px 0;
+}
+
+.footer > a {
+	margin-left: 20px;
+	font-size: 18px;
+	border-radius: 3px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.footer > a > span {
+	vertical-align: middle;
+}
+
+.controls-container {
+	float: right;
+}
+
+.controls-container a {
+	float: right;
+	padding: 0 20px;
+	cursor: pointer;
+	font: normal 400 0.9em/40px "Open Sans", sans-serif;
+	text-align: center;
+	min-width: 90px;
+}
+
+.verify-email {
+	display: block;
+	margin-left: 0;
+	padding: 0;
+}
+
+.success {
+	color: var(--correct);
+}
+
+.modal-mask .modal-content {
+	width: 400px;
+}
+
+.redInput-field {
+	color: var(--incorrect);
+	border-left: 10px solid var(--incorrect);
+}
+
+.redInput-box {
+	border: 1px solid var(--incorrect);
+}
+
+.congrats-container {
+	padding-top: 15px;
+}
+
+.check-mark-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.check-mark {
+	height: 60px;
+	width: 60px;
+	background-image: url("../../../assets/Success_Icon.svg");
+	background-position-y: 4px;
+	background-size: contain;
+	float: left;
+}
+
+.text-container {
+	margin-top: -10px;
+}
+
+.email-verified {
+	height: 33px;
+	width: 345px;
+	color: var(--secondary-green);
+	font-size: 24px;
+	letter-spacing: 0;
+	line-height: 33px;
+	display: flex;
+}
+
+.congrats-msg {
+	color: var(--primary-grey);
+	font-size: 14px;
+	letter-spacing: 0.03px;
+	line-height: 19px;
+	margin-left: 84px;
+}
+
+.title {
+	height: 33px;
+	width: 345px;
+	color: var(--primary-grey);
+	font-size: 24px;
+	font-weight: 300;
+	letter-spacing: 0;
+	line-height: 33px;
+	margin: 10px 0;
+}
+
+.prompt-body {
+	margin-left: 23px;
+}
+
+.body-text {
+	height: 78px;
+	width: 400px;
+	color: var(--primary-grey);
+	font-size: 14px;
+	letter-spacing: 0.03px;
+	line-height: 19px;
+}
+
+.form {
+	margin-left: 23px;
+}
+
+.sub {
+	font-weight: 300;
+	color: var(--secondary-grey);
+	margin-top: 15px;
+	display: inline-block;
+	margin-bottom: 5px;
+}

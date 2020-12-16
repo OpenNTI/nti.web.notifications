@@ -1,0 +1,39 @@
+.panel-container {
+	width: 360px;
+	overflow: visible;
+	background-color: var(--panel-background);
+	border-radius: 4px;
+	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.show-all-container {
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 0;
+	color: var(--primary-blue);
+	text-decoration: none;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 600;
+	font-size: 16px;
+	border-top: lightgray 0.5px solid;
+}
+
+.notifications-container {
+	--show-all-button: 50px;
+	--bottom-gap: 15px;
+
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: calc(100vh - var(--flyout-top, 0) - var(--show-all-button, 0) - var(--bottom-gap, 0));
+}
+
+.no-notifications {
+	text-align: center;
+	margin: 10px 0;
+}
+
+.loading {
+	min-height: 100px;
+	overflow: hidden;
+}
