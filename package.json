@@ -10,13 +10,10 @@
   ],
   "scripts": {
     "test": "cmp-scripts test",
-    "start": "cmp-scripts start",
     "clean": "cmp-scripts clean",
     "check": "cmp-scripts check",
     "release": "cmp-scripts release",
-    "fix": "cmp-scripts fix",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start": "start-storybook -p 6006"
   },
   "repository": {
     "type": "git",
