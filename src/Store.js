@@ -55,7 +55,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		try {
 			await this.resolveInbox();
 			await this.loadNextBatch();
-			await this.updateUnread();
+			this.updateUnread();
 
 			// Email Verify load
 			const user = await getAppUser();
