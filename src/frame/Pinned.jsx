@@ -39,7 +39,7 @@ function Pinned ( { children, className } ) {
 	} = Store.useValue();
 
 	return (
-		<Item className={cx(styles.frame, className)} onClick={startEmailVerification}>
+		<Item className={cx(styles.frame, className)} onClick={startEmailVerification} data-testid="pinned-frame">
 			<IconContainer>
 				<Icon/>
 			</IconContainer>
