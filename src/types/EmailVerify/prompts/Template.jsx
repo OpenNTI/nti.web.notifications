@@ -28,7 +28,7 @@ export default function PromptTemplate ( { height, children } ) {
 	const style = height ? {height: `${height}px`} : {};
 	return (
 		<Prompt.Dialog>
-			<div style={style} className={cx(styles.view)}>
+			<div style={style} className={cx(styles.view)} data-testid="prompt">
 				<div className={cx(styles.content)}>
 					{children}
 				</div>
