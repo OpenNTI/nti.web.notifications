@@ -254,7 +254,7 @@ describe('Notification Store', () => {
 		const store = new Store();
 		await store.load();
 
-		expect(subscribeToIncomingSpy).toHaveBeenCalledTimes(1);
+		expect(subscribeToIncomingSpy).toHaveBeenCalled();
 	});
 
 	test('load calls resolveInbox, loadNextBatch, and updateUnread', async () => {
@@ -271,9 +271,9 @@ describe('Notification Store', () => {
 
 		await store.load();
 
-		expect(resolveInboxSpy).toHaveBeenCalledTimes(1);
-		expect(loadNextBatchSpy).toHaveBeenCalledTimes(1);
-		expect(updateUnreadSpy).toHaveBeenCalledTimes(1);
+		expect(resolveInboxSpy).toHaveBeenCalled();
+		expect(loadNextBatchSpy).toHaveBeenCalled();
+		expect(updateUnreadSpy).toHaveBeenCalled();
 	});
 
 	test('load sets needsVerification correctly (1)', async () => {
