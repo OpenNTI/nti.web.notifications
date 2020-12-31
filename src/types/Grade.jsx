@@ -37,11 +37,13 @@ export default function Grade ({ item: {Item: grade}, item }) {
 	// See NTI-9992 for missing values.
 	const frameProps = {
 		item,
-		attribution: creator === 'system' ? <span>{grade.CourseName}</span> : creator,
+		attribution: creator === 'system' ? <span data-testid="grade-course-name">{grade.CourseName}</span> : creator,
 		icon: creator === 'system' ? (
-			<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">
-				<img className="icon" alt={grade.title} />
-			</Presentation.Asset>
+			<div data-testid="grade-creator-icon">
+				<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">
+					<img className="icon" alt={grade.title} />
+				</Presentation.Asset>
+			</div>
 		) : null,
 	};
 	return (
