@@ -27,11 +27,7 @@ describe('Test email verify utility methods', () => {
 			hasLink: () => false,
 		};
 
-		await sendEmailVerification(user).then(() => {
-			expect(1).toBeFalsy();
-		},() => {
-			expect(1).toBeTruthy();
-		});
+		await expect(() => sendEmailVerification(user)).rejects;
 	});
 
 	test('verifyEmailToken calls user.hasLink, user.getLink, user.refresh and makes sure token is truthy', async () => {
@@ -59,20 +55,12 @@ describe('Test email verify utility methods', () => {
 			hasLink: () => false
 		};
 
-		await verifyEmailToken(user, 'token').then(() => {
-			expect(1).toBeFalsy();
-		},() => {
-			expect(1).toBeTruthy();
-		});
+		await expect(() => verifyEmailToken(user, 'token')).rejects;
 
 		user = {
 			hasLink: () => true
 		};
 
-		await verifyEmailToken(user, '').then(() => {
-			expect(1).toBeFalsy();
-		},() => {
-			expect(1).toBeTruthy();
-		});
+		await expect(() => verifyEmailToken(user, '')).rejects;
 	});
 });
