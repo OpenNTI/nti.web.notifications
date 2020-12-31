@@ -15,7 +15,7 @@ describe('Test email verify utility methods', () => {
 			getLink: jest.fn().mockImplementation(() => 'link'),
 		};
 
-		await sendEmailVerification(user);
+		expect(await sendEmailVerification(user)).resolves;
 
 		expect(user.hasLink).toHaveBeenCalled();
 
