@@ -15,11 +15,15 @@ describe('Test the workflow of email verification', () => {
 			needsVerification: true,
 		});
 
+		jest.useFakeTimers();
+
 		const component = render(
 			<StoreContextWrapper store={store}>
 				<EmailVerificationWorkflow />
 			</StoreContextWrapper>
 		);
+
+		act(() => jest.advanceTimersByTime(1000));
 
 		expect(component.queryByTestId('email-verification-notice')).toBeTruthy();
 
