@@ -189,7 +189,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	async submitToken (user, token) {
-		if (user && token && token !== '') {
+		if (user && token) {
 			try {
 				const returnValue = await verifyEmailToken(user, token);
 				if (returnValue) {
