@@ -6,22 +6,29 @@ import {StoreContextWrapper} from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerificationNotice from '../types/EmailVerify/EmailVerificationNotice';
-import Frame from '../frame/Pinned';
 
 
 describe('Test Email Verification Notice', () => {
 	test('Clicking the notice\'s frame fires up startEmailVerification in store', () => {
 		const store = new Store();
 
+		store.set({
+			emailVerificationRequested: false,
+			needsVerification: true,
+			verificationSnoozed: false,
+		});
+
+		jest.useFakeTimers();
+
 		const component = render(
 			<StoreContextWrapper store={store}>
-				<Frame>
-					<div>Test</div>
-				</Frame>
+				<EmailVerificationNotice />
 			</StoreContextWrapper>
 		);
 
-		const frame = component.queryByTestId('pinned-frame');
+		act(() => jest.advanceTimersByTime(1000));
+
+		const frame = component.queryByTestId('email-verification-notice');
 
 		fireEvent.click(frame);
 

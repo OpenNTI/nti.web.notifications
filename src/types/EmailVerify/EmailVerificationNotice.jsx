@@ -67,16 +67,14 @@ export default function EmailVerificationNotice () {
 	}
 
 	return (
-		<div data-testid="email-verification-notice">
-			<Toast location={Toast.Locations.TopRight}>
-				<Frame className={styles.frame}>
-					<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
-					<div className={styles.text}>
-						<Translate localeKey="message" />
-					</div>
-					<TimeoutProgress progress={progress} />
-				</Frame>
-			</Toast>
-		</div>
+		<Toast location={Toast.Locations.TopRight}>
+			<Frame className={styles.frame} testId="email-verification-notice">
+				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
+				<div className={styles.text}>
+					<Translate localeKey="message" />
+				</div>
+				<TimeoutProgress progress={progress} />
+			</Frame>
+		</Toast>
 	);
 }
