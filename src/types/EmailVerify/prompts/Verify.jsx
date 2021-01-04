@@ -90,7 +90,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission } ) {
 	return (
 		<>
 			{displayVerifyPrompt && (
-				<div style={{ width: 'inherit', }}>
+				<>
 					<StandardUI.Window.TitleBar onClose={snoozeVerification} title={<Translate localeKey="title" />}/>
 					<div className={styles.promptBody}>
 						<div className={styles.title}><Translate localeKey="enterCode" /></div>
@@ -133,7 +133,7 @@ export default function EmailVerifyPrompt ( { user, onTokenSubmission } ) {
 							<Button className={styles.submitButton} onClick={onSubmit} disabled={token ? false : true}><Translate localeKey="submit" /></Button>
 						</div>
 					</Form>
-				</div>
+				</>
 			)}
 			{displayChangeEmailPrompt && (
 				<ChangeEmailPrompt user={user} onReturn={(payLoad) => closeChangeEmail(payLoad)}/>

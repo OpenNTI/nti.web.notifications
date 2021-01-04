@@ -72,7 +72,7 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 	};
 
 	return (
-		<div style={{ width: 'inherit', }}>
+		<>
 			<div className={styles.dialogHeader}>
 				<div className={styles.buttons}>
 					<div className={cx(styles.button, styles.verifyEmail, styles.link)} onClick={onReturn} >
@@ -105,6 +105,6 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 					<Button className={styles.submitButton} type="submit" onClick={onEmailChangeSubmit} disabled={email && emailValid ? false : true}><Translate localeKey="submit"/></Button>
 				</div>
 			</Form>
-		</div>
+		</>
 	);
 }

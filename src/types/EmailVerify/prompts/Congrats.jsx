@@ -22,7 +22,7 @@ export default function CongratsPrompt ( { onDismiss } ) {
 
 	return (
 		<PromptTemplate height={118}>
-			<div className={styles.congratsContainer} style={{ width: 'inherit', }} data-testid="congrats-prompt">
+			<div className={styles.congratsContainer} data-testid="congrats-prompt">
 				<div className={styles.checkMarkContainer}>
 					<div className={styles.checkMark}></div>
 					<div className={styles.emailVerified}><Translate localeKey="emailVerified" /></div>
