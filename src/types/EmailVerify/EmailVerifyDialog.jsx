@@ -35,13 +35,11 @@ export default function EmailVerify ( { user:userProp, onDismiss } ) {
 
 	return (
 		<>
-			<div data-testid="email-verify-dialog">
-				{showVerifyWindow && user && (
-					<PromptTemplate>
-						<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} />
-					</PromptTemplate>
-				)}
-			</div>
+			{showVerifyWindow && user && (
+				<PromptTemplate testId="email-verify-dialog">
+					<EmailVerifyPrompt user={user} onTokenSubmission={onTokenSubmission} />
+				</PromptTemplate>
+			)}
 		</>
 
 	);
