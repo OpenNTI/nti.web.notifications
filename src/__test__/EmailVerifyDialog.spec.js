@@ -9,7 +9,7 @@ import EmailVerify from '../types/EmailVerify/EmailVerifyDialog';
 import useMockServer from './utils/use-mock-server';
 
 describe('Test email verify component', () => {
-	test('Dialog is not rendered when needsVerification is false', () => {
+	test('Dialog is not rendered when needsVerification is false', async () => {
 		const store = new Store();
 
 		store.set({
@@ -17,15 +17,19 @@ describe('Test email verify component', () => {
 			verifiedDate: null,
 		});
 
-		const element = render(
-			<FakeStore mock={store}>
-				<EmailVerify onDismiss={() => {}} user={{}} />
-			</FakeStore>
-		);
+		let element;
+
+		await waitFor(() => {
+			element = render (
+				<FakeStore mock={store}>
+					<EmailVerify onDismiss={() => {}} user={{}} />
+				</FakeStore>
+			);
+		});
 
 		expect(element.queryByTestId('prompt')).toBeNull();
 	});
-	test('Dialog is not rendered when verifiedDate is set and not null', () => {
+	test('Dialog is not rendered when verifiedDate is set and not null', async () => {
 		const store = new Store();
 
 		store.set({
@@ -33,11 +37,15 @@ describe('Test email verify component', () => {
 			verifiedDate: Date.now(),
 		});
 
-		const element = render(
-			<FakeStore mock={store}>
-				<EmailVerify onDismiss={() => {}} user={{}} />
-			</FakeStore>
-		);
+		let element;
+
+		await waitFor(() => {
+			element = render (
+				<FakeStore mock={store}>
+					<EmailVerify onDismiss={() => {}} user={{}} />
+				</FakeStore>
+			);
+		});
 
 		expect(element.queryByTestId('prompt')).toBeNull();
 	});
