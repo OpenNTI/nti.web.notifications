@@ -3,7 +3,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import {render, waitFor} from '@testing-library/react';
-import {StoreContextWrapper} from '@nti/lib-store';
+import {FakeStore} from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerificationWorkflow from '../types/EmailVerify/Workflow';
@@ -21,9 +21,9 @@ describe('Test the workflow of email verification', () => {
 		jest.useFakeTimers();
 
 		const component = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		act(() => jest.advanceTimersByTime(1000));
@@ -33,9 +33,9 @@ describe('Test the workflow of email verification', () => {
 		store.set({needsVerification: false});
 
 		component.rerender(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('email-verification-notice')).toBeNull();
@@ -62,9 +62,9 @@ describe('Test the workflow of email verification', () => {
 
 		await waitFor(() => {
 			component = render(
-				<StoreContextWrapper store={store}>
+				<FakeStore mock={store}>
 					<EmailVerificationWorkflow />
-				</StoreContextWrapper>
+				</FakeStore>
 			);
 		});
 
@@ -76,9 +76,9 @@ describe('Test the workflow of email verification', () => {
 		});
 
 		component.rerender(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('email-verify-dialog')).toBeNull();
@@ -89,9 +89,9 @@ describe('Test the workflow of email verification', () => {
 		});
 
 		component.rerender(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('email-verify-dialog')).toBeNull();
@@ -106,9 +106,9 @@ describe('Test the workflow of email verification', () => {
 		});
 
 		const component = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('congrats-prompt')).toBeTruthy();
@@ -118,9 +118,9 @@ describe('Test the workflow of email verification', () => {
 		});
 
 		component.rerender(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('congrats-prompt')).toBeNull();
@@ -131,9 +131,9 @@ describe('Test the workflow of email verification', () => {
 		});
 
 		component.rerender(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationWorkflow />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(component.queryByTestId('congrats-prompt')).toBeNull();

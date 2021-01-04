@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import {render, waitFor} from '@testing-library/react';
-import {StoreContextWrapper} from '@nti/lib-store';
+import {FakeStore} from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerify from '../types/EmailVerify/EmailVerifyDialog';
@@ -18,9 +18,9 @@ describe('Test email verify component', () => {
 		});
 
 		const element = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerify onDismiss={() => {}} user={{}} />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(element.queryByTestId('prompt')).toBeNull();
@@ -34,9 +34,9 @@ describe('Test email verify component', () => {
 		});
 
 		const element = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerify onDismiss={() => {}} user={{}} />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(element.queryByTestId('prompt')).toBeNull();
@@ -62,9 +62,9 @@ describe('Test email verify component', () => {
 
 		await waitFor(() => {
 			component = render(
-				<StoreContextWrapper store={store}>
+				<FakeStore mock={store}>
 					<EmailVerify onDismiss={() => {}} />
-				</StoreContextWrapper>
+				</FakeStore>
 			);
 		});
 

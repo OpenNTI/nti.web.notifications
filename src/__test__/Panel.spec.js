@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import {render} from '@testing-library/react';
-import {StoreContextWrapper} from '@nti/lib-store';
+import {FakeStore} from '@nti/lib-store';
 
 import Store from '../Store';
 import Panel from '../Panel';
@@ -46,9 +46,9 @@ describe('Panel Component', () => {
 		expect(store).toBeDefined();
 
 		const { getByText } = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(getByText('You don\'t have any notifications.')).toBeTruthy();
@@ -59,9 +59,9 @@ describe('Panel Component', () => {
 		store.set({needsVerification: true});
 
 		const { getByText } = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(getByText('Verify Now')).toBeTruthy();
@@ -72,9 +72,9 @@ describe('Panel Component', () => {
 		store.set({items: [emptyBadgeItem, emptyBadgeItem]});
 
 		const {container} = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(container.querySelectorAll('time').length).toBe(2);
@@ -82,9 +82,9 @@ describe('Panel Component', () => {
 		store.set({items: [...(store.get('items')), emptyBadgeItem]});
 
 		const {container: container2} = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(container2.querySelectorAll('time').length).toBe(3);
@@ -94,9 +94,9 @@ describe('Panel Component', () => {
 		const store = new Store();
 
 		const {container} = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={()=>{}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		expect(container.querySelector('div[to="notifications"]')).toBeTruthy();
@@ -107,9 +107,9 @@ describe('Panel Component', () => {
 		store.set({ moreItems: true, items: [emptyBadgeItem, emptyBadgeItem] });
 
 		const { container } = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 		expect(container.querySelector('.empty')).toBeTruthy();
 	});

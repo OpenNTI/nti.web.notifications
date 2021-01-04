@@ -2,7 +2,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import {fireEvent, render} from '@testing-library/react';
-import {StoreContextWrapper} from '@nti/lib-store';
+import {FakeStore} from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerificationNotice from '../types/EmailVerify/EmailVerificationNotice';
@@ -21,9 +21,9 @@ describe('Test Email Verification Notice', () => {
 		jest.useFakeTimers();
 
 		const component = render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationNotice />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		act(() => jest.advanceTimersByTime(1000));
@@ -51,9 +51,9 @@ describe('Test Email Verification Notice', () => {
 		jest.useFakeTimers();
 
 		render(
-			<StoreContextWrapper store={store}>
+			<FakeStore mock={store}>
 				<EmailVerificationNotice />
-			</StoreContextWrapper>
+			</FakeStore>
 		);
 
 		act(() => jest.advanceTimersByTime(1000));
