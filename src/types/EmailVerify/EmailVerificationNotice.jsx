@@ -70,7 +70,7 @@ export default function EmailVerificationNotice () {
 		<Toast location={Toast.Locations.TopRight}>
 			<Frame className={styles.frame}>
 				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
-				<div className={styles.text}>
+				<div className={styles.text} data-testid="email-verification-notice">
 					<Translate localeKey="message" />
 				</div>
 				<TimeoutProgress progress={progress} />

@@ -24,11 +24,11 @@ PromptTemplate.propTypes = {
 	height: PropTypes.number,
 };
 
-export default function PromptTemplate ( { height, children } ) {
+export default function PromptTemplate ( { height, children, ...otherProps } ) {
 	const style = height ? {height: `${height}px`} : {};
 	return (
 		<Prompt.Dialog>
-			<div style={style} className={cx(styles.view)}>
+			<div {...otherProps} style={style} className={cx(styles.view)}>
 				<div className={cx(styles.content)}>
 					{children}
 				</div>

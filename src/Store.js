@@ -55,7 +55,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		try {
 			await this.resolveInbox();
 			await this.loadNextBatch();
-			await this.updateUnread();
+			this.updateUnread();
 
 			// Email Verify load
 			const user = await getAppUser();
@@ -189,7 +189,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 	}
 
 	async submitToken (user, token) {
-		if (token && token !== '') {
+		if (user && token) {
 			try {
 				const returnValue = await verifyEmailToken(user, token);
 				if (returnValue) {

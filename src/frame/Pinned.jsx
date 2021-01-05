@@ -31,7 +31,6 @@ const styles = css`
 Pinned.propTypes = {
 	children: PropTypes.any.isRequired,
 	className: PropTypes.string,
-	onClick: PropTypes.func,
 };
 
 function Pinned ( { children, className } ) {
