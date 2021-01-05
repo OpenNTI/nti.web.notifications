@@ -21,7 +21,7 @@ export async function sendEmailVerification (user) {
 
 export async function verifyEmailToken (user, token) {
 	if (!user.hasLink('VerifyEmailWithToken') || !token) {
-		return Promise.reject(new Error('User does not have \'VerifyEmailWithToken\' link or token is invalid.'));
+		throw new Error('User does not have \'VerifyEmailWithToken\' link or token is invalid.');
 	}
 	let reqLink = user.getLink('VerifyEmailWithToken');
 	let service;
