@@ -20,7 +20,7 @@ describe('Test Grade Notification Type', () => {
 
 		jest.spyOn(Hooks, 'useChanges').mockImplementation(() => {});
 
-		jest.spyOn(Presentation, 'Asset').mockImplementation(() => (<div className="icon">Icon</div>));
+		jest.spyOn(Presentation, 'Asset').mockImplementation(() => (<div data-testid="grade-creator-icon">Icon</div>));
 
 		const element = render(<Grade item={item}></Grade>);
 
