@@ -2,7 +2,7 @@ import { getService } from '@nti/web-client';
 
 export async function sendEmailVerification (user) {
 	if (!user.hasLink('RequestEmailVerification')) {
-		return Promise.reject(new Error('User does not have \'RequestEmailVerification\' link.'));
+		throw new Error('User does not have \'RequestEmailVerification\' link.');
 	}
 
 	const reqLink = user.getLink('RequestEmailVerification');
