@@ -39,11 +39,9 @@ export default function Grade ({ item: {Item: grade}, item }) {
 		item,
 		attribution: creator === 'system' ? <span data-testid="grade-course-name">{grade.CourseName}</span> : creator,
 		icon: creator === 'system' ? (
-			<div data-testid="grade-creator-icon">
-				<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">
-					<img className="icon" alt={grade.title} />
-				</Presentation.Asset>
-			</div>
+			<Presentation.Asset contentPackage={grade.CatalogEntry} type="thumb">
+				<img className="icon" alt={grade.title} />
+			</Presentation.Asset>
 		) : null,
 	};
 	return (
