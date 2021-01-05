@@ -31,16 +31,15 @@ const styles = css`
 Pinned.propTypes = {
 	children: PropTypes.any.isRequired,
 	className: PropTypes.string,
-	testId: PropTypes.string,
 };
 
-function Pinned ( { children, className, testId } ) {
+function Pinned ( { children, className } ) {
 	const {
 		startEmailVerification,
 	} = Store.useValue();
 
 	return (
-		<Item className={cx(styles.frame, className)} onClick={startEmailVerification} data-testid={testId}>
+		<Item className={cx(styles.frame, className)} onClick={startEmailVerification}>
 			<IconContainer>
 				<Icon/>
 			</IconContainer>
