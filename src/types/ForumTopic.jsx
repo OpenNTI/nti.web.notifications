@@ -20,7 +20,11 @@ const Translate = Text.Translator(translation);
 ForumTopic.propTypes = {
 	item: PropTypes.object.isRequired,
 };
-
+/* NOTE:
+ * The icon for this type of notification uses the creator's avatar URL.
+ * When the creator is not a user, it will be an ntiid of the course/community.
+ * If the creator is ever set to "system", the avatar will be blank.
+ */
 ForumTopic.MimeTypes = [
 	COMMON_PREFIX + 'forums.communityheadlinetopic',
 	COMMON_PREFIX + 'forums.contentheadlinetopic',
