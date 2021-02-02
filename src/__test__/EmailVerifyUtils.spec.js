@@ -57,9 +57,7 @@ describe('Test email verify utility methods', () => {
 
 		await expect(verifyEmailToken(user, 'token')).rejects.toThrow();
 
-		user = {
-			hasLink: () => true
-		};
+		user.hasLink = () => true;
 
 		await expect(() => verifyEmailToken(user, '')).rejects.toThrow();
 	});

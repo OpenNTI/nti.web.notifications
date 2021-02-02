@@ -34,7 +34,7 @@ function register (Component, mimeTypeOrSuffix) {
  *
  * @static
  * @param {Change} notice notification item given
- * @return {*} A React component that represents the type
+ * @returns {*} A React component that represents the type
  * of the supplied item.
  */
 function getComponent (notice) {

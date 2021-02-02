@@ -1,6 +1,3 @@
-// Storybook libraries are provided by cmp-scripts...
-// TODO: Find a way to import them without lint warnings.
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 import React from 'react';
 
