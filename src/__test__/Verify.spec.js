@@ -99,7 +99,7 @@ describe('Test Email Verify Prompt', () => {
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={{}} onTokenSubmission={onTokenSubmissionMock}/>
+				<EmailVerifyPrompt user={{email: 'e@ma.il'}} onTokenSubmission={onTokenSubmissionMock}/>
 			);
 		});
 

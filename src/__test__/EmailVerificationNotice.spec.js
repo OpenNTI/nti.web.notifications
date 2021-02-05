@@ -7,9 +7,15 @@ import {FakeStore} from '@nti/lib-store';
 import Store from '../Store';
 import EmailVerificationNotice from '../types/EmailVerify/EmailVerificationNotice';
 
+import useMockServer from './utils/use-mock-server';
 
 describe('Test Email Verification Notice', () => {
+	useMockServer({
+		getAppUser: () => Promise.resolve({email: '...'})
+	});
+
 	test('Clicking the notice\'s frame fires up startEmailVerification in store', () => {
+		jest.useFakeTimers();
 		const store = new Store();
 
 		store.set({
@@ -18,7 +24,6 @@ describe('Test Email Verification Notice', () => {
 			verificationSnoozed: false,
 		});
 
-		jest.useFakeTimers();
 
 		const component = render(
 			<FakeStore mock={store}>
@@ -36,6 +41,7 @@ describe('Test Email Verification Notice', () => {
 	});
 
 	test('Clicking dismiss anchor should fire up snoozeVerification in store', () => {
+		jest.useFakeTimers();
 		const store = new Store();
 
 		const anchorClicked = jest.fn();
@@ -48,7 +54,6 @@ describe('Test Email Verification Notice', () => {
 			verificationSnoozed: false,
 		});
 
-		jest.useFakeTimers();
 
 		render(
 			<FakeStore mock={store}>
