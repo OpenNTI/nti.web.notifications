@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+export const Fading = styled.div`
+	animation: fading 1.5s infinite;
 
-const styles = css`
-	.bar {
-		composes: fading from "./keyframes.css";
-		background-color: var(--primary-grey);
-		margin-bottom: 5px;
+	@keyframes fading {
+		0% { opacity: 0.1; }
+		50% { opacity: 0.2; }
+		100% { opacity: 0.1; }
 	}
 `;
 
-Bar.propTypes = {
-	width: PropTypes.number.isRequired,
-	height: PropTypes.number,
-};
-
-export default function Bar ( { width, height } ) {
-	return (
-		<div className={styles.bar} style={{width, height: height ?? 20}}></div>
-	);
-}
+export default styled(Fading).attrs(({width, height, ...props}) => ({
+	...props,
+	style: {
+		...props.style,
+		width,
+		height: height ?? 20
+	}
+}))`
+	background-color: var(--primary-grey);
+	margin-bottom: 5px;
+`;

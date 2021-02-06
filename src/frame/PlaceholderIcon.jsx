@@ -1,5 +1,6 @@
-export default styled('div')`
-	composes: fading from "./keyframes.css";
+import {Fading} from './PlaceholderBar';
+
+export default styled(Fading)`
 	width: 42px;
 	height: 42px;
 	margin-right: 15px;
