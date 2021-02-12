@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import React from 'react';
-import {render} from '@testing-library/react';
-import {Hooks, Presentation} from '@nti/web-commons';
+import { render } from '@testing-library/react';
 
 import Grade from '../types/Grade';
 
@@ -13,18 +12,14 @@ describe('Test Grade Notification Type', () => {
 				AssignmentName: 'Assignment Name',
 				CourseName: 'Course Name',
 				MimeType: 'grade',
-				CatalogEntry: 'test',
+				CatalogEntry: {},
 			},
-			getLastModified: () => Date.now(),
+			getLastModified: () => new Date(),
 		};
-
-		jest.spyOn(Hooks, 'useChanges').mockImplementation(() => {});
-
-		jest.spyOn(Presentation, 'Asset').mockImplementation(() => (<div data-testid="grade-creator-icon">Icon</div>));
 
 		const element = render(<Grade item={item}></Grade>);
 
-		expect(element.queryByTestId('grade-creator-icon')).toBeTruthy();
+		expect(element.container.querySelector('.icon')).toBeTruthy();
 
 		expect(element.queryByTestId('grade-course-name')).toBeTruthy();
 	});
