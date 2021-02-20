@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const styles = css`
+const styles = stylesheet`
 	.container {
 		background-color: var(--panel-background-alt);
 		position: absolute;
@@ -22,9 +22,9 @@ const styles = css`
 	}
 `;
 
-const toPercent = (x) => `${(Math.min(1, x) * 100).toFixed(0)}%`;
+const toPercent = x => `${(Math.min(1, x) * 100).toFixed(0)}%`;
 
-function useTick (done) {
+function useTick(done) {
 	const [, update] = React.useReducer(() => Date.now());
 	React.useEffect(() => {
 		let t = null;
@@ -45,7 +45,7 @@ TimeoutProgress.propTypes = {
 	progress: PropTypes.func.isRequired,
 };
 
-export default function TimeoutProgress ({ progress }) {
+export default function TimeoutProgress({ progress }) {
 	const percent = toPercent(progress());
 	useTick(percent === '100%');
 

@@ -8,7 +8,7 @@ import Content from './Content';
 import IconContainer from './IconContainer';
 import Item from './Item';
 
-const Icon = styled('div').attrs({children: '@'})`
+const Icon = styled('div').attrs({ children: '@' })`
 	background-color: var(--secondary-orange);
 	border-radius: 42px;
 	width: 42px;
@@ -22,7 +22,7 @@ const Icon = styled('div').attrs({children: '@'})`
 	font-weight: 600;
 `;
 
-const styles = css`
+const styles = stylesheet`
 	.frame {
 		background-color: rgba(var(--secondary-orange-rgb), 0.1);
 	}
@@ -33,19 +33,18 @@ Pinned.propTypes = {
 	className: PropTypes.string,
 };
 
-function Pinned ( { children, className } ) {
-	const {
-		startEmailVerification,
-	} = Store.useValue();
+function Pinned({ children, className }) {
+	const { startEmailVerification } = Store.useValue();
 
 	return (
-		<Item className={cx(styles.frame, className)} onClick={startEmailVerification}>
+		<Item
+			className={cx(styles.frame, className)}
+			onClick={startEmailVerification}
+		>
 			<IconContainer>
-				<Icon/>
+				<Icon />
 			</IconContainer>
-			<Content>
-				{children}
-			</Content>
+			<Content>{children}</Content>
 		</Item>
 	);
 }

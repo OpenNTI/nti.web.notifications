@@ -1,16 +1,16 @@
 import React from 'react';
 import cx from 'classnames';
 
-const styles = css`
+const styles = stylesheet`
 	.attribution {
 		margin-right: 5px;
 		color: var(--primary-blue);
 	}
 `;
 
-export default function Attribution ({children}) {
+export default function Attribution({ children }) {
 	const child = React.Children.only(children);
 	return React.cloneElement(child, {
-		className: cx(styles.attribution, child.props.className)
+		className: cx(styles.attribution, child.props.className),
 	});
 }

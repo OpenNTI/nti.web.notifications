@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-const styles = css`
+const styles = stylesheet`
 	.container {
 		padding: 23px;
 	}
@@ -30,12 +30,15 @@ const styles = css`
 	}
 `;
 
-const Bell = React.forwardRef(function Bell ({ count, onClick }, ref ) {
+const Bell = React.forwardRef(function Bell({ count, onClick }, ref) {
 	const theme = Theme.useThemeProperty('icon');
 	return (
 		<div className={styles.container} ref={ref}>
 			<Badge badge={count}>
-				<div className={cx(styles.bell, styles[theme])} onClick={onClick}/>
+				<div
+					className={cx(styles.bell, styles[theme])}
+					onClick={onClick}
+				/>
 			</Badge>
 		</div>
 	);

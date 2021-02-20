@@ -3,7 +3,7 @@ import { Prompt } from '@nti/web-commons';
 import React from 'react';
 import cx from 'classnames';
 
-const styles = css`
+const styles = stylesheet`
 	.view {
 		width: 450px;
 		perspective: 800;
@@ -24,14 +24,12 @@ PromptTemplate.propTypes = {
 	height: PropTypes.number,
 };
 
-export default function PromptTemplate ( { height, children, ...otherProps } ) {
-	const style = height ? {height: `${height}px`} : null;
+export default function PromptTemplate({ height, children, ...otherProps }) {
+	const style = height ? { height: `${height}px` } : null;
 	return (
 		<Prompt.Dialog>
 			<div {...otherProps} style={style} className={cx(styles.view)}>
-				<div className={cx(styles.content)}>
-					{children}
-				</div>
+				<div className={cx(styles.content)}>{children}</div>
 			</div>
 		</Prompt.Dialog>
 	);

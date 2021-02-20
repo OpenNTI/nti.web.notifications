@@ -2,12 +2,10 @@ import React from 'react';
 import { Text, Toast } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 
-
 import Store from '../../Store';
 import Frame from '../../frame/Pinned';
 
 import TimeoutProgress from './TimeoutProgress';
-
 
 const Translate = Text.Translator(
 	scoped('nti-notifications.notifications.types.EmailVerify', {
@@ -15,7 +13,7 @@ const Translate = Text.Translator(
 	})
 );
 
-const styles = css`
+const styles = stylesheet`
 	.frame {
 		background-color: white;
 		position: relative;
@@ -42,7 +40,7 @@ const styles = css`
 	}
 `;
 
-export default function EmailVerificationNotice () {
+export default function EmailVerificationNotice() {
 	const {
 		emailVerificationRequested,
 		needsVerification,
@@ -52,7 +50,7 @@ export default function EmailVerificationNotice () {
 		verificationSnoozed,
 	} = Store.useValue();
 
-	const handleDismiss = (e) => {
+	const handleDismiss = e => {
 		e.stopPropagation();
 		snoozeVerification();
 	};
@@ -62,15 +60,24 @@ export default function EmailVerificationNotice () {
 		return (Date.now() - VerificationNoticeStart) / duration;
 	};
 
-	if (!needsVerification || emailVerificationRequested || verificationSnoozed) {
+	if (
+		!needsVerification ||
+		emailVerificationRequested ||
+		verificationSnoozed
+	) {
 		return null;
 	}
 
 	return (
 		<Toast location={Toast.Locations.TopRight}>
 			<Frame className={styles.frame}>
-				<a onClick={handleDismiss} href="#" className={styles.dismiss}><i className="icon-light-x" /></a>
-				<div className={styles.text} data-testid="email-verification-notice">
+				<a onClick={handleDismiss} href="#" className={styles.dismiss}>
+					<i className="icon-light-x" />
+				</a>
+				<div
+					className={styles.text}
+					data-testid="email-verification-notice"
+				>
 					<Translate localeKey="message" />
 				</div>
 				<TimeoutProgress progress={progress} />

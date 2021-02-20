@@ -7,7 +7,7 @@ import NotificationItemFrame from '../../frame/Pinned';
 import { register, COMMON_PREFIX } from '../Registry';
 import Store from '../../Store';
 
-const styles = css`
+const styles = stylesheet`
 
 	.action {
 
@@ -17,31 +17,30 @@ const styles = css`
 `;
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.EmailVerify', {
-	message: 'Please take a moment to verify your email address.',
-	verifyNow: 'Verify Now',
-});
+const translation = scoped(
+	'nti-notifications.notifications.types.EmailVerify',
+	{
+		message: 'Please take a moment to verify your email address.',
+		verifyNow: 'Verify Now',
+	}
+);
 
 const Translate = Text.Translator(translation);
 
 EmailVerifyNotification.propTypes = {
-	className: PropTypes.string
+	className: PropTypes.string,
 };
 
-EmailVerifyNotification.MimeTypes = [
-	COMMON_PREFIX + 'emailverify',
-];
+EmailVerifyNotification.MimeTypes = [COMMON_PREFIX + 'emailverify'];
 
 register(EmailVerifyNotification, 'emailVerify');
 
-export default function EmailVerifyNotification ( { className } ) {
-	const {
-		startEmailVerification,
-	} = Store.useValue();
+export default function EmailVerifyNotification({ className }) {
+	const { startEmailVerification } = Store.useValue();
 
 	return (
 		<NotificationItemFrame className={className}>
-			<Translate localeKey="message" as="div"/>
+			<Translate localeKey="message" as="div" />
 
 			<a className={styles.action} onClick={startEmailVerification}>
 				<Translate localeKey="verifyNow" />
