@@ -27,18 +27,14 @@ Badge.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Badge.MimeTypes = [
-	COMMON_PREFIX + 'badge',
-	COMMON_PREFIX + 'openbadges.badge',
-];
+Badge.MimeTypes = [COMMON_PREFIX + 'badge', COMMON_PREFIX + 'openbadges.badge'];
 
 register(Badge, 'badge');
 
-export default function Badge ( { item } ) {
-	const {Item: badge} = item;
+export default function Badge({ item }) {
+	const { Item: badge } = item;
 
-	const icon = <Icon style={{backgroundImage: `url(${badge.image})`}}/>;
-
+	const icon = <Icon style={{ backgroundImage: `url(${badge.image})` }} />;
 
 	return (
 		<NotificationItemFrame item={item} icon={icon} link={false}>
@@ -51,7 +47,6 @@ export default function Badge ( { item } ) {
 		</NotificationItemFrame>
 	);
 }
-
 
 /*
 {

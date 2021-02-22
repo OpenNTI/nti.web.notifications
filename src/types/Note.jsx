@@ -25,8 +25,8 @@ Note.propTypes = {
 
 register(Note, 'note');
 
-export default function Note ({ item }) {
-	const {Item: note} = item;
+export default function Note({ item }) {
+	const { Item: note } = item;
 	let finalAction = '';
 	if (note.inReplyTo || (note.references || []).length > 0) {
 		finalAction = 'action2';
@@ -40,9 +40,11 @@ export default function Note ({ item }) {
 		<NotificationItemFrame item={item}>
 			<Translate
 				localeKey={finalAction}
-				with={finalAction === 'action3' && {
-					t: escapeHTML(note.title),
-				}}
+				with={
+					finalAction === 'action3' && {
+						t: escapeHTML(note.title),
+					}
+				}
 			/>
 		</NotificationItemFrame>
 	);

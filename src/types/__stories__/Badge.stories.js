@@ -8,12 +8,13 @@ export default {
 	component: Badge,
 };
 
-
-export const BadgeTemplate = (args) => {
+export const BadgeTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <Badge item={item} />;
 };

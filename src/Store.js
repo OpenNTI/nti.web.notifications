@@ -4,7 +4,10 @@ import { getAppUser, getService } from '@nti/web-client';
 import { Models } from '@nti/lib-interfaces';
 
 import { subscribeToIncoming } from './Socket';
-import { sendEmailVerification, verifyEmailToken } from './types/EmailVerify/utils';
+import {
+	sendEmailVerification,
+	verifyEmailToken,
+} from './types/EmailVerify/utils';
 
 const MESSAGE_INBOX = 'RUGDByOthersThatIMightBeInterestedIn';
 const CONTENT_ROOT = 'tag:nextthought.com,2011-10:Root';
@@ -29,24 +32,26 @@ const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
 export default class NotificationsStore extends Stores.SimpleStore {
 	static Singleton = true;
 
-	async onIncoming (change) {
+	async onIncoming(change) {
 		const service = await getService();
 		// parse raw json object into Model
 		change = normalizeItems(await service.getObject(change));
 
 		const oldItems = this.get('items') ?? [];
 		this.set({
-			items: [change, ...oldItems]
+			items: [change, ...oldItems],
 		});
 
 		this.updateUnread();
 	}
 
-	async load () {
-		if (this.initialLoad) { return;}
+	async load() {
+		if (this.initialLoad) {
+			return;
+		}
 		this.initialLoad = true;
 		// Subscribe to incoming notifications emitted from the legacy code, for now.
-		subscribeToIncoming((item) => this.onIncoming(item));
+		subscribeToIncoming(item => this.onIncoming(item));
 
 		this.set({
 			loading: true,
@@ -59,7 +64,8 @@ export default class NotificationsStore extends Stores.SimpleStore {
 
 			// Email Verify load
 			const user = await getAppUser();
-			const needsVerification = user && user.email && user.hasLink('RequestEmailVerification');
+			const needsVerification =
+				user && user.email && user.hasLink('RequestEmailVerification');
 			this.set({
 				needsVerification,
 				verifiedDate: null,
@@ -69,21 +75,31 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				return;
 			}
 
-			const verificationSnoozed = new Date(parseInt(SessionStorage.getItem('verificationSnoozed'), 10));
+			const verificationSnoozed = new Date(
+				parseInt(SessionStorage.getItem('verificationSnoozed'), 10)
+			);
 			const elapsedSnoozed = Date.now() - verificationSnoozed;
-			if (isNaN(verificationSnoozed.getTime()) || elapsedSnoozed >= VerificationNoticeSnoozeDuration) {
+			if (
+				isNaN(verificationSnoozed.getTime()) ||
+				elapsedSnoozed >= VerificationNoticeSnoozeDuration
+			) {
 				const VerificationNoticeStart = new Date();
-				const VerificationNoticeExpiry = new Date(VerificationNoticeStart.getTime() + VerificationNoticeExpiryPeriod);
+				const VerificationNoticeExpiry = new Date(
+					VerificationNoticeStart.getTime() +
+						VerificationNoticeExpiryPeriod
+				);
 				this.set({
 					verificationSnoozed: null,
 					VerificationNoticeStart,
 					VerificationNoticeExpiry,
 				});
-				this.autoSnoozeTimer = setTimeout(() => this.set('verificationSnoozed', new Date()), VerificationNoticeExpiryPeriod);
+				this.autoSnoozeTimer = setTimeout(
+					() => this.set('verificationSnoozed', new Date()),
+					VerificationNoticeExpiryPeriod
+				);
 			} else {
-				this.set({verificationSnoozed});
+				this.set({ verificationSnoozed });
 			}
-
 		} catch (e) {
 			this.set({
 				loading: false,
@@ -92,30 +108,31 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async resolveInbox () {
+	async resolveInbox() {
 		const service = await getService();
 		const pageInfo = await service.getPageInfo(CONTENT_ROOT);
 		this.url = pageInfo.getLink(MESSAGE_INBOX);
 
 		this.set({
-			lastViewed: new Date(parseFloat(await service.get(`${this.url}/lastViewed`), 10) * 1000),
+			lastViewed: new Date(
+				parseFloat(await service.get(`${this.url}/lastViewed`), 10) *
+					1000
+			),
 		});
 	}
 
-
-	updateUnread () {
+	updateUnread() {
 		const items = this.get('items') || [];
 		const lastViewed = this.get('lastViewed');
 
 		const mod = x => x.getLastModified() || x.getCreatedTime();
-		const inc = m => m > lastViewed ? 1 : 0;
+		const inc = m => (m > lastViewed ? 1 : 0);
 		this.set({
-			unreadCount: items.reduce((n, item) => n + inc(mod(item)), 0)
+			unreadCount: items.reduce((n, item) => n + inc(mod(item)), 0),
 		});
 	}
 
-
-	updateLastViewed () {
+	updateLastViewed() {
 		if (this.batch?.hasLink('lastViewed')) {
 			const now = new Date();
 			this.batch.putToLink('lastViewed', now.getTime() / 1000);
@@ -127,16 +144,15 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	hasMore () {
+	hasMore() {
 		const items = this.get('items');
 		if (items && items.length === this.batch?.TotalItemCount) {
 			return false;
 		}
 		return true;
-
 	}
 
-	async loadNextBatch () {
+	async loadNextBatch() {
 		try {
 			if (!this.hasMore()) {
 				return false;
@@ -154,7 +170,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				batchSize: NOTIFICATIONS_BATCH_SIZE,
 			});
 
-			const {Items: newItems, TotalItemCount} = this.batch;
+			const { Items: newItems, TotalItemCount } = this.batch;
 
 			items = [...items, ...newItems.map(normalizeItems)];
 
@@ -174,7 +190,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async startEmailVerification () {
+	async startEmailVerification() {
 		clearTimeout(this.autoSnoozeTimer);
 		this.set({ emailVerificationRequested: new Date() });
 		const user = await getAppUser();
@@ -188,7 +204,7 @@ export default class NotificationsStore extends Stores.SimpleStore {
 		}
 	}
 
-	async submitToken (user, token) {
+	async submitToken(user, token) {
 		if (user && token) {
 			try {
 				const returnValue = await verifyEmailToken(user, token);
@@ -206,35 +222,36 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				this.set({ validToken: false });
 				return false;
 			}
-		}
-		else {
+		} else {
 			this.set({ validToken: false });
 			return false;
 		}
 	}
 
-	cancelEmailVerification () {
+	cancelEmailVerification() {
 		this.set({ emailVerificationRequested: null });
 	}
 
-	completeEmailVerification () {
+	completeEmailVerification() {
 		this.set({ completedDate: new Date() });
 	}
 
-	snoozeVerification () {
+	snoozeVerification() {
 		const verificationSnoozed = new Date();
 		clearTimeout(this.autoSnoozeTimer);
 		this.set({
 			verificationSnoozed,
 			emailVerificationRequested: null,
 		});
-		SessionStorage.setItem('verificationSnoozed', verificationSnoozed.getTime());
+		SessionStorage.setItem(
+			'verificationSnoozed',
+			verificationSnoozed.getTime()
+		);
 	}
 }
 
-
-function normalizeItems (notice) {
-	return (notice.Item)
+function normalizeItems(notice) {
+	return notice.Item
 		? notice
-		: Object.assign(Models.Change.wrap(notice), {Item: notice});
+		: Object.assign(Models.Change.wrap(notice), { Item: notice });
 }

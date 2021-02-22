@@ -1,12 +1,12 @@
 .dialog-header {
 	margin: 10px 15px;
 	color: var(--primary-grey);
-	font: normal 400 14px/1 "Open Sans", sans-serif;
+	font: normal 400 14px/1 'Open Sans', sans-serif;
 }
 
 .dialog-title {
 	display: block;
-	font: normal 300 18px/1 "Open Sans", sans-serif;
+	font: normal 300 18px/1 'Open Sans', sans-serif;
 	color: var(--primary-grey);
 }
 
@@ -23,7 +23,7 @@
 	padding: 0 7px 0 9px;
 	color: var(--primary-blue);
 	cursor: pointer;
-	font: normal 300 14px/1 "Open Sans", sans-serif;
+	font: normal 300 14px/1 'Open Sans', sans-serif;
 	position: relative;
 }
 
@@ -34,12 +34,12 @@
 .send-email {
 	float: left;
 	padding: 0 7px 0 0;
-	font: normal 300 14px/1 "Open Sans", sans-serif;
+	font: normal 300 14px/1 'Open Sans', sans-serif;
 	position: relative;
 }
 
 .send-email::after {
-	content: "|";
+	content: '|';
 	position: absolute;
 	right: 0;
 	color: var(--tertiary-grey);
@@ -58,7 +58,7 @@
 
 .input-field {
 	color: var(--secondary-grey);
-	font: normal 500 14px/25px "Open Sans", sans-serif;
+	font: normal 500 14px/25px 'Open Sans', sans-serif;
 	border: 0;
 	border-left: 10px solid var(--secondary-grey);
 	background: #fff;
@@ -79,7 +79,7 @@
 .error-message {
 	color: var(--incorrect);
 	margin: 10px 15px;
-	font: normal 300 15px/1 "Open Sans", sans-serif;
+	font: normal 300 15px/1 'Open Sans', sans-serif;
 	line-height: 20px;
 	min-height: 20px;
 }
@@ -128,7 +128,7 @@
 	float: right;
 	padding: 0 20px;
 	cursor: pointer;
-	font: normal 400 0.9em/40px "Open Sans", sans-serif;
+	font: normal 400 0.9em/40px 'Open Sans', sans-serif;
 	text-align: center;
 	min-width: 90px;
 }
@@ -169,7 +169,7 @@
 .check-mark {
 	height: 60px;
 	width: 60px;
-	background-image: url("../../../assets/Success_Icon.svg");
+	background-image: url('../../../assets/Success_Icon.svg');
 	background-position-y: 4px;
 	background-size: contain;
 	float: left;

@@ -8,9 +8,12 @@ import NotificationItemFrame from '../frame';
 import { COMMON_PREFIX, register } from './Registry';
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.ForumComment', {
-	action: 'commented on a discussion',
-});
+const translation = scoped(
+	'nti-notifications.notifications.types.ForumComment',
+	{
+		action: 'commented on a discussion',
+	}
+);
 
 const Translate = Text.Translator(translation);
 
@@ -25,10 +28,10 @@ ForumComment.MimeTypes = [
 
 register(ForumComment, 'forumComment');
 
-export default function ForumComment ({ item }) {
+export default function ForumComment({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
-			<Translate localeKey="action"/>
+			<Translate localeKey="action" />
 		</NotificationItemFrame>
 	);
 }

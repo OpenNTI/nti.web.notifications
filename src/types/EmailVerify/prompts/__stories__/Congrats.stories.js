@@ -7,7 +7,6 @@ export default {
 	component: Congrats,
 };
 
-
-export const CongratsTemplate = (args) => {
+export const CongratsTemplate = args => {
 	return <Congrats />;
 };

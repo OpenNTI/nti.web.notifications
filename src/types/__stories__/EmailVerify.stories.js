@@ -9,7 +9,7 @@ export default {
 	component: EmailVerifyNotification,
 	argTypes: {
 		userSave: { action: 'user-save' },
-	}
+	},
 };
 
 export const EmailVerifyTemplate = () => {
@@ -19,14 +19,20 @@ export const EmailVerifyTemplate = () => {
 		},
 	});
 	let user = {
-		hasLink: () => {return true;},
-		getLink: () => {return 'string';},
+		hasLink: () => {
+			return true;
+		},
+		getLink: () => {
+			return 'string';
+		},
 		email: 'test@test.com',
 		Links: ['RequestEmailVerification'],
-		save: (obj) => {
-			user = {...user, ...obj};
+		save: obj => {
+			user = { ...user, ...obj };
 			action('user-save', ...user);
 		},
 	};
-	return <EmailVerifyNotification onDismiss={action('dismiss-notification')} />;
+	return (
+		<EmailVerifyNotification onDismiss={action('dismiss-notification')} />
+	);
 };

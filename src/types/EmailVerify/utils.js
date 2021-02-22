@@ -1,27 +1,32 @@
 import { getService } from '@nti/web-client';
 
-export async function sendEmailVerification (user) {
+export async function sendEmailVerification(user) {
 	if (!user.hasLink('RequestEmailVerification')) {
-		throw new Error('User does not have \'RequestEmailVerification\' link.');
+		throw new Error("User does not have 'RequestEmailVerification' link.");
 	}
 
 	const reqLink = user.getLink('RequestEmailVerification');
 	let service;
 	try {
 		service = await getService();
-		service.post(reqLink).then(() => {
-			return Promise.resolve();
-		}, (error) => {
-			return Promise.reject(error);
-		});
+		service.post(reqLink).then(
+			() => {
+				return Promise.resolve();
+			},
+			error => {
+				return Promise.reject(error);
+			}
+		);
 	} catch (e) {
 		throw new Error(e);
 	}
 }
 
-export async function verifyEmailToken (user, token) {
+export async function verifyEmailToken(user, token) {
 	if (!user.hasLink('VerifyEmailWithToken') || !token) {
-		throw new Error('User does not have \'VerifyEmailWithToken\' link or token is invalid.');
+		throw new Error(
+			"User does not have 'VerifyEmailWithToken' link or token is invalid."
+		);
 	}
 	let reqLink = user.getLink('VerifyEmailWithToken');
 	let service;

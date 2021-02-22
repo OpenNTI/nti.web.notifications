@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import {render, waitFor} from '@testing-library/react';
-import {FakeStore} from '@nti/lib-store';
+import { render, waitFor } from '@testing-library/react';
+import { FakeStore } from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerify from '../types/EmailVerify/EmailVerifyDialog';
@@ -20,7 +20,7 @@ describe('Test email verify component', () => {
 		let element;
 
 		await waitFor(() => {
-			element = render (
+			element = render(
 				<FakeStore mock={store}>
 					<EmailVerify onDismiss={() => {}} user={{}} />
 				</FakeStore>
@@ -40,7 +40,7 @@ describe('Test email verify component', () => {
 		let element;
 
 		await waitFor(() => {
-			element = render (
+			element = render(
 				<FakeStore mock={store}>
 					<EmailVerify onDismiss={() => {}} user={{}} />
 				</FakeStore>
@@ -53,11 +53,11 @@ describe('Test email verify component', () => {
 	test('Dialog is rendered when needsVerification is true and verifiedDate is null', async () => {
 		const getAppUser = jest.fn().mockImplementation(() => {
 			return {
-				email: 'test@test.com'
+				email: 'test@test.com',
 			};
 		});
 
-		useMockServer({getAppUser});
+		useMockServer({ getAppUser });
 
 		const store = new Store();
 

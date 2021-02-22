@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import React from 'react';
-import {render} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import Note from '../types/Note';
 
@@ -15,14 +15,16 @@ describe('Test Note', () => {
 			getLastModified: () => Date.now(),
 		};
 
-		const {rerender, getByText} = render(<Note item={itemInReplyTo}></Note>);
+		const { rerender, getByText } = render(
+			<Note item={itemInReplyTo}></Note>
+		);
 
 		expect(getByText('commented on a note')).toBeTruthy();
 
 		const sharedWithTitle = {
 			Item: {
 				MimeType: 'note',
-				title: 'Note Title'
+				title: 'Note Title',
 			},
 			getLastModified: () => Date.now(),
 		};

@@ -20,13 +20,11 @@ BlogEntry.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-BlogEntry.MimeTypes = [
-	COMMON_PREFIX + 'forums.personalblogentry',
-];
+BlogEntry.MimeTypes = [COMMON_PREFIX + 'forums.personalblogentry'];
 
 register(BlogEntry, 'blogEntry');
 
-export default function BlogEntry ({ item }) {
+export default function BlogEntry({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}

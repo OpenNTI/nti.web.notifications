@@ -11,9 +11,12 @@ import { COMMON_PREFIX, register } from './Registry';
 const { escapeHTML } = StringUtils;
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.BlogEntryPost', {
-	action: 'shared a thought %(t)s',
-});
+const translation = scoped(
+	'nti-notifications.notifications.types.BlogEntryPost',
+	{
+		action: 'shared a thought %(t)s',
+	}
+);
 const Translate = Text.Translator(translation);
 
 BlogEntryPost.propTypes = {
@@ -31,7 +34,7 @@ BlogEntryPost.MimeTypes = [
 
 register(BlogEntryPost, 'blogEntryPost');
 
-export default function BlogEntryPost ( { item } ) {
+export default function BlogEntryPost({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}

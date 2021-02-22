@@ -25,7 +25,10 @@
 	height: auto;
 	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: calc(100vh - var(--flyout-top, 0) - var(--show-all-button, 0) - var(--bottom-gap, 0));
+	max-height: calc(
+		100vh - var(--flyout-top, 0) - var(--show-all-button, 0) -
+			var(--bottom-gap, 0)
+	);
 }
 
 .no-notifications {

@@ -1,20 +1,26 @@
 /* eslint-env jest */
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import {fireEvent, render, waitFor} from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import EmailVerifyPrompt from '../types/EmailVerify/prompts/Verify';
 import * as EmailVerifyUtils from '../types/EmailVerify/utils';
 
 describe('Test Email Verify Prompt', () => {
 	test('Email sending states are correct', async () => {
-		jest.spyOn(EmailVerifyUtils, 'sendEmailVerification').mockImplementation(() => true);
+		jest.spyOn(
+			EmailVerifyUtils,
+			'sendEmailVerification'
+		).mockImplementation(() => true);
 
 		let component;
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={{email: 'test'}} onTokenSubmission={() => {}}/>
+				<EmailVerifyPrompt
+					user={{ email: 'test' }}
+					onTokenSubmission={() => {}}
+				/>
 			);
 		});
 
@@ -26,7 +32,9 @@ describe('Test Email Verify Prompt', () => {
 
 		await waitFor(() => expect(component.getByText('Sent!')).toBeTruthy());
 
-		await waitFor(() => expect(component.getByText('Send another email')).toBeTruthy());
+		await waitFor(() =>
+			expect(component.getByText('Send another email')).toBeTruthy()
+		);
 	});
 
 	test('Clicking on change email renders change email dialog', async () => {
@@ -34,7 +42,10 @@ describe('Test Email Verify Prompt', () => {
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={{email: 'test'}} onTokenSubmission={() => {}}/>
+				<EmailVerifyPrompt
+					user={{ email: 'test' }}
+					onTokenSubmission={() => {}}
+				/>
 			);
 		});
 
@@ -42,7 +53,9 @@ describe('Test Email Verify Prompt', () => {
 
 		fireEvent.click(element);
 
-		await waitFor(() => expect(component.getByText('Update Email Address')).toBeTruthy());
+		await waitFor(() =>
+			expect(component.getByText('Update Email Address')).toBeTruthy()
+		);
 	});
 
 	test('Clicking on "Back to Email Verification" renders verify dialog', async () => {
@@ -50,7 +63,10 @@ describe('Test Email Verify Prompt', () => {
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={{email: 'test'}} onTokenSubmission={() => {}}/>
+				<EmailVerifyPrompt
+					user={{ email: 'test' }}
+					onTokenSubmission={() => {}}
+				/>
 			);
 		});
 
@@ -62,7 +78,9 @@ describe('Test Email Verify Prompt', () => {
 
 		fireEvent.click(element);
 
-		await waitFor(() => expect(component.getByText('Verify Your Email')).toBeTruthy());
+		await waitFor(() =>
+			expect(component.getByText('Verify Your Email')).toBeTruthy()
+		);
 	});
 
 	test('Submitting a correct email should successfully change the email, send another email, and render the verify email dialog', async () => {
@@ -70,16 +88,19 @@ describe('Test Email Verify Prompt', () => {
 			email: 'test',
 			save: async () => {
 				return true;
-			}
+			},
 		};
 
-		jest.spyOn(EmailVerifyUtils, 'sendEmailVerification').mockImplementation();
+		jest.spyOn(
+			EmailVerifyUtils,
+			'sendEmailVerification'
+		).mockImplementation();
 
 		let component;
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={user} onTokenSubmission={() => {}}/>
+				<EmailVerifyPrompt user={user} onTokenSubmission={() => {}} />
 			);
 		});
 
@@ -87,9 +108,13 @@ describe('Test Email Verify Prompt', () => {
 
 		fireEvent.submit(form);
 
-		await waitFor(() => expect(component.getByText('Change email address')).toBeTruthy());
+		await waitFor(() =>
+			expect(component.getByText('Change email address')).toBeTruthy()
+		);
 
-		await waitFor(() => expect(EmailVerifyUtils.sendEmailVerification).toHaveBeenCalled());
+		await waitFor(() =>
+			expect(EmailVerifyUtils.sendEmailVerification).toHaveBeenCalled()
+		);
 	});
 
 	test('Submitting the token should call onTokenSubmission prop', async () => {
@@ -99,7 +124,10 @@ describe('Test Email Verify Prompt', () => {
 
 		act(() => {
 			component = render(
-				<EmailVerifyPrompt user={{email: 'e@ma.il'}} onTokenSubmission={onTokenSubmissionMock}/>
+				<EmailVerifyPrompt
+					user={{ email: 'e@ma.il' }}
+					onTokenSubmission={onTokenSubmissionMock}
+				/>
 			);
 		});
 

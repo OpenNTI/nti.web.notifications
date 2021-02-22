@@ -33,7 +33,7 @@ ForumTopic.MimeTypes = [
 
 register(ForumTopic, 'forumTopic');
 
-export default function ForumTopic ({ item }) {
+export default function ForumTopic({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}

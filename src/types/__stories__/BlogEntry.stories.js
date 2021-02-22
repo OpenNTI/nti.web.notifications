@@ -1,6 +1,5 @@
-import {Models} from '@nti/lib-interfaces';
+import { Models } from '@nti/lib-interfaces';
 import React from 'react';
-
 
 import BlogEntry from '../BlogEntry';
 
@@ -9,13 +8,13 @@ export default {
 	component: {},
 };
 
-
-export const BlogEntryTemplate = (args) => {
+export const BlogEntryTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
-
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <BlogEntry item={item} />;
 };

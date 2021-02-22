@@ -11,22 +11,23 @@ import { COMMON_PREFIX, register } from './Registry';
 const { escapeHTML } = StringUtils;
 
 // String localization
-const translation = scoped('nti-notifications.notifications.types.BlogComment', {
-	action: 'commented on a thought %(t)s',
-});
+const translation = scoped(
+	'nti-notifications.notifications.types.BlogComment',
+	{
+		action: 'commented on a thought %(t)s',
+	}
+);
 const Translate = Text.Translator(translation);
 
 BlogComment.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-BlogComment.MimeTypes = [
-	COMMON_PREFIX + 'forums.personalblogcomment',
-];
+BlogComment.MimeTypes = [COMMON_PREFIX + 'forums.personalblogcomment'];
 
 register(BlogComment, 'blogComment');
 
-export default function BlogComment ({ item }) {
+export default function BlogComment({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
 			{/* Building string to show to the user */}

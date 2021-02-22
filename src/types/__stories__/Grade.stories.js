@@ -1,4 +1,4 @@
-import {Models} from '@nti/lib-interfaces';
+import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
 import Grade from '../Grade';
@@ -8,11 +8,12 @@ export default {
 	component: {},
 };
 
-
-export const GradeTemplate = (args) => {
+export const GradeTemplate = args => {
 	const item = {
 		...args,
-		getLastModified: () => { return new Date(0); },
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <Grade item={item} />;
 };

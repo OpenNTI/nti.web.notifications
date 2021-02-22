@@ -18,16 +18,14 @@ Contact.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Contact.MimeTypes = [
-	COMMON_PREFIX + 'user',
-];
+Contact.MimeTypes = [COMMON_PREFIX + 'user'];
 
 register(Contact, 'contact');
 
-export default function Contact ({ item }) {
+export default function Contact({ item }) {
 	return (
 		<NotificationItemFrame item={item}>
-			<Translate localeKey="action"/>
+			<Translate localeKey="action" />
 		</NotificationItemFrame>
 	);
 }

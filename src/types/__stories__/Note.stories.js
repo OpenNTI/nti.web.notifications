@@ -1,21 +1,20 @@
-import {Models} from '@nti/lib-interfaces';
+import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
 import Note from '../Note';
-
-
 
 export default {
 	title: 'Note',
 	component: {},
 };
 
-
-export const NoteTemplate = (args) => {
+export const NoteTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <Note item={item} />;
 };

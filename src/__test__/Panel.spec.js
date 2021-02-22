@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import {render} from '@testing-library/react';
-import {FakeStore} from '@nti/lib-store';
+import { render } from '@testing-library/react';
+import { FakeStore } from '@nti/lib-store';
 
 import Store from '../Store';
 import Panel from '../Panel';
@@ -14,34 +14,32 @@ const emptyBadgeItem = {
 };
 
 describe('Panel Component', () => {
-
 	beforeEach(() => {
 		global.IntersectionObserver = class IntersectionObserver {
-			constructor () {}
+			constructor() {}
 
-			disconnect () {
+			disconnect() {
 				return null;
 			}
 
-			observe () {
+			observe() {
 				return null;
 			}
 
-			takeRecords () {
+			takeRecords() {
 				return null;
 			}
 
-			unobserve () {
+			unobserve() {
 				return null;
 			}
 		};
-
 	});
 
 	test('No items tells user that they have no notifications', () => {
 		const store = new Store();
 
-		store.set({items: []});
+		store.set({ items: [] });
 
 		expect(store).toBeDefined();
 
@@ -51,12 +49,12 @@ describe('Panel Component', () => {
 			</FakeStore>
 		);
 
-		expect(getByText('You don\'t have any notifications.')).toBeTruthy();
+		expect(getByText("You don't have any notifications.")).toBeTruthy();
 	});
 
 	test('Email verify notification exists if user needs verification', () => {
 		const store = new Store();
-		store.set({needsVerification: true});
+		store.set({ needsVerification: true });
 
 		const { getByText } = render(
 			<FakeStore mock={store}>
@@ -69,9 +67,9 @@ describe('Panel Component', () => {
 
 	test('The correct number of notifications is shown', () => {
 		const store = new Store();
-		store.set({items: [emptyBadgeItem, emptyBadgeItem]});
+		store.set({ items: [emptyBadgeItem, emptyBadgeItem] });
 
-		const {container} = render(
+		const { container } = render(
 			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
 			</FakeStore>
@@ -79,9 +77,9 @@ describe('Panel Component', () => {
 
 		expect(container.querySelectorAll('time').length).toBe(2);
 
-		store.set({items: [...(store.get('items')), emptyBadgeItem]});
+		store.set({ items: [...store.get('items'), emptyBadgeItem] });
 
-		const {container: container2} = render(
+		const { container: container2 } = render(
 			<FakeStore mock={store}>
 				<Panel onDismiss={() => {}}></Panel>
 			</FakeStore>
@@ -93,9 +91,9 @@ describe('Panel Component', () => {
 	test('Show All link directs to correct location', () => {
 		const store = new Store();
 
-		const {container} = render(
+		const { container } = render(
 			<FakeStore mock={store}>
-				<Panel onDismiss={()=>{}}></Panel>
+				<Panel onDismiss={() => {}}></Panel>
 			</FakeStore>
 		);
 

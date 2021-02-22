@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import React from 'react';
-import {render} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import Event from '../types/Event';
 
@@ -25,7 +25,9 @@ describe('Event Notification Type', () => {
 
 		expect(getByText('created an event Example')).toBeTruthy();
 
-		const { getByText: getByTextUpdated } = render(<Event item={updatedItem}></Event>);
+		const { getByText: getByTextUpdated } = render(
+			<Event item={updatedItem}></Event>
+		);
 
 		expect(getByTextUpdated('updated an event Example')).toBeTruthy();
 	});

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import {render, waitFor} from '@testing-library/react';
-import {FakeStore} from '@nti/lib-store';
+import { render, waitFor } from '@testing-library/react';
+import { FakeStore } from '@nti/lib-store';
 
 import Store from '../Store';
 import EmailVerificationWorkflow from '../types/EmailVerify/Workflow';
@@ -28,9 +28,11 @@ describe('Test the workflow of email verification', () => {
 
 		act(() => jest.advanceTimersByTime(1000));
 
-		expect(component.queryByTestId('email-verification-notice')).toBeTruthy();
+		expect(
+			component.queryByTestId('email-verification-notice')
+		).toBeTruthy();
 
-		store.set({needsVerification: false});
+		store.set({ needsVerification: false });
 
 		component.rerender(
 			<FakeStore mock={store}>
@@ -44,11 +46,11 @@ describe('Test the workflow of email verification', () => {
 	test('Email verify dialog is rendered when correct conditions are met', async () => {
 		const getAppUser = jest.fn().mockImplementation(() => {
 			return {
-				email: 'test@test.com'
+				email: 'test@test.com',
 			};
 		});
 
-		useMockServer({getAppUser});
+		useMockServer({ getAppUser });
 
 		const store = new Store();
 

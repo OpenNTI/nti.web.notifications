@@ -12,7 +12,7 @@ import EmailVerifyNotification from './types/EmailVerify/Notification';
 
 // String localization
 const translation = scoped('nti-notifications.notifications.Panel', {
-	noNotifications: 'You don\'t have any notifications.',
+	noNotifications: "You don't have any notifications.",
 	showAll: 'Show All',
 });
 
@@ -36,7 +36,7 @@ Panel.propTypes = {
 	onDismiss: PropTypes.func,
 };
 
-export default function Panel ( { onDismiss: close } ) {
+export default function Panel({ onDismiss: close }) {
 	const {
 		items,
 		loading,
@@ -48,21 +48,24 @@ export default function Panel ( { onDismiss: close } ) {
 	const hasItems = items?.length > 0;
 	const lastIndex = items?.length - 1;
 
-
 	return (
 		<div className={styles.panelContainer} onClick={close}>
 			<div className={styles.notificationsContainer}>
-				<Loading.Placeholder loading={loading} fallback={(<Loading.Spinner className={styles.loading}/>)}>
+				<Loading.Placeholder
+					loading={loading}
+					fallback={<Loading.Spinner className={styles.loading} />}
+				>
 					{error ? (
 						<Errors.Message error={error} />
 					) : (
 						<>
-							{needsVerification && (
-								<EmailVerifyNotification />
-							)}
+							{needsVerification && <EmailVerifyNotification />}
 
 							{!hasItems && (
-								<Text.Base as="div" className={styles.noNotifications}>
+								<Text.Base
+									as="div"
+									className={styles.noNotifications}
+								>
 									<Translate localeKey="noNotifications" />
 								</Text.Base>
 							)}
@@ -74,9 +77,8 @@ export default function Panel ( { onDismiss: close } ) {
 										<ItemDelegate item={item} />
 
 										{index === lastIndex && moreItems && (
-											<ItemPlaceholder key={index}/>
+											<ItemPlaceholder key={index} />
 										)}
-
 									</React.Fragment>
 								);
 							})}

@@ -1,6 +1,9 @@
 /* eslint-env jest */
 
-import {sendEmailVerification, verifyEmailToken} from '../types/EmailVerify/utils';
+import {
+	sendEmailVerification,
+	verifyEmailToken,
+} from '../types/EmailVerify/utils';
 
 import useMockServer from './utils/use-mock-server';
 
@@ -8,7 +11,7 @@ describe('Test email verify utility methods', () => {
 	test('sendEmailVerification calls user.hasLink and user.getLink', async () => {
 		const post = () => Promise.resolve();
 
-		useMockServer({post});
+		useMockServer({ post });
 
 		const user = {
 			hasLink: jest.fn().mockImplementation(() => true),
@@ -33,7 +36,7 @@ describe('Test email verify utility methods', () => {
 	test('verifyEmailToken calls user.hasLink, user.getLink, user.refresh and makes sure token is truthy', async () => {
 		const post = async () => Promise.resolve();
 
-		useMockServer({post});
+		useMockServer({ post });
 
 		const user = {
 			hasLink: jest.fn().mockImplementation(() => true),
@@ -52,7 +55,7 @@ describe('Test email verify utility methods', () => {
 
 	test('verifyEmailToken returns a rejected promise if token is falsy or user.getLink returns false', async () => {
 		let user = {
-			hasLink: () => false
+			hasLink: () => false,
 		};
 
 		await expect(verifyEmailToken(user, 'token')).rejects.toThrow();

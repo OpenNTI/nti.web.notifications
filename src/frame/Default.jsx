@@ -17,21 +17,34 @@ DefaultFrame.propTypes = {
 	link: PropTypes.bool,
 };
 
-
-export default function DefaultFrame ( { icon, item, attribution, children, link = true } ) {
+export default function DefaultFrame({
+	icon,
+	item,
+	attribution,
+	children,
+	link = true,
+}) {
 	const target = item.Item;
 	const attributionInput = attribution || target.creator;
-	const attributionContent = typeof attributionInput !== 'string' ? attribution : (
-		<DisplayName entity={attributionInput} />
-	);
+	const attributionContent =
+		typeof attributionInput !== 'string' ? (
+			attribution
+		) : (
+			<DisplayName entity={attributionInput} />
+		);
 
-	const selectedIcon = icon || (typeof attributionInput !== 'string' ? null : (
-		<Avatar entity={attributionInput} />
-	));
+	const selectedIcon =
+		icon ||
+		(typeof attributionInput !== 'string' ? null : (
+			<Avatar entity={attributionInput} />
+		));
 
 	const eventTime = item?.getLastModified() || item?.getCreatedTime();
 
-	const Link = useCallback(props => <LinkTo.Object object={target} {...props}/>, [target]);
+	const Link = useCallback(
+		props => <LinkTo.Object object={target} {...props} />,
+		[target]
+	);
 
 	const Wrapper = !link ? React.Fragment : Link;
 
@@ -40,7 +53,9 @@ export default function DefaultFrame ( { icon, item, attribution, children, link
 			<Item>
 				<Icon>{selectedIcon}</Icon>
 				<Content>
-					{attributionContent && <Attribution>{attributionContent}</Attribution>}
+					{attributionContent && (
+						<Attribution>{attributionContent}</Attribution>
+					)}
 					{children}
 					<Time>
 						<DateTime date={eventTime} relative />

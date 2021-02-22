@@ -22,14 +22,13 @@ Event.propTypes = {
 	item: PropTypes.object.isRequired,
 };
 
-Event.MimeTypes = [
-	COMMON_PREFIX + 'courseware.coursecalendarevent',
-];
+Event.MimeTypes = [COMMON_PREFIX + 'courseware.coursecalendarevent'];
 
 register(Event, 'event');
 
-export default function Event ({ item }) {
-	let finalAction = item.ChangeType === 'Created' ? 'createdAction' : 'updatedAction';
+export default function Event({ item }) {
+	let finalAction =
+		item.ChangeType === 'Created' ? 'createdAction' : 'updatedAction';
 
 	return (
 		<NotificationItemFrame item={item}>

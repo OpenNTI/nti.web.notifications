@@ -1,4 +1,4 @@
-import {Models} from '@nti/lib-interfaces';
+import { Models } from '@nti/lib-interfaces';
 import React from 'react';
 
 import Feedback from '../Feedback';
@@ -8,13 +8,13 @@ export default {
 	component: {},
 };
 
-
-export const FeedbackTemplate = (args) => {
+export const FeedbackTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
-
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <Feedback item={item} />;
 };

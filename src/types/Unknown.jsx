@@ -12,8 +12,8 @@ Registry.setDefault(Unknown);
 
 const logger = Logger.get('web:notifications:types:Unknown');
 
-export default function Unknown ({ item }) {
-	const {Item: unknown} = item;
+export default function Unknown({ item }) {
+	const { Item: unknown } = item;
 
 	useEffect(() => {
 		logger.warn('Unknown type: ' + unknown.MimeType);

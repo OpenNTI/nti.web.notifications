@@ -5,30 +5,31 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import cx from 'classnames';
 
-import {sendEmailVerification} from '../utils';
+import { sendEmailVerification } from '../utils';
 
 import styles from './Style.css';
 
-
 // String localization
-const translation = scoped('nti-notifications.notifications.types.EmailVerify.ChangeEmailPrompt', {
-	cancel: 'Cancel',
-	submit: 'Submit',
-	emailChanged: 'Your email has been updated.',
-	backToEmailVerificationPrompt: 'Back to Email Verification',
-	updateEmail: 'Update Email Address',
-	invalidEmail: 'Oops, this email is invalid.',
-});
+const translation = scoped(
+	'nti-notifications.notifications.types.EmailVerify.ChangeEmailPrompt',
+	{
+		cancel: 'Cancel',
+		submit: 'Submit',
+		emailChanged: 'Your email has been updated.',
+		backToEmailVerificationPrompt: 'Back to Email Verification',
+		updateEmail: 'Update Email Address',
+		invalidEmail: 'Oops, this email is invalid.',
+	}
+);
 
 const Translate = Text.Translator(translation);
-
 
 ChangeEmailPrompt.propTypes = {
 	user: PropTypes.object.isRequired,
 	onReturn: PropTypes.func,
 };
 
-export default function ChangeEmailPrompt ( { user, onReturn } ) {
+export default function ChangeEmailPrompt({ user, onReturn }) {
 	const [email, setEmail] = useState(user.email);
 	const [emailChanged, setEmailChanged] = useState(false);
 	const [emailValid, setEmailValid] = useState(true);
@@ -42,7 +43,7 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 		}
 	};
 
-	const handleEmailInputChange = (e) => {
+	const handleEmailInputChange = e => {
 		setEmail(e);
 		if (e === user.email) {
 			setEmailValid(false);
@@ -51,7 +52,7 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 		}
 	};
 
-	const onEmailChangeSubmit = async (e) => {
+	const onEmailChangeSubmit = async e => {
 		setEmailValid(true);
 		if (email === user.email) {
 			setEmailValid(false);
@@ -75,18 +76,44 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 		<>
 			<div className={styles.dialogHeader}>
 				<div className={styles.buttons}>
-					<div className={cx(styles.button, styles.verifyEmail, styles.link)} onClick={onReturn} >
-                        &lt;
+					<div
+						className={cx(
+							styles.button,
+							styles.verifyEmail,
+							styles.link
+						)}
+						onClick={onReturn}
+					>
+						&lt;
 						<Translate localeKey="backToEmailVerificationPrompt" />
 					</div>
 				</div>
-				<div className={styles.dialogTitle}><Translate localeKey="updateEmail" /></div>
+				<div className={styles.dialogTitle}>
+					<Translate localeKey="updateEmail" />
+				</div>
 			</div>
 
 			<div className={styles.sub}></div>
-			<Form className={styles.form} onSubmit={onEmailChangeSubmit} noValidate={false} onInvalid={onInvalid}>
-				<Input.Clearable className={cx(styles.inputBox, {[styles.redInputBox]: !emailValid})}>
-					<Input.Email className={cx(styles.inputField, {[styles.redInputField]: !emailValid})} name="email" value={email} onChange={handleEmailInputChange} autoFocus/>
+			<Form
+				className={styles.form}
+				onSubmit={onEmailChangeSubmit}
+				noValidate={false}
+				onInvalid={onInvalid}
+			>
+				<Input.Clearable
+					className={cx(styles.inputBox, {
+						[styles.redInputBox]: !emailValid,
+					})}
+				>
+					<Input.Email
+						className={cx(styles.inputField, {
+							[styles.redInputField]: !emailValid,
+						})}
+						name="email"
+						value={email}
+						onChange={handleEmailInputChange}
+						autoFocus
+					/>
 				</Input.Clearable>
 
 				<div className={styles.errorMessage}>
@@ -102,7 +129,14 @@ export default function ChangeEmailPrompt ( { user, onReturn } ) {
 					)}
 				</div>
 				<div className={styles.footer}>
-					<Button className={styles.submitButton} type="submit" onClick={onEmailChangeSubmit} disabled={email && emailValid ? false : true}><Translate localeKey="submit"/></Button>
+					<Button
+						className={styles.submitButton}
+						type="submit"
+						onClick={onEmailChangeSubmit}
+						disabled={email && emailValid ? false : true}
+					>
+						<Translate localeKey="submit" />
+					</Button>
 				</div>
 			</Form>
 		</>

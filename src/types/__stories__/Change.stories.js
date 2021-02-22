@@ -8,20 +8,23 @@ export default {
 	component: Change,
 };
 
-
-export const ChangeBadgeTemplate = (args) => {
+export const ChangeBadgeTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
+		getLastModified: () => {
+			return new Date(0);
+		},
 		getItem: () => {
 			return {
 				MimeType: Models.profile.Badge.MimeTypes[1],
 				name: 'Test Badge',
 				creator: 'quiz_tester',
-				getLastModified: () => { return new Date(0); },
+				getLastModified: () => {
+					return new Date(0);
+				},
 			};
-		}
+		},
 	};
 	return <Change item={item} />;
 };

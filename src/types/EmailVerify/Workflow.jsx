@@ -6,7 +6,7 @@ import EmailVerifyToast from './EmailVerificationNotice';
 import EmailVerifyDialog from './EmailVerifyDialog';
 import CongratsPrompt from './prompts/Congrats';
 
-export default function EmailVerificationWorkflow () {
+export default function EmailVerificationWorkflow() {
 	const {
 		cancelEmailVerification,
 		completeEmailVerification,
@@ -18,9 +18,13 @@ export default function EmailVerificationWorkflow () {
 
 	return (
 		<>
-			{ needsVerification && <EmailVerifyToast /> }
-			{ emailVerificationRequested && needsVerification && <EmailVerifyDialog onDismiss={cancelEmailVerification} /> }
-			{ !completedDate && verifiedDate && verifiedDate <= Date.now() && <CongratsPrompt onDismiss={completeEmailVerification} /> }
+			{needsVerification && <EmailVerifyToast />}
+			{emailVerificationRequested && needsVerification && (
+				<EmailVerifyDialog onDismiss={cancelEmailVerification} />
+			)}
+			{!completedDate && verifiedDate && verifiedDate <= Date.now() && (
+				<CongratsPrompt onDismiss={completeEmailVerification} />
+			)}
 		</>
 	);
 }

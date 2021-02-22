@@ -1,9 +1,9 @@
-export default function useMockServer (mockService) {
+export default function useMockServer(mockService) {
 	global.$AppConfig = {
 		...global.$AppConfig,
 		nodeService: mockService,
 		nodeInterface: {
-			async getServiceDocument () {
+			async getServiceDocument() {
 				return mockService;
 			},
 		},

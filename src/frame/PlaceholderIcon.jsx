@@ -1,4 +1,4 @@
-import {Fading} from './PlaceholderBar';
+import { Fading } from './PlaceholderBar';
 
 export default styled(Fading)`
 	width: 42px;

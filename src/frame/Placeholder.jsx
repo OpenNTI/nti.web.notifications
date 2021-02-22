@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import {Monitor} from '@nti/web-commons';
+import { Monitor } from '@nti/web-commons';
 
 import Store from '../Store';
 
@@ -9,21 +9,22 @@ import Content from './Content';
 import Item from './Item';
 import Time from './Time';
 
-export default function ItemPlaceholder () {
+export default function ItemPlaceholder() {
 	const { loadNextBatch } = Store.useValue();
 	const trip = useRef(false);
 
-	const onScreen = useCallback((visible) => {
+	const onScreen = useCallback(
+		visible => {
+			if (!visible || trip.current) {
+				return;
+			}
 
-		if (!visible || trip.current) {
-			return;
-		}
-
-		// This component will only ever call this once. To make it call it again, mount a new instance. (change the key prop to a new value)
-		trip.current = true;
-		loadNextBatch();
-
-	}, [loadNextBatch]);
+			// This component will only ever call this once. To make it call it again, mount a new instance. (change the key prop to a new value)
+			trip.current = true;
+			loadNextBatch();
+		},
+		[loadNextBatch]
+	);
 
 	return (
 		<Monitor.OnScreen as={Item} className="empty" onChange={onScreen}>
@@ -32,7 +33,7 @@ export default function ItemPlaceholder () {
 				<Bar width={200} />
 				<Bar width={75} />
 				<Time>
-					<Bar width={75} height={15}/>
+					<Bar width={75} height={15} />
 				</Time>
 			</Content>
 		</Monitor.OnScreen>

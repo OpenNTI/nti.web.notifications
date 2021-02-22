@@ -7,12 +7,13 @@ export default {
 	component: {},
 };
 
-
-const UnknownTemplate = (args) => {
+const UnknownTemplate = args => {
 	const item = {
 		...args,
 		creator: 'quiz_tester',
-		getLastModified: () => { return new Date(0); },
+		getLastModified: () => {
+			return new Date(0);
+		},
 	};
 	return <Unknown item={item} />;
 };
