@@ -1,6 +1,6 @@
 import { LinkTo } from '@nti/web-routing';
 import { scoped } from '@nti/lib-locale';
-import { Errors, Loading, Text } from '@nti/web-commons';
+import { Error, Loading, Text } from '@nti/web-commons';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -56,7 +56,7 @@ export default function Panel({ onDismiss: close }) {
 					fallback={<Loading.Spinner className={styles.loading} />}
 				>
 					{error ? (
-						<Errors.Message error={error} />
+						<Error error={error} />
 					) : (
 						<>
 							{needsVerification && <EmailVerifyNotification />}
