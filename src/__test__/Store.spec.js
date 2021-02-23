@@ -193,16 +193,15 @@ describe('Notification Store', () => {
 		useMockServer({ getAppUser });
 
 		const store = new Store();
-		const maxDiff = 10;
 		const now = Date.now();
 		await store.startEmailVerification();
 
 		expect(
-			now - store.get('emailVerificationRequested').getTime()
-		).toBeLessThan(maxDiff);
-		expect(now - store.get('emailVerificationSent').getTime()).toBeLessThan(
-			maxDiff
-		);
+			store.get('emailVerificationRequested').getTime()
+		).toBeGreaterThanOrEqual(now);
+		expect(
+			store.get('emailVerificationSent').getTime()
+		).toBeGreaterThanOrEqual(now);
 	});
 
 	test('startEmailVerification fails and sets an error', async () => {
@@ -219,16 +218,15 @@ describe('Notification Store', () => {
 		useMockServer({ getAppUser });
 
 		const store = new Store();
-		const maxDiff = 10;
 		const now = Date.now();
 
 		expect(store.get('emailVerificationSent')).toBeUndefined();
 
 		await store.startEmailVerification();
 
-		expect(now - store.get('emailVerificationRequested')).toBeLessThan(
-			maxDiff
-		);
+		expect(
+			store.get('emailVerificationRequested').getTime()
+		).toBeGreaterThanOrEqual(now);
 		expect(store.get('emailVerificationSent')).toBeUndefined();
 		expect(store.get('error')).not.toBeUndefined();
 	});
@@ -274,9 +272,12 @@ describe('Notification Store', () => {
 	});
 
 	test('completeEmailVerification', () => {
+		const baseline = Date.now();
 		const store = new Store();
 		store.completeEmailVerification();
-		expect(Date.now() - store.get('completedDate')).toBeLessThan(10);
+		expect(store.get('completedDate').getTime()).toBeGreaterThanOrEqual(
+			baseline
+		);
 	});
 
 	test('snoozeVerification', () => {
@@ -287,17 +288,17 @@ describe('Notification Store', () => {
 			localStorageMock.getItem(key)
 		);
 
+		const baseline = Date.now();
 		const store = new Store();
 		store.snoozeVerification();
 
 		expect(
-			Date.now() - store.get('verificationSnoozed').getTime()
-		).toBeLessThan(10);
+			store.get('verificationSnoozed').getTime()
+		).toBeGreaterThanOrEqual(baseline);
 		expect(store.get('emailVerificationRequested')).toBeNull();
 		expect(
-			Date.now() -
-				parseFloat(SessionStorage.getItem('verificationSnoozed'))
-		).toBeLessThan(10);
+			parseFloat(SessionStorage.getItem('verificationSnoozed'))
+		).toBeGreaterThanOrEqual(baseline);
 	});
 
 	test('load subscribes to incoming notifications', async () => {
@@ -403,6 +404,7 @@ describe('Notification Store', () => {
 		});
 		useMockServer({ getAppUser });
 
+		const baseline = Date.now();
 		const store = new Store();
 		jest.spyOn(store, 'resolveInbox').mockImplementation(() => {});
 		jest.spyOn(store, 'loadNextBatch').mockImplementation(() => {});
@@ -419,16 +421,16 @@ describe('Notification Store', () => {
 		);
 
 		SessionStorage.clear();
-		SessionStorage.setItem('verificationSnoozed', Date.now() - 360050);
+		SessionStorage.setItem('verificationSnoozed', baseline - 360050);
 
 		await store.load();
 
 		expect(store.get('verificationSnoozed')).toBeNull();
 		expect(
-			Date.now() - store.get('VerificationNoticeStart').getTime()
-		).toBeLessThan(10);
+			baseline - store.get('VerificationNoticeStart').getTime()
+		).toBeLessThanOrEqual(Date.now() - baseline);
 		expect(
-			Date.now() - store.get('VerificationNoticeExpiry').getTime()
+			baseline - store.get('VerificationNoticeExpiry').getTime()
 		).toBeLessThanOrEqual(370000);
 	});
 });
