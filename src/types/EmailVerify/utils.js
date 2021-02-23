@@ -7,19 +7,8 @@ export async function sendEmailVerification(user) {
 
 	const reqLink = user.getLink('RequestEmailVerification');
 	let service;
-	try {
-		service = await getService();
-		service.post(reqLink).then(
-			() => {
-				return Promise.resolve();
-			},
-			error => {
-				return Promise.reject(error);
-			}
-		);
-	} catch (e) {
-		throw new Error(e);
-	}
+	service = await getService();
+	await service.post(reqLink);
 }
 
 export async function verifyEmailToken(user, token) {
@@ -28,14 +17,9 @@ export async function verifyEmailToken(user, token) {
 			"User does not have 'VerifyEmailWithToken' link or token is invalid."
 		);
 	}
-	let reqLink = user.getLink('VerifyEmailWithToken');
-	let service;
-	try {
-		service = await getService();
-		await service.post(reqLink, { token: token });
-		await user.refresh();
-		return true;
-	} catch (e) {
-		throw new Error(e);
-	}
+	const reqLink = user.getLink('VerifyEmailWithToken');
+	const service = await getService();
+	await service.post(reqLink, { token: token });
+	await user.refresh();
+	return true;
 }
