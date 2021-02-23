@@ -200,7 +200,9 @@ export default class NotificationsStore extends Stores.SimpleStore {
 				this.set({ emailVerificationSent: new Date() });
 			}
 		} catch (error) {
-			this.set({ error });
+			if (error.statusCode !== 422) {
+				this.set({ error });
+			}
 		}
 	}
 
