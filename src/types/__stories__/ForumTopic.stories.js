@@ -1,5 +1,6 @@
-import { Models } from '@nti/lib-interfaces';
 import React from 'react';
+
+import { Models } from '@nti/lib-interfaces';
 
 import ForumTopic from '../ForumTopic';
 

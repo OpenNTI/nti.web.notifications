@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import { scoped } from '@nti/lib-locale';
 import { Text, Timer } from '@nti/web-commons';
-import React from 'react';
 
 import styles from './Style.css';
 import PromptTemplate from './Template';

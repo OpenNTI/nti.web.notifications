@@ -1,5 +1,6 @@
-import { Flyout } from '@nti/web-commons';
 import React, { useEffect } from 'react';
+
+import { Flyout } from '@nti/web-commons';
 
 import Bell from './Bell';
 import Panel from './Panel';

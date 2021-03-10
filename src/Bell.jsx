@@ -1,7 +1,8 @@
-import { Badge, Theme } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
+
+import { Badge, Theme } from '@nti/web-commons';
 
 const styles = stylesheet`
 	.container {

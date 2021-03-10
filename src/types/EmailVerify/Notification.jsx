@@ -1,7 +1,8 @@
-import { scoped } from '@nti/lib-locale';
-import { Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { scoped } from '@nti/lib-locale';
+import { Text } from '@nti/web-commons';
 
 import NotificationItemFrame from '../../frame/Pinned';
 import { register, COMMON_PREFIX } from '../Registry';

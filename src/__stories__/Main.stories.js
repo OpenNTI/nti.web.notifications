@@ -1,5 +1,6 @@
-import { Models } from '@nti/lib-interfaces';
 import React from 'react';
+
+import { Models } from '@nti/lib-interfaces';
 
 import useMockServer from '../__test__/utils/use-mock-server';
 import Notifications from '../View';

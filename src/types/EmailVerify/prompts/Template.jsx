@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Prompt } from '@nti/web-commons';
 import React from 'react';
 import cx from 'classnames';
+
+import { Prompt } from '@nti/web-commons';
 
 const styles = stylesheet`
 	.view {

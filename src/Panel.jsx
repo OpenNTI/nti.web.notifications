@@ -1,8 +1,9 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import { LinkTo } from '@nti/web-routing';
 import { scoped } from '@nti/lib-locale';
 import { Error, Loading, Text } from '@nti/web-commons';
-import React from 'react';
-import PropTypes from 'prop-types';
 
 import Store from './Store';
 import { getComponent } from './types';

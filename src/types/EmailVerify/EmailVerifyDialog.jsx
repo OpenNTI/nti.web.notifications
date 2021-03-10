@@ -1,7 +1,8 @@
-import { getAppUser } from '@nti/web-client';
-import { Hooks } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { getAppUser } from '@nti/web-client';
+import { Hooks } from '@nti/web-commons';
 
 import Store from '../../Store';
 

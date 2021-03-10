@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import { String as StringUtils } from '@nti/lib-commons';
 import { Text } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import PropTypes from 'prop-types';
-import React from 'react';
 
 import NotificationItemFrame from '../frame';
 

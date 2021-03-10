@@ -1,7 +1,8 @@
-import { Avatar, DateTime, DisplayName } from '@nti/web-commons';
-import { LinkTo } from '@nti/web-routing';
 import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
+
+import { Avatar, DateTime, DisplayName } from '@nti/web-commons';
+import { LinkTo } from '@nti/web-routing';
 
 import Attribution from './Attribution';
 import Content from './Content';

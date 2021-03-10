@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import { FakeStore } from '@nti/lib-store';
 
 import Store from '../Store';

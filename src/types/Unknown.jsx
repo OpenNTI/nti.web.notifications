@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+
 import Logger from '@nti/util-logger';
 
 import Registry from './Registry';

@@ -1,9 +1,10 @@
-import { wait } from '@nti/lib-commons';
-import { scoped } from '@nti/lib-locale';
-import { StandardUI, Button, Form, Input, Text } from '@nti/web-commons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import cx from 'classnames';
+
+import { wait } from '@nti/lib-commons';
+import { scoped } from '@nti/lib-locale';
+import { StandardUI, Button, Form, Input, Text } from '@nti/web-commons';
 
 import { sendEmailVerification } from '../utils';
 import Store from '../../../Store';
