@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Models } from '@nti/lib-interfaces';
+import { setupTestClient } from '@nti/web-client/test-utils';
 
-import useMockServer from '../__test__/utils/use-mock-server';
 import Notifications from '../View';
 import { emitIncoming } from '../Socket';
 
@@ -29,7 +29,7 @@ function getRandomNotable() {
 }
 
 export const DefaultTemplate = () => {
-	useMockServer({
+	setupTestClient({
 		get: url => {
 			if (url.includes('/lastViewed')) {
 				return Date.now() * 1000;

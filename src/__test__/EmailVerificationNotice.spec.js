@@ -4,14 +4,13 @@ import { act } from 'react-dom/test-utils';
 import { fireEvent, render } from '@testing-library/react';
 
 import { FakeStore } from '@nti/lib-store';
+import { setupTestClient } from '@nti/web-client/test-utils';
 
 import Store from '../Store';
 import EmailVerificationNotice from '../types/EmailVerify/EmailVerificationNotice';
 
-import useMockServer from './utils/use-mock-server';
-
 describe('Test Email Verification Notice', () => {
-	useMockServer({
+	setupTestClient({
 		getAppUser: () => Promise.resolve({ email: '...' }),
 	});
 

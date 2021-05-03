@@ -3,11 +3,10 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 
 import { FakeStore } from '@nti/lib-store';
+import { setupTestClient } from '@nti/web-client/test-utils';
 
 import Store from '../Store';
 import EmailVerify from '../types/EmailVerify/EmailVerifyDialog';
-
-import useMockServer from './utils/use-mock-server';
 
 describe('Test email verify component', () => {
 	test('Dialog is not rendered when needsVerification is false', async () => {
@@ -58,7 +57,7 @@ describe('Test email verify component', () => {
 			};
 		});
 
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 

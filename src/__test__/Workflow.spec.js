@@ -5,11 +5,10 @@ import { act } from 'react-dom/test-utils';
 import { render, waitFor } from '@testing-library/react';
 
 import { FakeStore } from '@nti/lib-store';
+import { setupTestClient } from '@nti/web-client/test-utils';
 
 import Store from '../Store';
 import EmailVerificationWorkflow from '../types/EmailVerify/Workflow';
-
-import useMockServer from './utils/use-mock-server';
 
 describe('Test the workflow of email verification', () => {
 	test('Notice is rendered when correct conditions are met', () => {
@@ -51,7 +50,7 @@ describe('Test the workflow of email verification', () => {
 			};
 		});
 
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 

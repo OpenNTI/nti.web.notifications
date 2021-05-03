@@ -1,7 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import React from 'react';
 
-import useMockServer from '../../__test__/utils/use-mock-server';
+import { setupTestClient } from '@nti/web-client/test-utils';
+
 import EmailVerifyNotification from '../EmailVerify/Notification';
 
 export default {
@@ -13,7 +14,7 @@ export default {
 };
 
 export const EmailVerifyTemplate = () => {
-	useMockServer({
+	setupTestClient({
 		post: () => {
 			return Promise.reject();
 		},

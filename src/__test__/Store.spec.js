@@ -1,11 +1,10 @@
 /* eslint-env jest */
 import { SessionStorage } from '@nti/web-storage';
+import { setupTestClient } from '@nti/web-client/test-utils';
 
 import Store from '../Store';
 import * as EmailVerifyUtils from '../types/EmailVerify/utils';
 import * as Socket from '../Socket';
-
-import useMockServer from './utils/use-mock-server';
 
 const localStorageMock = (() => {
 	let store = {};
@@ -41,7 +40,7 @@ describe('Notification Store', () => {
 			.fn()
 			.mockImplementation(async rawObject => rawObject);
 
-		useMockServer({
+		setupTestClient({
 			getObject,
 		});
 
@@ -71,7 +70,7 @@ describe('Notification Store', () => {
 			};
 		});
 		const get = jest.fn().mockImplementation(async () => date / 1000);
-		useMockServer({ getPageInfo, get });
+		setupTestClient({ getPageInfo, get });
 
 		const testStore = new Store();
 		await testStore.resolveInbox();
@@ -172,7 +171,7 @@ describe('Notification Store', () => {
 				TotalItemCount: 3,
 			};
 		});
-		useMockServer({ getBatch });
+		setupTestClient({ getBatch });
 
 		expect(await store.loadNextBatch()).toBe(true);
 
@@ -190,7 +189,7 @@ describe('Notification Store', () => {
 			'sendEmailVerification'
 		).mockImplementation(() => true);
 
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 		const now = Date.now();
@@ -215,7 +214,7 @@ describe('Notification Store', () => {
 			throw new Error();
 		});
 
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 		const now = Date.now();
@@ -337,7 +336,7 @@ describe('Notification Store', () => {
 		let getAppUser = jest.fn().mockImplementation(() => {
 			return { email: 'email', hasLink: () => true };
 		});
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 		jest.spyOn(store, 'resolveInbox').mockImplementation(() => {});
@@ -354,7 +353,7 @@ describe('Notification Store', () => {
 		let getAppUser = jest.fn().mockImplementation(() => {
 			return { email: 'email', hasLink: () => false };
 		});
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const store = new Store();
 		jest.spyOn(store, 'resolveInbox').mockImplementation(() => {});
@@ -371,7 +370,7 @@ describe('Notification Store', () => {
 		let getAppUser = jest.fn().mockImplementation(() => {
 			return { email: 'email', hasLink: () => true };
 		});
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		let store = new Store();
 		jest.spyOn(store, 'resolveInbox').mockImplementation(() => {});
@@ -402,7 +401,7 @@ describe('Notification Store', () => {
 		const getAppUser = jest.fn().mockImplementation(() => {
 			return { email: 'email', hasLink: () => true };
 		});
-		useMockServer({ getAppUser });
+		setupTestClient({ getAppUser });
 
 		const baseline = Date.now();
 		const store = new Store();

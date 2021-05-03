@@ -1,17 +1,17 @@
 /* eslint-env jest */
 
+import { setupTestClient } from '@nti/web-client/test-utils';
+
 import {
 	sendEmailVerification,
 	verifyEmailToken,
 } from '../types/EmailVerify/utils';
 
-import useMockServer from './utils/use-mock-server';
-
 describe('Test email verify utility methods', () => {
 	test('sendEmailVerification calls user.hasLink and user.getLink', async () => {
 		const post = () => Promise.resolve();
 
-		useMockServer({ post });
+		setupTestClient({ post });
 
 		const user = {
 			hasLink: jest.fn().mockImplementation(() => true),
@@ -36,7 +36,7 @@ describe('Test email verify utility methods', () => {
 	test('verifyEmailToken calls user.hasLink, user.getLink, user.refresh and makes sure token is truthy', async () => {
 		const post = async () => Promise.resolve();
 
-		useMockServer({ post });
+		setupTestClient({ post });
 
 		const user = {
 			hasLink: jest.fn().mockImplementation(() => true),
