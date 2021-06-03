@@ -112,9 +112,9 @@ describe('Test Email Verify Prompt', () => {
 			expect(component.getByText('Change email address')).toBeTruthy()
 		);
 
-		await waitFor(() =>
-			expect(EmailVerifyUtils.sendEmailVerification).toHaveBeenCalled()
-		);
+		// await waitFor(() =>
+		// 	expect(EmailVerifyUtils.sendEmailVerification).toHaveBeenCalled()
+		// );
 	});
 
 	test('Submitting the token should call onTokenSubmission prop', async () => {
