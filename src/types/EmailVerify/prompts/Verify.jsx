@@ -17,17 +17,17 @@ const translation = scoped(
 	'nti-notifications.notifications.types.EmailVerify.EmailVerifyPrompt',
 	{
 		sendingEmail: 'Sending...',
-		sub:
-			'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
+		sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
 		sendAnotherEmail: 'Send another email',
 		sentEmailStatus: 'Sent!',
 		changeEmail: 'Change email address',
 		submit: 'Submit',
 		title: 'Verify Your Email',
 		enterCode: 'Enter your verification code',
-		body:
-			'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
+		body: 'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
 		remindMeLater: 'Remind me later',
+		pleaseWait:
+			'Please wait at least 5 minutes before requesting another email.',
 	}
 );
 
@@ -48,9 +48,8 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
-	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] = useState(
-		false
-	);
+	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] =
+		useState(false);
 	const [displayVerifyPrompt, setDisplayVerifyPrompt] = useState(true);
 	const [error, setError] = useState(null);
 	const [email, setEmail] = useState(user.email);
@@ -78,8 +77,13 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 			setSentAnotherVerifyEmail(true);
 			await wait(1000);
 			setSendingEmail(NULL_STATE);
-		} catch (e) {
-			setError(e);
+		} catch (error) {
+			if (error.statusCode === 422) {
+				setError(translation('pleaseWait'));
+			} else {
+				setError(error);
+			}
+			setSendingEmail(NULL_STATE);
 		}
 	};
 
