@@ -26,8 +26,6 @@ const translation = scoped(
 		enterCode: 'Enter your verification code',
 		body: 'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
 		remindMeLater: 'Remind me later',
-		pleaseWait:
-			'Please wait at least 5 minutes before requesting another email.',
 	}
 );
 
@@ -78,11 +76,7 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 			await wait(1000);
 			setSendingEmail(NULL_STATE);
 		} catch (error) {
-			if (error.statusCode === 422) {
-				setError(translation('pleaseWait'));
-			} else {
-				setError(error);
-			}
+			setError(error?.message);
 			setSendingEmail(NULL_STATE);
 		}
 	};
