@@ -4,7 +4,14 @@ import cx from 'classnames';
 
 import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import { StandardUI, Button, Form, Input, Text } from '@nti/web-commons';
+import {
+	StandardUI,
+	Button,
+	Form,
+	Input,
+	Text,
+	Errors,
+} from '@nti/web-commons';
 
 import { sendEmailVerification } from '../utils';
 import Store from '../../../Store';
@@ -169,7 +176,7 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 							{validToken === false && (
 								<span>This token is not valid.</span>
 							)}
-							{error && <span>{error}</span>}
+							{error && <Errors.Message error={error} />}
 						</div>
 						<div className={styles.footer}>
 							<Button
