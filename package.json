@@ -15,18 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/NextThought/nti.web.notifications.git"
   },
-  "keywords": [
-    "nextthought"
-  ],
   "author": "NextThought",
   "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/NextThought/nti.web.notifications/issues"
-  },
   "homepage": "https://github.com/NextThought/nti.web.notifications#readme",
-  "publishConfig": {
-    "registry": "https://npm.nextthought.com"
-  },
   "dependencies": {
     "@nti/lib-commons": "NextThought/nti.lib.commons",
     "@nti/lib-locale": "NextThought/nti.lib.locale",
@@ -42,5 +33,8 @@
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"
+  },
+  "peerDependencies": {
+    "react": "*"
   }
 }
