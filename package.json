@@ -36,6 +36,7 @@
     "@nti/util-logger": "NextThought/nti.util.logger",
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
+    "@nti/web-core": "NextThought/nti.web.core",
     "@nti/web-routing": "NextThought/nti.web.routing",
     "@nti/web-storage": "NextThought/nti.web.storage"
   },
