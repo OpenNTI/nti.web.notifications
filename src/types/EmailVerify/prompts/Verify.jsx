@@ -4,14 +4,8 @@ import cx from 'classnames';
 
 import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import {
-	StandardUI,
-	Button,
-	Form,
-	Input,
-	Text,
-	Errors,
-} from '@nti/web-commons';
+import { StandardUI, Form, Input, Text, Errors } from '@nti/web-commons';
+import { Button } from '@nti/web-core';
 
 import { sendEmailVerification } from '../utils';
 import Store from '../../../Store';
