@@ -90,9 +90,6 @@
 }
 
 .remind-later-button {
-	background-color: white !important;
-	color: var(--primary-blue) !important;
-	height: 24px !important;
 	width: 161px !important;
 }
 

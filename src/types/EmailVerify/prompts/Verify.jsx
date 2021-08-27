@@ -177,8 +177,7 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 								className={styles.remindLaterButton}
 								onClick={snoozeVerification}
 								rounded={true}
-								secondary
-								plain
+								transparent
 							>
 								<Translate localeKey="remindMeLater" />
 							</Button>
