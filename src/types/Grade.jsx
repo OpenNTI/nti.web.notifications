@@ -3,7 +3,8 @@ import React from 'react';
 
 import { String as StringUtils } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-import { Hooks, Presentation, Text } from '@nti/web-commons';
+import { Presentation, Text } from '@nti/web-commons';
+import { useChanges } from '@nti/web-core';
 
 import NotificationItemFrame from '../frame';
 
@@ -27,7 +28,7 @@ Grade.MimeTypes = [COMMON_PREFIX + 'grade'];
 register(Grade, 'grade');
 
 export default function Grade({ item: { Item: grade }, item }) {
-	Hooks.useChanges(grade);
+	useChanges(grade);
 	const { creator } = grade;
 
 	// AssignmentName, CourseName and CatalogEntry are resolved by properties on the grade model...
