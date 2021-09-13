@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { wait } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { Form, Input, Text } from '@nti/web-commons';
-import { Button } from "@nti/web-core";
+import { Button } from '@nti/web-core';
 
 import { sendEmailVerification } from '../utils';
 
@@ -132,9 +132,9 @@ export default function ChangeEmailPrompt({ user, onReturn }) {
 				</div>
 				<div className={styles.footer}>
 					<Button
+						as={Form.SubmitButton}
 						className={styles.submitButton}
 						type="submit"
-						onClick={onEmailChangeSubmit}
 						disabled={email && emailValid ? false : true}
 					>
 						<Translate localeKey="submit" />

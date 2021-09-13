@@ -18,14 +18,16 @@ const translation = scoped(
 	'nti-notifications.notifications.types.EmailVerify.EmailVerifyPrompt',
 	{
 		sendingEmail: 'Sending...',
-		sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
+		sub:
+			'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
 		sendAnotherEmail: 'Send another email',
 		sentEmailStatus: 'Sent!',
 		changeEmail: 'Change email address',
 		submit: 'Submit',
 		title: 'Verify Your Email',
 		enterCode: 'Enter your verification code',
-		body: 'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
+		body:
+			'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
 		remindMeLater: 'Remind me later',
 	}
 );
@@ -47,8 +49,9 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
-	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] =
-		useState(false);
+	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] = useState(
+		false
+	);
 	const [displayVerifyPrompt, setDisplayVerifyPrompt] = useState(true);
 	const [error, setError] = useState(null);
 	const [email, setEmail] = useState(user.email);
@@ -174,6 +177,7 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 						</div>
 						<div className={styles.footer}>
 							<Button
+								type="button"
 								className={styles.remindLaterButton}
 								onClick={snoozeVerification}
 								rounded={true}
@@ -182,8 +186,8 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 								<Translate localeKey="remindMeLater" />
 							</Button>
 							<Button
+								as={Form.SubmitButton}
 								className={styles.submitButton}
-								onClick={onSubmit}
 								disabled={token ? false : true}
 							>
 								<Translate localeKey="submit" />
