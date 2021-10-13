@@ -26,7 +26,7 @@ const VerificationNoticeSnoozeDuration = 360000; //one hour (in milliseconds)
  *
  * @export NotificationsStore
  * @class NotificationsStore
- * @extends {Stores.BoundStore}
+ * @augments {Stores.BoundStore}
  */
 
 export default class NotificationsStore extends Stores.SimpleStore {

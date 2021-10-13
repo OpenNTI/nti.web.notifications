@@ -1,5 +1,4 @@
 import { action } from '@storybook/addon-actions';
-import React from 'react';
 
 import { setupTestClient } from '@nti/web-client/test-utils';
 

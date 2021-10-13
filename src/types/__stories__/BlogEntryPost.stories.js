@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Models } from '@nti/lib-interfaces';
 

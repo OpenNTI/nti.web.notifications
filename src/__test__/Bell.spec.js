@@ -1,5 +1,4 @@
 /* eslint-env jest */
-import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import Bell from '../Bell';

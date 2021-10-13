@@ -29,7 +29,7 @@ const Translate = Text.Translator(translation);
  *
  * @param {NotificationsStore} { store } the notification store to which the panel
  * will connect and from which it will get the notification items
- * @return {React.Component} a list of notification items encapsulated in their
+ * @returns {React.Component} a list of notification items encapsulated in their
  * appropriate React components.
  */
 

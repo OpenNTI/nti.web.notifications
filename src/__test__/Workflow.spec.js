@@ -1,6 +1,5 @@
 /* eslint-env jest */
 
-import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, waitFor } from '@testing-library/react';
 

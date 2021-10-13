@@ -32,7 +32,7 @@ function register(Component, mimeTypeOrSuffix) {
 }
 
 /**
-
+ 
  * Returns the appropriate component based on the type of
  * the notification item given. Uses the item's MimeType property
  * to determine equivalence.
