@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useCallback, useState } from 'react';
 import cx from 'classnames';
 
 import { wait } from '@nti/lib-commons';
@@ -18,16 +18,14 @@ const translation = scoped(
 	'nti-notifications.notifications.types.EmailVerify.EmailVerifyPrompt',
 	{
 		sendingEmail: 'Sending...',
-		sub:
-			'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
+		sub: 'It may take several minutes for the email to reach your inbox. Please wait before requesting another.',
 		sendAnotherEmail: 'Send another email',
 		sentEmailStatus: 'Sent!',
 		changeEmail: 'Change email address',
 		submit: 'Submit',
 		title: 'Verify Your Email',
 		enterCode: 'Enter your verification code',
-		body:
-			'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
+		body: 'We sent a verification email to <b>%(email)s</b> — please retrieve your code. Verification is necessary for account recovery, activity notifications, and awarding certificates.',
 		remindMeLater: 'Remind me later',
 	}
 );
@@ -49,14 +47,13 @@ export default function EmailVerifyPrompt({ user, onTokenSubmission }) {
 	const [sentAnotherVerifyEmail, setSentAnotherVerifyEmail] = useState(false);
 	const [sendingEmail, setSendingEmail] = useState(NULL_STATE);
 	const [token, setToken] = useState('');
-	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] = useState(
-		false
-	);
+	const [displayChangeEmailPrompt, setDisplayChangeEmailPrompt] =
+		useState(false);
 	const [displayVerifyPrompt, setDisplayVerifyPrompt] = useState(true);
 	const [error, setError] = useState(null);
 	const [email, setEmail] = useState(user.email);
 
-	const closeChangeEmail = React.useCallback(load => {
+	const closeChangeEmail = useCallback(load => {
 		if (load.changedEmail) {
 			setSentAnotherVerifyEmail(true);
 			setEmail(load.newEmail);

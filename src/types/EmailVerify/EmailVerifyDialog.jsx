@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useCallback } from 'react';
 
 import { getAppUser } from '@nti/web-client';
 import { Hooks } from '@nti/web-commons';
@@ -24,7 +24,7 @@ export default function EmailVerify({ user: userProp, onDismiss }) {
 	const resolver = useResolver(() => userProp ?? getAppUser(), [userProp]);
 	const user = isResolved(resolver) ? resolver : null;
 	const showVerifyWindow = needsVerification && verifiedDate === null;
-	const onTokenSubmission = React.useCallback(
+	const onTokenSubmission = useCallback(
 		async token => {
 			if (await submitToken(user, token)) {
 				onDismiss();

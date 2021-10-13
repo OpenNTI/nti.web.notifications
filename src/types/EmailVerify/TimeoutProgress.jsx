@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useEffect, useReducer } from 'react';
 
 const styles = stylesheet`
 	.container {
@@ -25,8 +25,8 @@ const styles = stylesheet`
 const toPercent = x => `${(Math.min(1, x) * 100).toFixed(0)}%`;
 
 function useTick(done) {
-	const [, update] = React.useReducer(() => Date.now());
-	React.useEffect(() => {
+	const [, update] = useReducer(() => Date.now());
+	useEffect(() => {
 		let t = null;
 
 		const next = () => {
