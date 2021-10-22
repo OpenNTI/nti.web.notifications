@@ -11,7 +11,7 @@ describe('Event Notification Type', () => {
 				name: 'Example',
 				MimeType: 'courseware.coursecalendarevent',
 			},
-			getLastModified: () => Date.now(),
+			getLastModified: () => new Date(),
 			ChangeType: 'Created',
 		};
 
