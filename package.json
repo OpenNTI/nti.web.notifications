@@ -1,6 +1,6 @@
 {
   "name": "@nti/web-notifications",
-  "version": "1.9.0-alpha",
+  "version": "1.9.0",
   "description": "NextThought components for notifications",
   "main": "src/index.js",
   "module": "src/index.js",
